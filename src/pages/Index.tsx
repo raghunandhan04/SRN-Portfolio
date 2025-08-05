@@ -9,6 +9,7 @@ import { ChevronDown, Mail, Github, Linkedin, ExternalLink, Award, Briefcase, Gr
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [expandedProject, setExpandedProject] = useState<number | null>(null);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -28,30 +29,35 @@ const Index = () => {
     {
       title: "Predictive Maintenance using ML",
       description: "Machine learning model for predictive maintenance in industrial equipment",
+      detailedDescription: "Developed a comprehensive machine learning solution for predictive maintenance in industrial settings. The system analyzes sensor data, equipment performance metrics, and historical maintenance records to predict potential failures before they occur. Implemented using advanced algorithms including Random Forest, LSTM neural networks, and ensemble methods to achieve high accuracy in failure prediction.",
       tech: ["Python", "TensorFlow", "Data Analysis"],
       tags: ["ML", "Industrial"]
     },
     {
       title: "DNS Server Project",
       description: "Custom DNS server implementation with advanced routing capabilities",
+      detailedDescription: "Built a high-performance DNS server from scratch with advanced routing and caching mechanisms. Features include custom domain resolution, load balancing, security filters, and real-time monitoring. The server handles thousands of concurrent requests with sub-millisecond response times and includes comprehensive logging and analytics.",
       tech: ["Python", "Networking"],
       tags: ["Networking", "Backend"]
     },
     {
       title: ".NET Code Coverage Tool",
       description: "Tool for analyzing and improving code coverage in .NET applications",
+      detailedDescription: "Developed a comprehensive code coverage analysis tool for .NET applications that provides detailed insights into test coverage, identifies untested code paths, and generates actionable reports. The tool integrates with popular CI/CD pipelines and provides real-time coverage metrics with customizable thresholds and alerts.",
       tech: [".NET", "C#", "Testing"],
       tags: ["Testing", "DevTools"]
     },
     {
       title: "Cycle Time Reduction Tool",
       description: "Tool to optimize and reduce development cycle times",
+      detailedDescription: "Created an automated tool that analyzes development workflows, identifies bottlenecks, and suggests optimizations to reduce cycle times. The tool integrates with project management systems, tracks key metrics, and provides data-driven recommendations for process improvements, resulting in 30% faster delivery times.",
       tech: ["Python", "Data Analysis"],
       tags: ["Optimization", "DevOps"]
     },
     {
       title: "Sentiment Analysis using TensorFlow",
       description: "NLP model for sentiment analysis using deep learning",
+      detailedDescription: "Implemented a sophisticated sentiment analysis system using TensorFlow and advanced NLP techniques. The model processes text data from multiple sources, performs real-time sentiment classification, and provides detailed emotional insights. Achieved 94% accuracy on benchmark datasets using transformer architectures and custom preprocessing pipelines.",
       tech: ["Python", "TensorFlow", "NLP"],
       tags: ["ML", "NLP"]
     }
@@ -135,7 +141,7 @@ const Index = () => {
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-gradient-start via-gradient-mid to-gradient-end">
         <div className="text-center z-10">
-          <h1 className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent uppercase tracking-wide">
             Raghunandhan S
           </h1>
           <h2 className="text-2xl md:text-3xl mb-6 text-foreground/90">Full Stack Developer</h2>
@@ -232,12 +238,23 @@ const Index = () => {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project, index) => (
-              <Card key={index} className="bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1">
+              <Card 
+                key={index} 
+                className={`bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer ${
+                  expandedProject === index ? 'md:col-span-2 lg:col-span-3' : ''
+                }`}
+                onClick={() => setExpandedProject(expandedProject === index ? null : index)}
+              >
                 <CardHeader>
-                  <CardTitle className="text-foreground">{project.title}</CardTitle>
+                  <CardTitle className="text-foreground flex items-center justify-between">
+                    {project.title}
+                    <ChevronDown className={`w-5 h-5 transition-transform ${expandedProject === index ? 'rotate-180' : ''}`} />
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-foreground/80 mb-4">{project.description}</p>
+                  <p className="text-foreground/80 mb-4">
+                    {expandedProject === index ? project.detailedDescription : project.description}
+                  </p>
                   <div className="mb-4">
                     <p className="text-sm font-semibold text-primary mb-2">Tech Stack:</p>
                     <div className="flex flex-wrap gap-1">
@@ -255,6 +272,9 @@ const Index = () => {
                       </Badge>
                     ))}
                   </div>
+                  {expandedProject !== index && (
+                    <p className="text-xs text-foreground/60 mt-3">Click to expand for details</p>
+                  )}
                 </CardContent>
               </Card>
             ))}
@@ -275,8 +295,21 @@ const Index = () => {
                   <GraduationCap className="w-6 h-6 text-primary mt-1" />
                   <div>
                     <h3 className="text-xl font-semibold text-foreground">BE Automobile Engineering</h3>
-                    <p className="text-primary">Madras Institute of Technology (MIT)</p>
-                    <p className="text-foreground/70">2020 - 2024</p>
+                    <p className="text-primary">Madras Institute of Technology (MIT), Anna University</p>
+                    <p className="text-foreground/70">2020 - 2024 • CGPA: 8.2</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-card/50 backdrop-blur-sm border-border">
+              <CardContent className="p-6">
+                <div className="flex items-start space-x-4">
+                  <GraduationCap className="w-6 h-6 text-primary mt-1" />
+                  <div>
+                    <h3 className="text-xl font-semibold text-foreground">Minor Degree in Artificial Intelligence and Machine Learning</h3>
+                    <p className="text-primary">Madras Institute of Technology (MIT), Anna University</p>
+                    <p className="text-foreground/70">2020 - 2024 • CGPA: 9.1</p>
                   </div>
                 </div>
               </CardContent>
