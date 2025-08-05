@@ -296,7 +296,7 @@ const Index = () => {
                   <div>
                     <h3 className="text-xl font-semibold text-foreground">BE Automobile Engineering</h3>
                     <p className="text-primary">Madras Institute of Technology (MIT), Anna University</p>
-                    <p className="text-foreground/70">2020 - 2024 • CGPA: 8.2</p>
+                    <p className="text-foreground/70">2021 - 2025 • CGPA: 8.2</p>
                   </div>
                 </div>
               </CardContent>
