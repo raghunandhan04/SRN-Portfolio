@@ -22,7 +22,7 @@ const Index = () => {
     Backend: ['Python', 'FastAPI', '.NET'],
     Database: ['MySQL', 'PostgreSQL'],
     Tools: ['Git', 'Power BI', 'VS Code'],
-    Other: ['Machine Learning', 'TensorFlow', 'Data Analysis']
+    'AI/ML': ['Machine Learning', 'TensorFlow', 'Artificial Intelligence', 'Data Analysis', 'Deep Learning']
   };
 
   const projects = [
@@ -144,9 +144,9 @@ const Index = () => {
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent uppercase tracking-wide">
             Raghunandhan S
           </h1>
-          <h2 className="text-2xl md:text-3xl mb-6 text-foreground/90">Full Stack Developer</h2>
+          <h2 className="text-2xl md:text-3xl mb-6 text-foreground/90">Full Stack Developer & AI/ML Enthusiast</h2>
           <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto text-foreground/80 px-4">
-            Passionate about creating innovative solutions through technology. 
+            Passionate about creating innovative solutions through technology and artificial intelligence. 
             Specializing in full-stack development with expertise in machine learning and data analysis.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
@@ -192,11 +192,11 @@ const Index = () => {
           <Card className="bg-card/50 backdrop-blur-sm border-border">
             <CardContent className="p-8">
               <p className="text-lg leading-relaxed text-foreground/90">
-                I am a dedicated Full Stack Developer with a strong background in Automobile Engineering and a passion for technology innovation. 
+                I am a dedicated Full Stack Developer with a strong background in Automobile Engineering and a passionate pursuit in Artificial Intelligence and Machine Learning. 
                 My journey spans from mechanical engineering to software development, bringing a unique perspective to problem-solving. 
                 I specialize in creating efficient, scalable solutions using modern technologies like React, Python, and machine learning frameworks.
                 
-                Currently focused on developing impactful applications that bridge the gap between traditional engineering and cutting-edge technology.
+                Currently focused on developing impactful applications that bridge the gap between traditional engineering and cutting-edge AI/ML technologies.
               </p>
             </CardContent>
           </Card>
@@ -309,7 +309,7 @@ const Index = () => {
                   <div>
                     <h3 className="text-xl font-semibold text-foreground">Minor Degree in Artificial Intelligence and Machine Learning</h3>
                     <p className="text-primary">Madras Institute of Technology (MIT), Anna University</p>
-                    <p className="text-foreground/70">2020 - 2024 • CGPA: 9.1</p>
+                    <p className="text-foreground/70">2023 - 2025 • CGPA: 9.1</p>
                   </div>
                 </div>
               </CardContent>
@@ -322,7 +322,7 @@ const Index = () => {
                   <div>
                     <h3 className="text-xl font-semibold text-foreground">Higher Secondary Certificate (HSC)</h3>
                     <p className="text-primary">Chinmaya Vidyalaya</p>
-                    <p className="text-foreground/70">2018 - 2020</p>
+                    <p className="text-foreground/70">2018 - 2020 • Percentage: 95.4%</p>
                   </div>
                 </div>
               </CardContent>
@@ -335,7 +335,7 @@ const Index = () => {
                   <div>
                     <h3 className="text-xl font-semibold text-foreground">Secondary School Leaving Certificate (SSLC)</h3>
                     <p className="text-primary">Chinmaya Vidyalaya</p>
-                    <p className="text-foreground/70">2016 - 2018</p>
+                    <p className="text-foreground/70">2016 - 2018 • Percentage: 94.8%</p>
                   </div>
                 </div>
               </CardContent>
@@ -351,6 +351,23 @@ const Index = () => {
             Experience
           </h2>
           <div className="space-y-6">
+            <Card className="bg-card/50 backdrop-blur-sm border-border">
+              <CardContent className="p-6">
+                <div className="flex items-start space-x-4">
+                  <Briefcase className="w-6 h-6 text-primary mt-1" />
+                  <div>
+                    <h3 className="text-xl font-semibold text-foreground">Systems Analyst/Developer</h3>
+                    <p className="text-primary">Hibiz Solutions</p>
+                    <p className="text-foreground/70">June 2025 - Present</p>
+                    <p className="text-foreground/80 mt-2">
+                      Developing and maintaining enterprise-level applications, analyzing system requirements, 
+                      and implementing efficient solutions using modern technologies and frameworks.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             <Card className="bg-card/50 backdrop-blur-sm border-border">
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
