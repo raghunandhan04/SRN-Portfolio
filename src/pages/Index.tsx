@@ -8,18 +8,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ChevronDown, Mail, Github, Linkedin, ExternalLink, Award, Briefcase, GraduationCap, Trophy, Users, Calendar, MapPin, BookOpen, Plus, FileText, Link } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [expandedProject, setExpandedProject] = useState<number | null>(null);
   const [expandedPublication, setExpandedPublication] = useState<number | null>(null);
-
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
-    element?.scrollIntoView({ behavior: 'smooth' });
+    element?.scrollIntoView({
+      behavior: 'smooth'
+    });
     setIsMenuOpen(false);
   };
-
   const skills = {
     Frontend: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React'],
     Backend: ['Python', 'FastAPI', '.NET'],
@@ -27,95 +26,73 @@ const Index = () => {
     Tools: ['Git', 'Power BI', 'VS Code'],
     'AI/ML': ['Machine Learning', 'TensorFlow', 'Artificial Intelligence', 'Data Analysis', 'Deep Learning']
   };
-
-  const projects = [
-    {
-      title: "E-commerce Website for Apparel Store",
-      description: "A modern responsive e-commerce web app built using TypeScript and React.",
-      detailedDescription: "Developed a comprehensive e-commerce platform for an apparel store featuring user authentication, product catalog, shopping cart, payment integration, and admin dashboard. Built with modern React patterns, TypeScript for type safety, and responsive design for optimal user experience across all devices.",
-      tech: ["TypeScript", "React", "E-commerce"],
-      tags: ["Frontend", "E-commerce"],
-      link: "https://github.com/raghunandhan04/E-commerce-Website-for-Apparel-Store",
-      hasGitHub: true
-    },
-    {
-      title: "Predictive Maintenance using ML",
-      description: "Machine learning model for predictive maintenance in industrial equipment",
-      detailedDescription: "Developed a comprehensive machine learning solution for predictive maintenance in industrial settings. The system analyzes sensor data, equipment performance metrics, and historical maintenance records to predict potential failures before they occur. Implemented using advanced algorithms including Random Forest, LSTM neural networks, and ensemble methods to achieve high accuracy in failure prediction.",
-      tech: ["Python", "TensorFlow", "Data Analysis"],
-      tags: ["ML", "Industrial"]
-    },
-    {
-      title: "DNS Server Project",
-      description: "Custom DNS server implementation with advanced routing capabilities",
-      detailedDescription: "Built a high-performance DNS server from scratch with advanced routing and caching mechanisms. Features include custom domain resolution, load balancing, security filters, and real-time monitoring. The server handles thousands of concurrent requests with sub-millisecond response times and includes comprehensive logging and analytics.",
-      tech: ["Python", "Networking"],
-      tags: ["Networking", "Backend"]
-    },
-    {
-      title: ".NET Code Coverage Tool",
-      description: "Tool for analyzing and improving code coverage in .NET applications",
-      detailedDescription: "Developed a comprehensive code coverage analysis tool for .NET applications that provides detailed insights into test coverage, identifies untested code paths, and generates actionable reports. The tool integrates with popular CI/CD pipelines and provides real-time coverage metrics with customizable thresholds and alerts.",
-      tech: [".NET", "C#", "Testing"],
-      tags: ["Testing", "DevTools"]
-    },
-    {
-      title: "Cycle Time Reduction Tool",
-      description: "Tool to optimize and reduce development cycle times",
-      detailedDescription: "Created an automated tool that analyzes development workflows, identifies bottlenecks, and suggests optimizations to reduce cycle times. The tool integrates with project management systems, tracks key metrics, and provides data-driven recommendations for process improvements, resulting in 30% faster delivery times.",
-      tech: ["Python", "Data Analysis"],
-      tags: ["Optimization", "DevOps"]
-    },
-    {
-      title: "Sentiment Analysis using TensorFlow",
-      description: "NLP model for sentiment analysis using deep learning",
-      detailedDescription: "Implemented a sophisticated sentiment analysis system using TensorFlow and advanced NLP techniques. The model processes text data from multiple sources, performs real-time sentiment classification, and provides detailed emotional insights. Achieved 94% accuracy on benchmark datasets using transformer architectures and custom preprocessing pipelines.",
-      tech: ["Python", "TensorFlow", "NLP"],
-      tags: ["ML", "NLP"]
-    }
-  ];
-
-  const publicationsList = [
-    {
-      title: "Personalised Learning Platform Using AI-Based Adaptive Systems",
-      publisher: "IEEE",
-      date: "June 27, 2025",
-      link: "https://ieeexplore.ieee.org/document/11041038",
-      description: "We created a custom Learning application that adapts content based on a student's mood, survey data, difficulty level, and motivation. Technologies used: Emotion Detection, RL, DL, Sentiment Analysis, Linear Regression, etc."
-    },
-    {
-      title: "Deep Learning-Based Tyre Wear Detection and Predictive Maintenance Using Wireless Sensor Communication in Automobiles",
-      publisher: "ISBN Conference Proceedings",
-      date: "April 28, 2025",
-      isbn: "978-81-985702-6-0",
-      description: "Presented at AISSEWS 2025, won Best Paper Award. Focused on using Deep Learning and wireless sensor communication for predictive tyre maintenance in vehicles."
-    },
-    {
-      title: "Effect of CNG Induction on the Performance and Emission Characteristics of a DI Diesel Engine Fuelled with Biodiesel Ethanol Blends",
-      publisher: "Yanthrika",
-      date: "December 26, 2023",
-      link: "https://yanthrika.com/eja/index.php/ijvss/article/view/2755",
-      description: "Presented at National Conference. Explored how CNG induction influences engine performance and emissions, aimed at eco-friendly fuel alternatives."
-    },
-    {
-      title: "Job Scheduling in Big Data Analytics Using Reinforcement Learning",
-      publisher: "IEEE + Index Springer",
-      date: "July 26, 2025",
-      conference: "Artificial Intelligence and Sustainable Computing (AISC 2025, July 24-26, 2025)",
-      description: "Presented at AISC 2025 conference. This paper explores advanced reinforcement learning techniques for optimizing job scheduling in big data analytics environments, improving efficiency and resource utilization.",
-      status: "Publication in Process"
-    }
-  ];
-
-  const certifications = [
-    "AWS Cloud Practitioner - Amazon Web Services",
-    "Python for Data Science - Coursera",
-    "React Developer Certification - Meta",
-    "Machine Learning Fundamentals - edX"
-  ];
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted to-card text-foreground">
+  const projects = [{
+    title: "E-commerce Website for Apparel Store",
+    description: "A modern responsive e-commerce web app built using TypeScript and React.",
+    detailedDescription: "Developed a comprehensive e-commerce platform for an apparel store featuring user authentication, product catalog, shopping cart, payment integration, and admin dashboard. Built with modern React patterns, TypeScript for type safety, and responsive design for optimal user experience across all devices.",
+    tech: ["TypeScript", "React", "E-commerce"],
+    tags: ["Frontend", "E-commerce"],
+    link: "https://github.com/raghunandhan04/E-commerce-Website-for-Apparel-Store",
+    hasGitHub: true
+  }, {
+    title: "Predictive Maintenance using ML",
+    description: "Machine learning model for predictive maintenance in industrial equipment",
+    detailedDescription: "Developed a comprehensive machine learning solution for predictive maintenance in industrial settings. The system analyzes sensor data, equipment performance metrics, and historical maintenance records to predict potential failures before they occur. Implemented using advanced algorithms including Random Forest, LSTM neural networks, and ensemble methods to achieve high accuracy in failure prediction.",
+    tech: ["Python", "TensorFlow", "Data Analysis"],
+    tags: ["ML", "Industrial"]
+  }, {
+    title: "DNS Server Project",
+    description: "Custom DNS server implementation with advanced routing capabilities",
+    detailedDescription: "Built a high-performance DNS server from scratch with advanced routing and caching mechanisms. Features include custom domain resolution, load balancing, security filters, and real-time monitoring. The server handles thousands of concurrent requests with sub-millisecond response times and includes comprehensive logging and analytics.",
+    tech: ["Python", "Networking"],
+    tags: ["Networking", "Backend"]
+  }, {
+    title: ".NET Code Coverage Tool",
+    description: "Tool for analyzing and improving code coverage in .NET applications",
+    detailedDescription: "Developed a comprehensive code coverage analysis tool for .NET applications that provides detailed insights into test coverage, identifies untested code paths, and generates actionable reports. The tool integrates with popular CI/CD pipelines and provides real-time coverage metrics with customizable thresholds and alerts.",
+    tech: [".NET", "C#", "Testing"],
+    tags: ["Testing", "DevTools"]
+  }, {
+    title: "Cycle Time Reduction Tool",
+    description: "Tool to optimize and reduce development cycle times",
+    detailedDescription: "Created an automated tool that analyzes development workflows, identifies bottlenecks, and suggests optimizations to reduce cycle times. The tool integrates with project management systems, tracks key metrics, and provides data-driven recommendations for process improvements, resulting in 30% faster delivery times.",
+    tech: ["Python", "Data Analysis"],
+    tags: ["Optimization", "DevOps"]
+  }, {
+    title: "Sentiment Analysis using TensorFlow",
+    description: "NLP model for sentiment analysis using deep learning",
+    detailedDescription: "Implemented a sophisticated sentiment analysis system using TensorFlow and advanced NLP techniques. The model processes text data from multiple sources, performs real-time sentiment classification, and provides detailed emotional insights. Achieved 94% accuracy on benchmark datasets using transformer architectures and custom preprocessing pipelines.",
+    tech: ["Python", "TensorFlow", "NLP"],
+    tags: ["ML", "NLP"]
+  }];
+  const publicationsList = [{
+    title: "Personalised Learning Platform Using AI-Based Adaptive Systems",
+    publisher: "IEEE",
+    date: "June 27, 2025",
+    link: "https://ieeexplore.ieee.org/document/11041038",
+    description: "We created a custom Learning application that adapts content based on a student's mood, survey data, difficulty level, and motivation. Technologies used: Emotion Detection, RL, DL, Sentiment Analysis, Linear Regression, etc."
+  }, {
+    title: "Deep Learning-Based Tyre Wear Detection and Predictive Maintenance Using Wireless Sensor Communication in Automobiles",
+    publisher: "ISBN Conference Proceedings",
+    date: "April 28, 2025",
+    isbn: "978-81-985702-6-0",
+    description: "Presented at AISSEWS 2025, won Best Paper Award. Focused on using Deep Learning and wireless sensor communication for predictive tyre maintenance in vehicles."
+  }, {
+    title: "Effect of CNG Induction on the Performance and Emission Characteristics of a DI Diesel Engine Fuelled with Biodiesel Ethanol Blends",
+    publisher: "Yanthrika",
+    date: "December 26, 2023",
+    link: "https://yanthrika.com/eja/index.php/ijvss/article/view/2755",
+    description: "Presented at National Conference. Explored how CNG induction influences engine performance and emissions, aimed at eco-friendly fuel alternatives."
+  }, {
+    title: "Job Scheduling in Big Data Analytics Using Reinforcement Learning",
+    publisher: "IEEE + Index Springer",
+    date: "July 26, 2025",
+    conference: "Artificial Intelligence and Sustainable Computing (AISC 2025, July 24-26, 2025)",
+    description: "Presented at AISC 2025 conference. This paper explores advanced reinforcement learning techniques for optimizing job scheduling in big data analytics environments, improving efficiency and resource utilization.",
+    status: "Publication in Process"
+  }];
+  const certifications = ["AWS Cloud Practitioner - Amazon Web Services", "Python for Data Science - Coursera", "React Developer Certification - Meta", "Machine Learning Fundamentals - edX"];
+  return <div className="min-h-screen bg-gradient-to-br from-background via-muted to-card text-foreground">
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50">
         <div className="container mx-auto px-4">
@@ -124,22 +101,13 @@ const Index = () => {
             
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-6">
-              {['about', 'skills', 'projects', 'publications', 'education', 'experience', 'contact'].map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className="text-foreground hover:text-primary transition-colors capitalize"
-                >
+              {['about', 'skills', 'projects', 'publications', 'education', 'experience', 'contact'].map(section => <button key={section} onClick={() => scrollToSection(section)} className="text-foreground hover:text-primary transition-colors capitalize">
                   {section}
-                </button>
-              ))}
+                </button>)}
             </div>
 
             {/* Mobile Menu Button */}
-            <button
-              className="md:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
+            <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               <div className="w-6 h-6 flex flex-col justify-center items-center">
                 <span className={`bg-foreground block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${isMenuOpen ? 'rotate-45 translate-y-1' : '-translate-y-0.5'}`}></span>
                 <span className={`bg-foreground block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm my-0.5 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
@@ -149,19 +117,11 @@ const Index = () => {
           </div>
 
           {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="md:hidden pb-4">
-              {['about', 'skills', 'projects', 'publications', 'education', 'experience', 'contact'].map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors capitalize"
-                >
+          {isMenuOpen && <div className="md:hidden pb-4">
+              {['about', 'skills', 'projects', 'publications', 'education', 'experience', 'contact'].map(section => <button key={section} onClick={() => scrollToSection(section)} className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors capitalize">
                   {section}
-                </button>
-              ))}
-            </div>
-          )}
+                </button>)}
+            </div>}
         </div>
       </nav>
 
@@ -177,10 +137,7 @@ const Index = () => {
             Specializing in full-stack development with expertise in machine learning and data analysis.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
-            <Button 
-              onClick={() => scrollToSection('contact')}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
-            >
+            <Button onClick={() => scrollToSection('contact')} className="bg-primary hover:bg-primary/90 text-primary-foreground">
               Contact Me
             </Button>
             <Dialog>
@@ -203,10 +160,7 @@ const Index = () => {
         
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-          <ChevronDown 
-            className="w-6 h-6 text-foreground/60 animate-bounce cursor-pointer"
-            onClick={() => scrollToSection('about')}
-          />
+          <ChevronDown className="w-6 h-6 text-foreground/60 animate-bounce cursor-pointer" onClick={() => scrollToSection('about')} />
         </div>
       </section>
 
@@ -237,22 +191,18 @@ const Index = () => {
             Skills & Technologies
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Object.entries(skills).map(([category, skillList]) => (
-              <Card key={category} className="bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-shadow">
+            {Object.entries(skills).map(([category, skillList]) => <Card key={category} className="bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <CardTitle className="text-primary">{category}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
-                    {skillList.map((skill) => (
-                      <Badge key={skill} variant="secondary" className="bg-secondary hover:bg-accent transition-colors">
+                    {skillList.map(skill => <Badge key={skill} variant="secondary" className="bg-secondary hover:bg-accent transition-colors">
                         {skill}
-                      </Badge>
-                    ))}
+                      </Badge>)}
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -264,27 +214,15 @@ const Index = () => {
             Featured Projects
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project, index) => (
-              <Card 
-                key={index} 
-                className={`bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer ${
-                  expandedProject === index ? 'md:col-span-2 lg:col-span-3' : ''
-                }`}
-                onClick={() => setExpandedProject(expandedProject === index ? null : index)}
-              >
+            {projects.map((project, index) => <Card key={index} className={`bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer ${expandedProject === index ? 'md:col-span-2 lg:col-span-3' : ''}`} onClick={() => setExpandedProject(expandedProject === index ? null : index)}>
                 <CardHeader>
                   <CardTitle className="text-foreground flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       {project.title}
-                      {project.hasGitHub && (
-                        <Github 
-                          className="w-6 h-6 text-primary hover:text-primary/80 transition-colors" 
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(project.link, '_blank');
-                          }}
-                        />
-                      )}
+                      {project.hasGitHub && <Github className="w-6 h-6 text-primary hover:text-primary/80 transition-colors" onClick={e => {
+                    e.stopPropagation();
+                    window.open(project.link, '_blank');
+                  }} />}
                     </div>
                     <ChevronDown className={`w-5 h-5 transition-transform ${expandedProject === index ? 'rotate-180' : ''}`} />
                   </CardTitle>
@@ -293,45 +231,30 @@ const Index = () => {
                   <p className="text-foreground/80 mb-4">
                     {expandedProject === index ? project.detailedDescription : project.description}
                   </p>
-                  {project.link && expandedProject === index && (
-                    <div className="mb-4">
-                      <a 
-                        href={project.link} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-                        onClick={(e) => e.stopPropagation()}
-                      >
+                  {project.link && expandedProject === index && <div className="mb-4">
+                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors" onClick={e => e.stopPropagation()}>
                         <ExternalLink className="w-4 h-4" />
                         View Repository
                       </a>
-                    </div>
-                  )}
+                    </div>}
                   <div className="mb-4">
                     <p className="text-sm font-semibold text-primary mb-2">Tech Stack:</p>
                     <div className="flex flex-wrap gap-1">
-                      {project.tech.map((tech) => (
-                        <Badge key={tech} variant="outline" className="text-xs">
+                      {project.tech.map(tech => <Badge key={tech} variant="outline" className="text-xs">
                           {tech}
-                        </Badge>
-                      ))}
+                        </Badge>)}
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <Badge key={tag} className="bg-primary/20 text-primary">
+                    {project.tags.map(tag => <Badge key={tag} className="bg-primary/20 text-primary">
                         {tag}
-                      </Badge>
-                    ))}
+                      </Badge>)}
                   </div>
-                  {expandedProject !== index && (
-                    <p className="text-xs text-foreground/60 mt-3">
+                  {expandedProject !== index && <p className="text-xs text-foreground/60 mt-3">
                       {project.hasGitHub ? 'Click to expand details or GitHub icon to view repository' : 'Click to expand for details'}
-                    </p>
-                  )}
+                    </p>}
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -344,12 +267,8 @@ const Index = () => {
           </h2>
           
           <div className="space-y-6 mb-8">
-            {publicationsList.map((publication, index) => (
-              <Card key={index} className="bg-card/50 backdrop-blur-sm border-border">
-                <Collapsible
-                  open={expandedPublication === index}
-                  onOpenChange={() => setExpandedPublication(expandedPublication === index ? null : index)}
-                >
+            {publicationsList.map((publication, index) => <Card key={index} className="bg-card/50 backdrop-blur-sm border-border">
+                <Collapsible open={expandedPublication === index} onOpenChange={() => setExpandedPublication(expandedPublication === index ? null : index)}>
                   <CollapsibleTrigger asChild>
                     <div className="w-full cursor-pointer">
                       <CardHeader className="hover:bg-muted/50 transition-colors">
@@ -363,14 +282,12 @@ const Index = () => {
                               <span className="font-medium text-primary">{publication.publisher}</span>
                               <span className="hidden sm:inline">•</span>
                               <span>{publication.date}</span>
-                              {publication.status && (
-                                <>
+                              {publication.status && <>
                                   <span className="hidden sm:inline">•</span>
                                   <Badge variant="outline" className="w-fit">
                                     {publication.status}
                                   </Badge>
-                                </>
-                              )}
+                                </>}
                             </div>
                           </div>
                           <ChevronDown className={`w-5 h-5 transition-transform flex-shrink-0 ml-4 ${expandedPublication === index ? 'rotate-180' : ''}`} />
@@ -387,34 +304,19 @@ const Index = () => {
                         </p>
                         
                         <div className="flex flex-wrap gap-4 items-center">
-                          {publication.link && (
-                            <a 
-                              href={publication.link} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-                              onClick={(e) => e.stopPropagation()}
-                            >
+                          {publication.link && <a href={publication.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors" onClick={e => e.stopPropagation()}>
                               <Link className="w-4 h-4" />
                               View Publication
-                            </a>
-                          )}
+                            </a>}
                           
-                          {publication.isbn && (
-                            <div className="text-sm text-foreground/70">
+                          {publication.isbn && <div className="text-sm text-foreground/70">
                               <span className="font-medium">ISBN:</span> {publication.isbn}
-                            </div>
-                          )}
+                            </div>}
                           
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            className="ml-auto"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              // Handle file upload functionality
-                            }}
-                          >
+                          <Button variant="outline" size="sm" className="ml-auto" onClick={e => {
+                        e.stopPropagation();
+                        // Handle file upload functionality
+                      }}>
                             <FileText className="w-4 h-4 mr-2" />
                             Upload PDF
                           </Button>
@@ -423,18 +325,13 @@ const Index = () => {
                     </CardContent>
                   </CollapsibleContent>
                 </Collapsible>
-              </Card>
-            ))}
+              </Card>)}
           </div>
           
           <div className="text-center">
-            <Button 
-              variant="outline" 
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-              onClick={() => {
-                // Handle add new publication functionality
-              }}
-            >
+            <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground" onClick={() => {
+            // Handle add new publication functionality
+          }}>
               <Plus className="w-4 h-4 mr-2" />
               Add New Publication
             </Button>
@@ -529,20 +426,7 @@ const Index = () => {
             </Card>
 
             <Card className="bg-card/50 backdrop-blur-sm border-border">
-              <CardContent className="p-6">
-                <div className="flex items-start space-x-4">
-                  <Briefcase className="w-6 h-6 text-primary mt-1" />
-                  <div>
-                    <h3 className="text-xl font-semibold text-foreground">Full Stack Developer</h3>
-                    <p className="text-primary">Current Role</p>
-                    <p className="text-foreground/70">2024 - Present</p>
-                    <p className="text-foreground/80 mt-2">
-                      Developing end-to-end web applications using modern technologies. 
-                      Focus on creating scalable solutions and optimizing user experiences.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
+              
             </Card>
 
             <Card className="bg-card/50 backdrop-blur-sm border-border">
@@ -644,7 +528,7 @@ const Index = () => {
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-foreground mb-2">QR Code Contact</h3>
                   <div className="w-32 h-32 bg-background/50 border-2 border-dashed border-border rounded-lg flex items-center justify-center">
-                    <p className="text-xs text-foreground/60 text-center">QR Code<br/>Placeholder</p>
+                    <p className="text-xs text-foreground/60 text-center">QR Code<br />Placeholder</p>
                   </div>
                 </CardContent>
               </Card>
@@ -661,8 +545,6 @@ const Index = () => {
           </p>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
