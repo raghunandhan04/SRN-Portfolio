@@ -74,7 +74,7 @@ const Index = () => {
     }
   ];
 
-  const publications = [
+  const publicationsList = [
     {
       title: "Personalised Learning Platform Using AI-Based Adaptive Systems",
       publisher: "IEEE",
@@ -342,7 +342,7 @@ const Index = () => {
           </h2>
           
           <div className="space-y-6 mb-8">
-            {publications.map((publication, index) => (
+            {publicationsList.map((publication, index) => (
               <Card key={index} className="bg-card/50 backdrop-blur-sm border-border">
                 <Collapsible
                   open={expandedPublication === index}
@@ -441,7 +441,7 @@ const Index = () => {
       </section>
 
       {/* Education Section */}
-      <section id="education" className="py-20 px-4 bg-muted/30">
+      <section id="education" className="py-20 px-4">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Education
@@ -503,7 +503,7 @@ const Index = () => {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="py-20 px-4">
+      <section id="experience" className="py-20 px-4 bg-muted/30">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Experience
@@ -579,7 +579,7 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 bg-muted/30">
+      <section id="contact" className="py-20 px-4">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Get In Touch
