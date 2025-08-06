@@ -98,10 +98,11 @@ const Index = () => {
       description: "Presented at National Conference. Explored how CNG induction influences engine performance and emissions, aimed at eco-friendly fuel alternatives."
     },
     {
-      title: "[In Progress] AI-Powered [Add Title]",
-      publisher: "Publication in Process",
-      date: "TBD",
-      description: "This paper has been presented and is currently under publication. Upload placeholder screenshot or PDF if available.",
+      title: "Job Scheduling in Big Data Analytics Using Reinforcement Learning",
+      publisher: "IEEE + Index Springer",
+      date: "July 26, 2025",
+      conference: "Artificial Intelligence and Sustainable Computing (AISC 2025, July 24-26, 2025)",
+      description: "Presented at AISC 2025 conference. This paper explores advanced reinforcement learning techniques for optimizing job scheduling in big data analytics environments, improving efficiency and resource utilization.",
       status: "Publication in Process"
     }
   ];
@@ -266,23 +267,23 @@ const Index = () => {
             {projects.map((project, index) => (
               <Card 
                 key={index} 
-                className={`bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1 ${
+                className={`bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer ${
                   expandedProject === index ? 'md:col-span-2 lg:col-span-3' : ''
-                } ${project.hasGitHub && !expandedProject ? 'cursor-pointer' : expandedProject === index ? 'cursor-pointer' : 'cursor-pointer'}`}
-                onClick={() => {
-                  if (project.hasGitHub && expandedProject !== index) {
-                    window.open(project.link, '_blank');
-                  } else {
-                    setExpandedProject(expandedProject === index ? null : index);
-                  }
-                }}
+                }`}
+                onClick={() => setExpandedProject(expandedProject === index ? null : index)}
               >
                 <CardHeader>
                   <CardTitle className="text-foreground flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       {project.title}
                       {project.hasGitHub && (
-                        <Github className="w-4 h-4 text-primary" />
+                        <Github 
+                          className="w-6 h-6 text-primary hover:text-primary/80 transition-colors" 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(project.link, '_blank');
+                          }}
+                        />
                       )}
                     </div>
                     <ChevronDown className={`w-5 h-5 transition-transform ${expandedProject === index ? 'rotate-180' : ''}`} />
@@ -325,7 +326,7 @@ const Index = () => {
                   </div>
                   {expandedProject !== index && (
                     <p className="text-xs text-foreground/60 mt-3">
-                      {project.hasGitHub ? 'Click to view repository' : 'Click to expand for details'}
+                      {project.hasGitHub ? 'Click to expand details or GitHub icon to view repository' : 'Click to expand for details'}
                     </p>
                   )}
                 </CardContent>
