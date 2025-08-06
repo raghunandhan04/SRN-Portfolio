@@ -12,6 +12,7 @@ const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [expandedProject, setExpandedProject] = useState<number | null>(null);
   const [expandedPublication, setExpandedPublication] = useState<number | null>(null);
+  const [expandedExperience, setExpandedExperience] = useState<string | null>(null);
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({
@@ -425,8 +426,42 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-card/50 backdrop-blur-sm border-border">
-              
+            <Card className="bg-card/50 backdrop-blur-sm border-border cursor-pointer hover:bg-card/70 transition-colors" onClick={() => setExpandedExperience(expandedExperience === 'zf-gec' ? null : 'zf-gec')}>
+              <CardContent className="p-6">
+                <div className="flex items-start space-x-4">
+                  <Briefcase className="w-6 h-6 text-primary mt-1" />
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="text-xl font-semibold text-foreground">Project Intern</h3>
+                        <p className="text-primary">ZF GEC (Global Engineering Center) - COE Team</p>
+                        <p className="text-foreground/70">Feb 2025 - May 2025 • DLF, Porur, Chennai</p>
+                      </div>
+                      <ChevronDown className={`w-5 h-5 text-foreground/60 transition-transform ${expandedExperience === 'zf-gec' ? 'rotate-180' : ''}`} />
+                    </div>
+                    {expandedExperience === 'zf-gec' && (
+                      <div className="mt-4 space-y-3 pt-4 border-t border-border">
+                        <div>
+                          <h4 className="font-semibold text-foreground/90 mb-2">Project Details</h4>
+                          <p className="text-foreground/80">
+                            AI-enabled tool for comparing and validating the compliance of CAD drawings
+                          </p>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-foreground/90 mb-2">Technologies Used</h4>
+                          <div className="flex flex-wrap gap-2">
+                            {['Python', 'NLP', 'Computer Vision', 'HTML', 'CSS', 'OCR', 'pytesseract'].map((tech) => (
+                              <Badge key={tech} variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
+                                {tech}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
             </Card>
 
             <Card className="bg-card/50 backdrop-blur-sm border-border">
