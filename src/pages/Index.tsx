@@ -24,7 +24,7 @@ const Index = () => {
     Frontend: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React'],
     Backend: ['Python', 'FastAPI', '.NET'],
     Database: ['MySQL', 'PostgreSQL'],
-    Tools: ['Git', 'GitHub', 'Power BI', 'VS Code', 'Cativa V5'],
+    Tools: ['Git', 'GitHub', 'Power BI', 'VS Code', 'Catia V5'],
     'AI/ML': ['Machine Learning', 'TensorFlow', 'Artificial Intelligence', 'Data Analysis', 'Deep Learning']
   };
   const projects = [{
@@ -409,18 +409,30 @@ const Index = () => {
             Experience
           </h2>
           <div className="space-y-6">
-            <Card className="bg-card/50 backdrop-blur-sm border-border">
+            <Card className="bg-card/50 backdrop-blur-sm border-border cursor-pointer hover:bg-card/70 transition-colors" onClick={() => setExpandedExperience(expandedExperience === 'hibiz' ? null : 'hibiz')}>
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
                   <Briefcase className="w-6 h-6 text-primary mt-1" />
-                  <div>
-                    <h3 className="text-xl font-semibold text-foreground">Systems Analyst/Developer</h3>
-                    <p className="text-primary">Hibiz Solutions</p>
-                    <p className="text-foreground/70">June 2025 - Present</p>
-                    <p className="text-foreground/80 mt-2">
-                      Developing and maintaining enterprise-level applications, analyzing system requirements, 
-                      and implementing efficient solutions using modern technologies and frameworks.
-                    </p>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="text-xl font-semibold text-foreground">Systems Analyst/Developer</h3>
+                        <p className="text-primary">Hibiz Solutions</p>
+                        <p className="text-foreground/70">June 2025 - Present • Perungudi, Chennai</p>
+                      </div>
+                      <ChevronDown className={`w-5 h-5 text-foreground/60 transition-transform ${expandedExperience === 'hibiz' ? 'rotate-180' : ''}`} />
+                    </div>
+                    {expandedExperience === 'hibiz' && 
+                      <div className="mt-4 space-y-3 pt-4 border-t border-border">
+                        <div>
+                          <h4 className="font-semibold text-foreground/90 mb-2">Role Details</h4>
+                          <p className="text-foreground/80">
+                            Developing and maintaining enterprise-level applications, analyzing system requirements, 
+                            and implementing efficient solutions using modern technologies and frameworks.
+                          </p>
+                        </div>
+                      </div>
+                    }
                   </div>
                 </div>
               </CardContent>
@@ -595,14 +607,24 @@ const Index = () => {
               <Card className="bg-card/50 backdrop-blur-sm border-border">
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-foreground mb-4">Connect With Me</h3>
-                  <div className="flex space-x-4">
-                    <Button variant="outline" size="icon" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                      <Linkedin className="w-4 h-4" />
-                    </Button>
-                    <Button variant="outline" size="icon" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                      <Github className="w-4 h-4" />
-                    </Button>
-                  </div>
+                   <div className="flex flex-col sm:flex-row gap-4">
+                     <Button 
+                       variant="outline" 
+                       className="border-primary text-primary hover:bg-primary hover:text-primary-foreground flex items-center gap-2"
+                       onClick={() => window.open('https://www.linkedin.com/in/raghunandhan04/', '_blank')}
+                     >
+                       <Linkedin className="w-4 h-4" />
+                       <span className="sm:hidden md:inline">LinkedIn</span>
+                     </Button>
+                     <Button 
+                       variant="outline" 
+                       className="border-primary text-primary hover:bg-primary hover:text-primary-foreground flex items-center gap-2"
+                       onClick={() => window.open('https://github.com/raghunandhan04', '_blank')}
+                     >
+                       <Github className="w-4 h-4" />
+                       <span className="sm:hidden md:inline">GitHub</span>
+                     </Button>
+                   </div>
                 </CardContent>
               </Card>
 
