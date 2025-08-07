@@ -439,8 +439,7 @@ const Index = () => {
                       </div>
                       <ChevronDown className={`w-5 h-5 text-foreground/60 transition-transform ${expandedExperience === 'zf-gec' ? 'rotate-180' : ''}`} />
                     </div>
-                    {expandedExperience === 'zf-gec' && (
-                      <div className="mt-4 space-y-3 pt-4 border-t border-border">
+                    {expandedExperience === 'zf-gec' && <div className="mt-4 space-y-3 pt-4 border-t border-border">
                         <div>
                           <h4 className="font-semibold text-foreground/90 mb-2">Project Details</h4>
                           <p className="text-foreground/80">
@@ -450,15 +449,12 @@ const Index = () => {
                         <div>
                           <h4 className="font-semibold text-foreground/90 mb-2">Technologies Used</h4>
                           <div className="flex flex-wrap gap-2">
-                            {['Python', 'NLP', 'Computer Vision', 'HTML', 'CSS', 'OCR', 'pytesseract'].map((tech) => (
-                              <Badge key={tech} variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
+                            {['Python', 'NLP', 'Computer Vision', 'HTML', 'CSS', 'OCR', 'pytesseract'].map(tech => <Badge key={tech} variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
                                 {tech}
-                              </Badge>
-                            ))}
+                              </Badge>)}
                           </div>
                         </div>
-                      </div>
-                    )}
+                      </div>}
                   </div>
                 </div>
               </CardContent>
@@ -472,9 +468,7 @@ const Index = () => {
                     <h3 className="text-xl font-semibold text-foreground">Intern - Software Development</h3>
                     <p className="text-primary">HCL Technologies</p>
                     <p className="text-foreground/70">Summer 2023</p>
-                    <p className="text-foreground/80 mt-2">
-                      Worked on enterprise-level applications and gained experience in software development lifecycle.
-                    </p>
+                    <p className="text-foreground/80 mt-2">Worked on Projects : 1) Code Coverage Tool for .NET applications 2) Dynamic DNS Server to address application Downtime issues.</p>
                   </div>
                 </div>
               </CardContent>
@@ -485,9 +479,9 @@ const Index = () => {
                 <div className="flex items-start space-x-4">
                   <Briefcase className="w-6 h-6 text-primary mt-1" />
                   <div>
-                    <h3 className="text-xl font-semibold text-foreground">Technical Intern</h3>
+                    <h3 className="text-xl font-semibold text-foreground">Internship Trainee</h3>
                     <p className="text-primary">Ashok Leyland</p>
-                    <p className="text-foreground/70">Winter 2022</p>
+                    <p className="text-foreground/70">June 2023 - July 2023</p>
                     <p className="text-foreground/80 mt-2">
                       Gained hands-on experience in automotive engineering and industrial processes.
                     </p>
