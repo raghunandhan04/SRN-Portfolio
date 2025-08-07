@@ -40,25 +40,29 @@ const Index = () => {
     description: "Machine learning model for predictive maintenance in industrial equipment",
     detailedDescription: "Developed a comprehensive machine learning solution for predictive maintenance in industrial settings. The system analyzes sensor data, equipment performance metrics, and historical maintenance records to predict potential failures before they occur. Implemented using advanced algorithms including Random Forest, LSTM neural networks, and ensemble methods to achieve high accuracy in failure prediction.",
     tech: ["Python", "TensorFlow", "Data Analysis"],
-    tags: ["ML", "Industrial"]
+    tags: ["ML", "Industrial"],
+    organization: "Madras Institute of Technology, Anna University"
   }, {
     title: "DNS Server Project",
     description: "Custom DNS server implementation with advanced routing capabilities",
     detailedDescription: "Built a high-performance DNS server from scratch with advanced routing and caching mechanisms. Features include custom domain resolution, load balancing, security filters, and real-time monitoring. The server handles thousands of concurrent requests with sub-millisecond response times and includes comprehensive logging and analytics.",
     tech: ["Python", "Networking"],
-    tags: ["Networking", "Backend"]
+    tags: ["Networking", "Backend"],
+    organization: "HCL Technologies"
   }, {
     title: ".NET Code Coverage Tool",
     description: "Tool for analyzing and improving code coverage in .NET applications",
     detailedDescription: "Developed a comprehensive code coverage analysis tool for .NET applications that provides detailed insights into test coverage, identifies untested code paths, and generates actionable reports. The tool integrates with popular CI/CD pipelines and provides real-time coverage metrics with customizable thresholds and alerts.",
     tech: [".NET", "C#", "Testing"],
-    tags: ["Testing", "DevTools"]
+    tags: ["Testing", "DevTools"],
+    organization: "HCL Technologies"
   }, {
     title: "Cycle Time Reduction Tool",
     description: "Tool to optimize and reduce development cycle times",
     detailedDescription: "Created an automated tool that analyzes development workflows, identifies bottlenecks, and suggests optimizations to reduce cycle times. The tool integrates with project management systems, tracks key metrics, and provides data-driven recommendations for process improvements, resulting in 30% faster delivery times.",
     tech: ["Python", "Data Analysis"],
-    tags: ["Optimization", "DevOps"]
+    tags: ["Optimization", "DevOps"],
+    organization: "Ashok Leyland"
   }, {
     title: "Sentiment Analysis using TensorFlow",
     description: "NLP model for sentiment analysis using deep learning",
@@ -232,6 +236,10 @@ const Index = () => {
                   <p className="text-foreground/80 mb-4">
                     {expandedProject === index ? project.detailedDescription : project.description}
                   </p>
+                  {project.organization && <div className="mb-4">
+                      <p className="text-sm font-semibold text-primary mb-1">Organization:</p>
+                      <p className="text-sm text-foreground/70">{project.organization}</p>
+                    </div>}
                   {project.link && expandedProject === index && <div className="mb-4">
                       <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors" onClick={e => e.stopPropagation()}>
                         <ExternalLink className="w-4 h-4" />
