@@ -422,8 +422,7 @@ const Index = () => {
                       </div>
                       <ChevronDown className={`w-5 h-5 text-foreground/60 transition-transform ${expandedExperience === 'hibiz' ? 'rotate-180' : ''}`} />
                     </div>
-                    {expandedExperience === 'hibiz' && 
-                      <div className="mt-4 space-y-3 pt-4 border-t border-border">
+                    {expandedExperience === 'hibiz' && <div className="mt-4 space-y-3 pt-4 border-t border-border">
                         <div>
                           <h4 className="font-semibold text-foreground/90 mb-2">Role Details</h4>
                           <p className="text-foreground/80">
@@ -431,8 +430,7 @@ const Index = () => {
                             and implementing efficient solutions using modern technologies and frameworks.
                           </p>
                         </div>
-                      </div>
-                    }
+                      </div>}
                   </div>
                 </div>
               </CardContent>
@@ -481,21 +479,18 @@ const Index = () => {
                       <div>
                         <h3 className="text-xl font-semibold text-foreground">Intern - Software Development</h3>
                         <p className="text-primary">HCL Technologies</p>
-                        <p className="text-foreground/70">Summer 2023 • Ambattur, Chennai</p>
+                        <p className="text-foreground/70">July 2024 - Aug 2024  • Ambattur, Chennai</p>
                       </div>
                       <ChevronDown className={`w-5 h-5 text-foreground/60 transition-transform ${expandedExperience === 'hcl' ? 'rotate-180' : ''}`} />
                     </div>
-                    {expandedExperience === 'hcl' && 
-                      <div className="mt-4 space-y-3 pt-4 border-t border-border">
+                    {expandedExperience === 'hcl' && <div className="mt-4 space-y-3 pt-4 border-t border-border">
                         <div>
                           <h4 className="font-semibold text-foreground/90 mb-2">Project 1: Code Coverage Tool</h4>
                           <p className="text-foreground/80">Developed a comprehensive code coverage analysis tool for .NET applications.</p>
                           <div className="flex flex-wrap gap-2 mt-2">
-                            {['.NET SDK', 'Coverlet', 'Report Generator'].map(tech => 
-                              <Badge key={tech} variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
+                            {['.NET SDK', 'Coverlet', 'Report Generator'].map(tech => <Badge key={tech} variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
                                 {tech}
-                              </Badge>
-                            )}
+                              </Badge>)}
                           </div>
                         </div>
                         
@@ -503,15 +498,12 @@ const Index = () => {
                           <h4 className="font-semibold text-foreground/90 mb-2">Project 2: Dynamic DNS Server</h4>
                           <p className="text-foreground/80">Built a dynamic DNS server solution to address application downtime issues.</p>
                           <div className="flex flex-wrap gap-2 mt-2">
-                            {['Python', 'DNS Server', 'Flask', 'Django'].map(tech => 
-                              <Badge key={tech} variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
+                            {['Python', 'DNS Server', 'Flask', 'Django'].map(tech => <Badge key={tech} variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
                                 {tech}
-                              </Badge>
-                            )}
+                              </Badge>)}
                           </div>
                         </div>
-                      </div>
-                    }
+                      </div>}
                   </div>
                 </div>
               </CardContent>
@@ -530,8 +522,7 @@ const Index = () => {
                       </div>
                       <ChevronDown className={`w-5 h-5 text-foreground/60 transition-transform ${expandedExperience === 'ashok' ? 'rotate-180' : ''}`} />
                     </div>
-                    {expandedExperience === 'ashok' && 
-                      <div className="mt-4 space-y-3 pt-4 border-t border-border">
+                    {expandedExperience === 'ashok' && <div className="mt-4 space-y-3 pt-4 border-t border-border">
                         <div>
                           <h4 className="font-semibold text-foreground/90 mb-2">Project Details</h4>
                           <p className="text-foreground/80">
@@ -541,15 +532,12 @@ const Index = () => {
                         <div>
                           <h4 className="font-semibold text-foreground/90 mb-2">Technologies Used</h4>
                           <div className="flex flex-wrap gap-2">
-                            {['Ms Excel', 'RFID', 'Cycle Time Calculation'].map(tech => 
-                              <Badge key={tech} variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
+                            {['Ms Excel', 'RFID', 'Cycle Time Calculation'].map(tech => <Badge key={tech} variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
                                 {tech}
-                              </Badge>
-                            )}
+                              </Badge>)}
                           </div>
                         </div>
-                      </div>
-                    }
+                      </div>}
                   </div>
                 </div>
               </CardContent>
@@ -608,19 +596,11 @@ const Index = () => {
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-foreground mb-4">Connect With Me</h3>
                    <div className="flex flex-col sm:flex-row gap-4">
-                     <Button 
-                       variant="outline" 
-                       className="border-primary text-primary hover:bg-primary hover:text-primary-foreground flex items-center gap-2"
-                       onClick={() => window.open('https://www.linkedin.com/in/raghunandhan04/', '_blank')}
-                     >
+                     <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground flex items-center gap-2" onClick={() => window.open('https://www.linkedin.com/in/raghunandhan04/', '_blank')}>
                        <Linkedin className="w-4 h-4" />
                        <span className="sm:hidden md:inline">LinkedIn</span>
                      </Button>
-                     <Button 
-                       variant="outline" 
-                       className="border-primary text-primary hover:bg-primary hover:text-primary-foreground flex items-center gap-2"
-                       onClick={() => window.open('https://github.com/raghunandhan04', '_blank')}
-                     >
+                     <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground flex items-center gap-2" onClick={() => window.open('https://github.com/raghunandhan04', '_blank')}>
                        <Github className="w-4 h-4" />
                        <span className="sm:hidden md:inline">GitHub</span>
                      </Button>
