@@ -24,7 +24,7 @@ const Index = () => {
     Frontend: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React'],
     Backend: ['Python', 'FastAPI', '.NET'],
     Database: ['MySQL', 'PostgreSQL'],
-    Tools: ['Git', 'Power BI', 'VS Code'],
+    Tools: ['Git', 'GitHub', 'Power BI', 'VS Code', 'Cativa V5'],
     'AI/ML': ['Machine Learning', 'TensorFlow', 'Artificial Intelligence', 'Data Analysis', 'Deep Learning']
   };
   const projects = [{
