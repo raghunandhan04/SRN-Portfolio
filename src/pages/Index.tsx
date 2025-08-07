@@ -460,48 +460,42 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-card/50 backdrop-blur-sm border-border">
+            <Card className="bg-card/50 backdrop-blur-sm border-border cursor-pointer hover:bg-card/70 transition-colors" onClick={() => setExpandedExperience(expandedExperience === 'hcl' ? null : 'hcl')}>
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
                   <Briefcase className="w-6 h-6 text-primary mt-1" />
                   <div className="flex-1">
-                    <div 
-                      className="cursor-pointer" 
-                      onClick={() => setExpandedExperience(expandedExperience === 'hcl' ? null : 'hcl')}
-                    >
-                      <h3 className="text-xl font-semibold text-foreground">Intern - Software Development</h3>
-                      <p className="text-primary">HCL Technologies</p>
-                      <p className="text-foreground/70">Summer 2023</p>
-                      <p className="text-foreground/60 text-sm mt-1">📍 Ambattur, Chennai</p>
-                      <p className="text-foreground/80 mt-2">Worked on Projects : 1) Code Coverage Tool for .NET applications 2) Dynamic DNS Server to address application Downtime issues.</p>
-                      <ChevronDown className={`w-4 h-4 text-primary mt-2 transition-transform ${expandedExperience === 'hcl' ? 'rotate-180' : ''}`} />
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="text-xl font-semibold text-foreground">Intern - Software Development</h3>
+                        <p className="text-primary">HCL Technologies</p>
+                        <p className="text-foreground/70">Summer 2023 • Ambattur, Chennai</p>
+                      </div>
+                      <ChevronDown className={`w-5 h-5 text-foreground/60 transition-transform ${expandedExperience === 'hcl' ? 'rotate-180' : ''}`} />
                     </div>
-                    
                     {expandedExperience === 'hcl' && 
-                      <div className="mt-4 p-4 bg-muted/20 rounded-lg border border-border/50">
-                        <div className="space-y-4">
-                          <div>
-                            <h4 className="font-semibold text-foreground/90 mb-2">Project 1: Code Coverage Tool</h4>
-                            <p className="text-foreground/80 text-sm mb-2">Developed a comprehensive code coverage analysis tool for .NET applications.</p>
-                            <div className="flex flex-wrap gap-2 mb-3">
-                              {['.NET SDK', 'Coverlet', 'Report Generator'].map(tech => 
-                                <Badge key={tech} variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
-                                  {tech}
-                                </Badge>
-                              )}
-                            </div>
+                      <div className="mt-4 space-y-3 pt-4 border-t border-border">
+                        <div>
+                          <h4 className="font-semibold text-foreground/90 mb-2">Project 1: Code Coverage Tool</h4>
+                          <p className="text-foreground/80">Developed a comprehensive code coverage analysis tool for .NET applications.</p>
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            {['.NET SDK', 'Coverlet', 'Report Generator'].map(tech => 
+                              <Badge key={tech} variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
+                                {tech}
+                              </Badge>
+                            )}
                           </div>
-                          
-                          <div>
-                            <h4 className="font-semibold text-foreground/90 mb-2">Project 2: Dynamic DNS Server</h4>
-                            <p className="text-foreground/80 text-sm mb-2">Built a dynamic DNS server solution to address application downtime issues.</p>
-                            <div className="flex flex-wrap gap-2">
-                              {['Python', 'DNS Server', 'Flask', 'Django'].map(tech => 
-                                <Badge key={tech} variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
-                                  {tech}
-                                </Badge>
-                              )}
-                            </div>
+                        </div>
+                        
+                        <div>
+                          <h4 className="font-semibold text-foreground/90 mb-2">Project 2: Dynamic DNS Server</h4>
+                          <p className="text-foreground/80">Built a dynamic DNS server solution to address application downtime issues.</p>
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            {['Python', 'DNS Server', 'Flask', 'Django'].map(tech => 
+                              <Badge key={tech} variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
+                                {tech}
+                              </Badge>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -511,30 +505,28 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-card/50 backdrop-blur-sm border-border">
+            <Card className="bg-card/50 backdrop-blur-sm border-border cursor-pointer hover:bg-card/70 transition-colors" onClick={() => setExpandedExperience(expandedExperience === 'ashok' ? null : 'ashok')}>
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
                   <Briefcase className="w-6 h-6 text-primary mt-1" />
                   <div className="flex-1">
-                    <div 
-                      className="cursor-pointer" 
-                      onClick={() => setExpandedExperience(expandedExperience === 'ashok' ? null : 'ashok')}
-                    >
-                      <h3 className="text-xl font-semibold text-foreground">Internship Trainee</h3>
-                      <p className="text-primary">Ashok Leyland</p>
-                      <p className="text-foreground/70">June 2023 - July 2023</p>
-                      <p className="text-foreground/60 text-sm mt-1">📍 Ennore, Chennai</p>
-                      <p className="text-foreground/80 mt-2">
-                        Gained hands-on experience in automotive engineering and industrial processes.
-                      </p>
-                      <ChevronDown className={`w-4 h-4 text-primary mt-2 transition-transform ${expandedExperience === 'ashok' ? 'rotate-180' : ''}`} />
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="text-xl font-semibold text-foreground">Internship Trainee</h3>
+                        <p className="text-primary">Ashok Leyland</p>
+                        <p className="text-foreground/70">June 2023 - July 2023 • Ennore, Chennai</p>
+                      </div>
+                      <ChevronDown className={`w-5 h-5 text-foreground/60 transition-transform ${expandedExperience === 'ashok' ? 'rotate-180' : ''}`} />
                     </div>
-                    
                     {expandedExperience === 'ashok' && 
-                      <div className="mt-4 p-4 bg-muted/20 rounded-lg border border-border/50">
+                      <div className="mt-4 space-y-3 pt-4 border-t border-border">
                         <div>
-                          <h4 className="font-semibold text-foreground/90 mb-2">Project: Cycle Time Calculation and Reduction Tool</h4>
-                          <p className="text-foreground/80 text-sm mb-3">Developed a comprehensive tool for calculating and optimizing cycle times in automotive manufacturing processes.</p>
+                          <h4 className="font-semibold text-foreground/90 mb-2">Project Details</h4>
+                          <p className="text-foreground/80">
+                            Cycle Time Calculation and Reduction tool - Developed a comprehensive tool for calculating and optimizing cycle times in automotive manufacturing processes.
+                          </p>
+                        </div>
+                        <div>
                           <h4 className="font-semibold text-foreground/90 mb-2">Technologies Used</h4>
                           <div className="flex flex-wrap gap-2">
                             {['Ms Excel', 'RFID', 'Cycle Time Calculation'].map(tech => 
