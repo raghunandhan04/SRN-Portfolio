@@ -611,8 +611,8 @@ const Index = () => {
               <Card className="bg-card/50 backdrop-blur-sm border-border">
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-foreground mb-2">QR Code Contact</h3>
-                  <div className="w-32 h-32 bg-background/50 border-2 border-dashed border-border rounded-lg flex items-center justify-center">
-                    <p className="text-xs text-foreground/60 text-center">QR Code<br />Placeholder</p>
+                  <div className="w-32 h-32 rounded-lg overflow-hidden">
+                    <img src="/lovable-uploads/24daf3d3-0097-423b-b311-4034fde00723.png" alt="Instagram QR Code" className="w-full h-full object-cover" />
                   </div>
                 </CardContent>
               </Card>
