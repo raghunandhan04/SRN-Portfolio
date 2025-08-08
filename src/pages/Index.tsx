@@ -337,14 +337,6 @@ const Index = () => {
               </Card>)}
           </div>
           
-          <div className="text-center">
-            <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground" onClick={() => {
-            // Handle add new publication functionality
-          }}>
-              <Plus className="w-4 h-4 mr-2" />
-              Add New Publication
-            </Button>
-          </div>
         </div>
       </section>
 
