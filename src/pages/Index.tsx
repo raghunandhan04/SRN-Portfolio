@@ -71,17 +71,12 @@ const Index = () => {
     tags: ["ML", "NLP"]
   }];
   const publicationsList = [{
-    title: "Effect of CNG Induction on the Performance and Emission Characteristics of a DI Diesel Engine Fuelled with Biodiesel Ethanol Blends",
-    publisher: "Yanthrika",
-    date: "December 26, 2023",
-    link: "https://yanthrika.com/eja/index.php/ijvss/article/view/2755",
-    description: "Presented at National Conference. Explored how CNG induction influences engine performance and emissions, aimed at eco-friendly fuel alternatives."
-  }, {
-    title: "Deep Learning-Based Tyre Wear Detection and Predictive Maintenance Using Wireless Sensor Communication in Automobiles",
-    publisher: "ISBN Conference Proceedings",
-    date: "April 28, 2025",
-    isbn: "978-81-985702-6-0",
-    description: "Presented at AISSEWS 2025, won Best Paper Award. Focused on using Deep Learning and wireless sensor communication for predictive tyre maintenance in vehicles."
+    title: "Job Scheduling in Big Data Analytics Using Reinforcement Learning",
+    publisher: "IEEE + Index Springer",
+    date: "July 26, 2025",
+    conference: "Artificial Intelligence and Sustainable Computing (AISC 2025, July 24-26, 2025)",
+    description: "Presented at AISC 2025 conference. This paper explores advanced reinforcement learning techniques for optimizing job scheduling in big data analytics environments, improving efficiency and resource utilization.",
+    status: "Publication in Process"
   }, {
     title: "Personalised Learning Platform Using AI-Based Adaptive Systems",
     publisher: "IEEE",
@@ -89,12 +84,17 @@ const Index = () => {
     link: "https://ieeexplore.ieee.org/document/11041038",
     description: "We created a custom Learning application that adapts content based on a student's mood, survey data, difficulty level, and motivation. Technologies used: Emotion Detection, RL, DL, Sentiment Analysis, Linear Regression, etc."
   }, {
-    title: "Job Scheduling in Big Data Analytics Using Reinforcement Learning",
-    publisher: "IEEE + Index Springer",
-    date: "July 26, 2025",
-    conference: "Artificial Intelligence and Sustainable Computing (AISC 2025, July 24-26, 2025)",
-    description: "Presented at AISC 2025 conference. This paper explores advanced reinforcement learning techniques for optimizing job scheduling in big data analytics environments, improving efficiency and resource utilization.",
-    status: "Publication in Process"
+    title: "Deep Learning-Based Tyre Wear Detection and Predictive Maintenance Using Wireless Sensor Communication in Automobiles",
+    publisher: "ISBN Conference Proceedings",
+    date: "April 28, 2025",
+    isbn: "978-81-985702-6-0",
+    description: "Presented at AISSEWS 2025, won Best Paper Award. Focused on using Deep Learning and wireless sensor communication for predictive tyre maintenance in vehicles."
+  }, {
+    title: "Effect of CNG Induction on the Performance and Emission Characteristics of a DI Diesel Engine Fuelled with Biodiesel Ethanol Blends",
+    publisher: "Yanthrika",
+    date: "December 26, 2023",
+    link: "https://yanthrika.com/eja/index.php/ijvss/article/view/2755",
+    description: "Presented at National Conference. Explored how CNG induction influences engine performance and emissions, aimed at eco-friendly fuel alternatives."
   }];
   const certifications = ["AWS Cloud Practitioner - Amazon Web Services", "Python for Data Science - Coursera", "React Developer Certification - Meta", "Machine Learning Fundamentals - edX"];
   return <div className="min-h-screen bg-gradient-to-br from-background via-muted to-card text-foreground">
