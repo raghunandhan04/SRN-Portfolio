@@ -36,10 +36,10 @@ const Index = () => {
     link: "https://github.com/raghunandhan04/E-commerce-Website-for-Apparel-Store",
     hasGitHub: true
   }, {
-    title: "Predictive Maintenance using ML",
+    title: "Deep Learning based Smart Battery Thermal Management System (BTMS) for EV Batteries\n(Final Year Project)",
     description: "Machine learning model for predictive maintenance in industrial equipment",
     detailedDescription: "Developed a comprehensive machine learning solution for predictive maintenance in industrial settings. The system analyzes sensor data, equipment performance metrics, and historical maintenance records to predict potential failures before they occur. Implemented using advanced algorithms including Random Forest, LSTM neural networks, and ensemble methods to achieve high accuracy in failure prediction.",
-    tech: ["Python", "TensorFlow", "Data Analysis"],
+    tech: ["Python", "TensorFlow", "Data Analysis", "Deep Learning", "CNN", "Matlab", "Fluke Thermal Imaging", "Ansys"],
     tags: ["ML", "Industrial"],
     organization: "Madras Institute of Technology, Anna University"
   }, {
