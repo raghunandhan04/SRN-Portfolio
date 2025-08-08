@@ -99,20 +99,24 @@ const Index = () => {
   const certifications = ["AWS Cloud Practitioner - Amazon Web Services", "Python for Data Science - Coursera", "React Developer Certification - Meta", "Machine Learning Fundamentals - edX"];
   return <div className="min-h-screen bg-gradient-to-br from-background via-muted to-card text-foreground">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center py-4">
-            <h1 className="text-xl font-bold text-primary">Raghunandhan S</h1>
+      <nav className="fixed top-0 w-full bg-background/95 backdrop-blur-md border-b border-border z-50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex justify-between items-center py-3 sm:py-4">
+            <h1 className="text-lg sm:text-xl font-bold text-primary">Raghunandhan S</h1>
             
             {/* Desktop Navigation */}
-            <div className="hidden md:flex space-x-6">
-              {['about', 'skills', 'projects', 'publications', 'education', 'experience', 'contact'].map(section => <button key={section} onClick={() => scrollToSection(section)} className="text-foreground hover:text-primary transition-colors capitalize">
+            <div className="hidden md:flex space-x-4 lg:space-x-6">
+              {['about', 'skills', 'projects', 'publications', 'education', 'experience', 'contact'].map(section => <button key={section} onClick={() => scrollToSection(section)} className="text-foreground hover:text-primary transition-colors capitalize px-2 py-1 rounded-md hover:bg-muted/50">
                   {section}
                 </button>)}
             </div>
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <button 
+              className="md:hidden p-2 rounded-md hover:bg-muted/50 touch-manipulation" 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
               <div className="w-6 h-6 flex flex-col justify-center items-center">
                 <span className={`bg-foreground block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${isMenuOpen ? 'rotate-45 translate-y-1' : '-translate-y-0.5'}`}></span>
                 <span className={`bg-foreground block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm my-0.5 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
@@ -122,36 +126,44 @@ const Index = () => {
           </div>
 
           {/* Mobile Menu */}
-          {isMenuOpen && <div className="md:hidden pb-4">
-              {['about', 'skills', 'projects', 'publications', 'education', 'experience', 'contact'].map(section => <button key={section} onClick={() => scrollToSection(section)} className="block w-full text-left py-2 text-foreground hover:text-primary transition-colors capitalize">
-                  {section}
-                </button>)}
+          {isMenuOpen && <div className="md:hidden pb-4 border-t border-border/50 mt-2 pt-4">
+              <div className="flex flex-col space-y-2">
+                {['about', 'skills', 'projects', 'publications', 'education', 'experience', 'contact'].map(section => <button key={section} onClick={() => scrollToSection(section)} className="text-left py-3 px-4 text-foreground hover:text-primary hover:bg-muted/50 transition-colors capitalize rounded-md touch-manipulation text-base">
+                    {section}
+                  </button>)}
+              </div>
             </div>}
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-gradient-start via-gradient-mid to-gradient-end">
-        <div className="text-center z-10">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent uppercase tracking-wide">
+      <section className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-gradient-start via-gradient-mid to-gradient-end pt-20">
+        <div className="text-center z-10 px-4 sm:px-6 max-w-4xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent uppercase tracking-wide leading-tight">
             Raghunandhan S
           </h1>
-          <h2 className="text-2xl md:text-3xl mb-6 text-foreground/90">Full Stack Developer & AI/ML Enthusiast</h2>
-          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto text-foreground/80 px-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl mb-4 sm:mb-6 text-foreground/90 leading-relaxed">Full Stack Developer & AI/ML Enthusiast</h2>
+          <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto text-foreground/80 leading-relaxed">
             Passionate about creating innovative solutions through technology and artificial intelligence. 
             Specializing in full-stack development with expertise in machine learning and data analysis.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
-            <Button onClick={() => scrollToSection('contact')} className="bg-primary hover:bg-primary/90 text-primary-foreground">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md mx-auto sm:max-w-none">
+            <Button 
+              onClick={() => scrollToSection('contact')} 
+              className="bg-primary hover:bg-primary/90 text-primary-foreground min-h-[48px] px-6 py-3 text-base touch-manipulation"
+            >
               Contact Me
             </Button>
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                <Button 
+                  variant="outline" 
+                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground min-h-[48px] px-6 py-3 text-base touch-manipulation"
+                >
                   View Resume
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+              <DialogContent className="max-w-[95vw] sm:max-w-4xl max-h-[85vh] overflow-y-auto mx-4">
                 <DialogHeader>
                   <DialogTitle>Resume - Raghunandhan S</DialogTitle>
                 </DialogHeader>
@@ -164,24 +176,27 @@ const Index = () => {
         </div>
         
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-          <ChevronDown className="w-6 h-6 text-foreground/60 animate-bounce cursor-pointer" onClick={() => scrollToSection('about')} />
+        <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2">
+          <ChevronDown 
+            className="w-6 h-6 sm:w-8 sm:h-8 text-foreground/60 animate-bounce cursor-pointer touch-manipulation p-1" 
+            onClick={() => scrollToSection('about')} 
+          />
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-4">
+      <section id="about" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             About Me
           </h2>
           <Card className="bg-card/50 backdrop-blur-sm border-border">
-            <CardContent className="p-8">
-              <p className="text-lg leading-relaxed text-foreground/90">
+            <CardContent className="p-4 sm:p-6 md:p-8">
+              <p className="text-base sm:text-lg leading-relaxed text-foreground/90">
                 I am a dedicated Full Stack Developer with a strong background in Automobile Engineering and a passionate pursuit in Artificial Intelligence and Machine Learning. 
                 My journey spans from mechanical engineering to software development, bringing a unique perspective to problem-solving. 
                 I specialize in creating efficient, scalable solutions using modern technologies like React, Python, and machine learning frameworks.
-                
+                <br /><br />
                 Currently focused on developing impactful applications that bridge the gap between traditional engineering and cutting-edge AI/ML technologies.
               </p>
             </CardContent>
@@ -190,19 +205,19 @@ const Index = () => {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 px-4 bg-muted/30">
+      <section id="skills" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-12 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Skills & Technologies
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Object.entries(skills).map(([category, skillList]) => <Card key={category} className="bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="text-primary">{category}</CardTitle>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {Object.entries(skills).map(([category, skillList]) => <Card key={category} className="bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1">
+                <CardHeader className="pb-3 sm:pb-4">
+                  <CardTitle className="text-primary text-lg sm:text-xl">{category}</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-0">
                   <div className="flex flex-wrap gap-2">
-                    {skillList.map(skill => <Badge key={skill} variant="secondary" className="bg-secondary hover:bg-accent transition-colors">
+                    {skillList.map(skill => <Badge key={skill} variant="secondary" className="bg-secondary hover:bg-accent transition-colors text-xs sm:text-sm py-1 px-2 touch-manipulation">
                         {skill}
                       </Badge>)}
                   </div>
@@ -213,27 +228,30 @@ const Index = () => {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-4">
+      <section id="projects" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-12 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Featured Projects
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project, index) => <Card key={index} className={`bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer ${expandedProject === index ? 'md:col-span-2 lg:col-span-3' : ''}`} onClick={() => setExpandedProject(expandedProject === index ? null : index)}>
-                <CardHeader>
-                  <CardTitle className="text-foreground flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      {project.title}
-                      {project.hasGitHub && <Github className="w-6 h-6 text-primary hover:text-primary/80 transition-colors" onClick={e => {
-                    e.stopPropagation();
-                    window.open(project.link, '_blank');
-                  }} />}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {projects.map((project, index) => <Card key={index} className={`bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer touch-manipulation ${expandedProject === index ? 'md:col-span-2 lg:col-span-3' : ''}`} onClick={() => setExpandedProject(expandedProject === index ? null : index)}>
+                <CardHeader className="pb-3 sm:pb-4">
+                  <CardTitle className="text-foreground flex items-start sm:items-center justify-between gap-2 text-base sm:text-lg">
+                    <div className="flex items-start sm:items-center gap-2 flex-1 min-w-0">
+                      <span className="break-words">{project.title}</span>
+                      {project.hasGitHub && <Github 
+                        className="w-5 h-5 sm:w-6 sm:h-6 text-primary hover:text-primary/80 transition-colors flex-shrink-0 touch-manipulation p-0.5" 
+                        onClick={e => {
+                          e.stopPropagation();
+                          window.open(project.link, '_blank');
+                        }} 
+                      />}
                     </div>
-                    <ChevronDown className={`w-5 h-5 transition-transform ${expandedProject === index ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-5 h-5 transition-transform flex-shrink-0 touch-manipulation ${expandedProject === index ? 'rotate-180' : ''}`} />
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-foreground/80 mb-4">
+                <CardContent className="pt-0">
+                  <p className="text-foreground/80 mb-4 text-sm sm:text-base leading-relaxed">
                     {expandedProject === index ? project.detailedDescription : project.description}
                   </p>
                   {project.organization && <div className="mb-4">
@@ -241,26 +259,26 @@ const Index = () => {
                       <p className="text-sm text-foreground/70">{project.organization}</p>
                     </div>}
                   {project.link && expandedProject === index && <div className="mb-4">
-                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors" onClick={e => e.stopPropagation()}>
+                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors touch-manipulation py-1" onClick={e => e.stopPropagation()}>
                         <ExternalLink className="w-4 h-4" />
                         View Repository
                       </a>
                     </div>}
                   <div className="mb-4">
                     <p className="text-sm font-semibold text-primary mb-2">Tech Stack:</p>
-                    <div className="flex flex-wrap gap-1">
-                      {project.tech.map(tech => <Badge key={tech} variant="outline" className="text-xs">
+                    <div className="flex flex-wrap gap-1 sm:gap-2">
+                      {project.tech.map(tech => <Badge key={tech} variant="outline" className="text-xs py-1 px-2">
                           {tech}
                         </Badge>)}
                     </div>
                   </div>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map(tag => <Badge key={tag} className="bg-primary/20 text-primary">
+                  <div className="flex flex-wrap gap-1 sm:gap-2 mb-3">
+                    {project.tags.map(tag => <Badge key={tag} className="bg-primary/20 text-primary text-xs py-1 px-2">
                         {tag}
                       </Badge>)}
                   </div>
-                  {expandedProject !== index && <p className="text-xs text-foreground/60 mt-3">
-                      {project.hasGitHub ? 'Click to expand details or GitHub icon to view repository' : 'Click to expand for details'}
+                  {expandedProject !== index && <p className="text-xs text-foreground/60">
+                      {project.hasGitHub ? 'Tap to expand details or GitHub icon to view repository' : 'Tap to expand for details'}
                     </p>}
                 </CardContent>
               </Card>)}
