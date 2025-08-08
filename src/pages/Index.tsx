@@ -611,9 +611,21 @@ const Index = () => {
               <Card className="bg-card/50 backdrop-blur-sm border-border">
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-foreground mb-2">QR Code Contact</h3>
-                  <div className="w-32 h-32 rounded-lg overflow-hidden">
-                    <img src="/lovable-uploads/24daf3d3-0097-423b-b311-4034fde00723.png" alt="Instagram QR Code" className="w-full h-full object-cover" />
-                  </div>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <div className="w-32 h-32 rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
+                        <img src="/lovable-uploads/24daf3d3-0097-423b-b311-4034fde00723.png" alt="Instagram QR Code" className="w-full h-full object-cover" />
+                      </div>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-md">
+                      <DialogHeader>
+                        <DialogTitle>Instagram QR Code</DialogTitle>
+                      </DialogHeader>
+                      <div className="flex justify-center">
+                        <img src="/lovable-uploads/24daf3d3-0097-423b-b311-4034fde00723.png" alt="Instagram QR Code" className="w-80 h-80 object-cover rounded-lg" />
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </CardContent>
               </Card>
             </div>
