@@ -71,11 +71,11 @@ const Index = () => {
     tags: ["ML", "NLP"]
   }];
   const publicationsList = [{
-    title: "Personalised Learning Platform Using AI-Based Adaptive Systems",
-    publisher: "IEEE",
-    date: "June 27, 2025",
-    link: "https://ieeexplore.ieee.org/document/11041038",
-    description: "We created a custom Learning application that adapts content based on a student's mood, survey data, difficulty level, and motivation. Technologies used: Emotion Detection, RL, DL, Sentiment Analysis, Linear Regression, etc."
+    title: "Effect of CNG Induction on the Performance and Emission Characteristics of a DI Diesel Engine Fuelled with Biodiesel Ethanol Blends",
+    publisher: "Yanthrika",
+    date: "December 26, 2023",
+    link: "https://yanthrika.com/eja/index.php/ijvss/article/view/2755",
+    description: "Presented at National Conference. Explored how CNG induction influences engine performance and emissions, aimed at eco-friendly fuel alternatives."
   }, {
     title: "Deep Learning-Based Tyre Wear Detection and Predictive Maintenance Using Wireless Sensor Communication in Automobiles",
     publisher: "ISBN Conference Proceedings",
@@ -83,11 +83,11 @@ const Index = () => {
     isbn: "978-81-985702-6-0",
     description: "Presented at AISSEWS 2025, won Best Paper Award. Focused on using Deep Learning and wireless sensor communication for predictive tyre maintenance in vehicles."
   }, {
-    title: "Effect of CNG Induction on the Performance and Emission Characteristics of a DI Diesel Engine Fuelled with Biodiesel Ethanol Blends",
-    publisher: "Yanthrika",
-    date: "December 26, 2023",
-    link: "https://yanthrika.com/eja/index.php/ijvss/article/view/2755",
-    description: "Presented at National Conference. Explored how CNG induction influences engine performance and emissions, aimed at eco-friendly fuel alternatives."
+    title: "Personalised Learning Platform Using AI-Based Adaptive Systems",
+    publisher: "IEEE",
+    date: "June 27, 2025",
+    link: "https://ieeexplore.ieee.org/document/11041038",
+    description: "We created a custom Learning application that adapts content based on a student's mood, survey data, difficulty level, and motivation. Technologies used: Emotion Detection, RL, DL, Sentiment Analysis, Linear Regression, etc."
   }, {
     title: "Job Scheduling in Big Data Analytics Using Reinforcement Learning",
     publisher: "IEEE + Index Springer",
