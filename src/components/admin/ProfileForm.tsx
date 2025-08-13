@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileUpload } from "./FileUpload";
 
 interface Profile {
   id?: string;
@@ -105,23 +104,23 @@ export const ProfileForm = ({ userId }: ProfileFormProps) => {
             />
           </div>
 
-          <div className="grid grid-cols-1 gap-4">
-            <FileUpload
-              bucket="profile-images"
-              userId={userId}
-              currentUrl={profile.profile_image_url || ""}
-              onUploadComplete={(url) => setProfile({ ...profile, profile_image_url: url })}
-              accept="image/*"
-              label="Profile Image"
-            />
-            <FileUpload
-              bucket="resumes"
-              userId={userId}
-              currentUrl={profile.resume_url || ""}
-              onUploadComplete={(url) => setProfile({ ...profile, resume_url: url })}
-              accept=".pdf"
-              label="Resume (PDF)"
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="profile_image_url">Profile Image URL</Label>
+              <Input
+                id="profile_image_url"
+                value={profile.profile_image_url || ""}
+                onChange={(e) => setProfile({ ...profile, profile_image_url: e.target.value })}
+              />
+            </div>
+            <div>
+              <Label htmlFor="resume_url">Resume URL</Label>
+              <Input
+                id="resume_url"
+                value={profile.resume_url || ""}
+                onChange={(e) => setProfile({ ...profile, resume_url: e.target.value })}
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-3 gap-4">

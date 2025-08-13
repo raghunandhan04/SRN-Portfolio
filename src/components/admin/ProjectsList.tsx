@@ -10,7 +10,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Pencil, Trash2, Plus } from "lucide-react";
-import { FileUpload } from "./FileUpload";
 
 interface Project {
   id?: string;
@@ -177,14 +176,14 @@ export const ProjectsList = ({ userId }: ProjectsListProps) => {
                 </div>
               </div>
 
-              <FileUpload
-                bucket="project-images"
-                userId={userId}
-                currentUrl={editingProject?.image_url || ""}
-                onUploadComplete={(url) => setEditingProject(prev => prev ? {...prev, image_url: url} : null)}
-                accept="image/*"
-                label="Project Image"
-              />
+              <div>
+                <Label htmlFor="image_url">Image URL</Label>
+                <Input
+                  id="image_url"
+                  value={editingProject?.image_url || ""}
+                  onChange={(e) => setEditingProject(prev => prev ? {...prev, image_url: e.target.value} : null)}
+                />
+              </div>
 
               <div className="flex items-center space-x-2">
                 <input

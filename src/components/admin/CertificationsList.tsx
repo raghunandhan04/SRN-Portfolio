@@ -9,7 +9,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Pencil, Trash2, Plus } from "lucide-react";
-import { FileUpload } from "./FileUpload";
 
 interface Certification {
   id?: string;
@@ -183,32 +182,21 @@ export const CertificationsList = ({ userId }: CertificationsListProps) => {
               </div>
 
               <div>
+                <Label htmlFor="image_url">Image URL</Label>
+                <Input
+                  id="image_url"
+                  value={editingCert?.image_url || ""}
+                  onChange={(e) => setEditingCert(prev => prev ? {...prev, image_url: e.target.value} : null)}
+                />
+              </div>
+
+              <div>
                 <Label htmlFor="description">Description</Label>
                 <Textarea
                   id="description"
                   value={editingCert?.description || ""}
                   onChange={(e) => setEditingCert(prev => prev ? {...prev, description: e.target.value} : null)}
-                  rows={3}
                 />
-              </div>
-
-              <FileUpload
-                bucket="certificates"
-                userId={userId}
-                currentUrl={editingCert?.image_url || ""}
-                onUploadComplete={(url) => setEditingCert(prev => prev ? {...prev, image_url: url} : null)}
-                accept="image/*,.pdf"
-                label="Certificate Image/PDF"
-              />
-
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="is_active"
-                  checked={editingCert?.is_active || false}
-                  onChange={(e) => setEditingCert(prev => prev ? {...prev, is_active: e.target.checked} : null)}
-                />
-                <Label htmlFor="is_active">Active</Label>
               </div>
 
               <Button type="submit" disabled={loading}>

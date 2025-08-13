@@ -1,5 +1,5 @@
-// Portfolio website for Raghunandhan S - Dynamic content from database
-import { useState, useEffect } from 'react';
+// Portfolio website for Raghunandhan S - Fixed duplicate publications variable
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -18,62 +18,6 @@ const Index = () => {
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-
-  // Dynamic data states
-  const [profile, setProfile] = useState<any>(null);
-  const [projects, setProjects] = useState<any[]>([]);
-  const [skills, setSkills] = useState<any[]>([]);
-  const [certifications, setCertifications] = useState<any[]>([]);
-  const [socialLinks, setSocialLinks] = useState<any[]>([]);
-
-  useEffect(() => {
-    fetchPortfolioData();
-  }, []);
-
-  const fetchPortfolioData = async () => {
-    try {
-      // Fetch profile
-      const { data: profileData } = await supabase
-        .from('profiles')
-        .select('*')
-        .maybeSingle();
-      
-      // Fetch projects
-      const { data: projectsData } = await supabase
-        .from('projects')
-        .select('*')
-        .eq('is_active', true)
-        .order('display_order');
-      
-      // Fetch skills
-      const { data: skillsData } = await supabase
-        .from('skills')
-        .select('*')
-        .order('display_order');
-      
-      // Fetch certifications
-      const { data: certificationsData } = await supabase
-        .from('certifications')
-        .select('*')
-        .eq('is_active', true)
-        .order('display_order');
-      
-      // Fetch social links
-      const { data: socialLinksData } = await supabase
-        .from('social_links')
-        .select('*')
-        .eq('is_active', true)
-        .order('display_order');
-
-      setProfile(profileData);
-      setProjects(projectsData || []);
-      setSkills(skillsData || []);
-      setCertifications(certificationsData || []);
-      setSocialLinks(socialLinksData || []);
-    } catch (error) {
-      console.error('Error fetching portfolio data:', error);
-    }
-  };
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({
@@ -120,25 +64,83 @@ const Index = () => {
       setIsSubmitting(false);
     }
   };
-  // Group skills by category
-  const groupedSkills = skills.reduce((acc: any, skill) => {
-    if (!acc[skill.category]) {
-      acc[skill.category] = [];
-    }
-    acc[skill.category].push(skill.name);
-    return acc;
-  }, {});
-
-  // Fallback data if no skills in database
-  const defaultSkills = {
+  const skills = {
     Frontend: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React'],
     Backend: ['Python', 'FastAPI', '.NET'],
     Database: ['MySQL', 'PostgreSQL'],
     Tools: ['Git', 'GitHub', 'Power BI', 'VS Code', 'Catia V5'],
     'AI/ML': ['Machine Learning', 'TensorFlow', 'Artificial Intelligence', 'Data Analysis', 'Deep Learning']
   };
-
-  const skillsToShow = Object.keys(groupedSkills).length > 0 ? groupedSkills : defaultSkills;
+  const projects = [{
+    title: "E-commerce Website for Apparel Store",
+    description: "A modern responsive e-commerce web app built using TypeScript and React.",
+    detailedDescription: "Developed a comprehensive e-commerce platform for an apparel store featuring user authentication, product catalog, shopping cart, payment integration, and admin dashboard. Built with modern React patterns, TypeScript for type safety, and responsive design for optimal user experience across all devices.",
+    tech: ["TypeScript", "React", "E-commerce"],
+    tags: ["Frontend", "E-commerce"],
+    link: "https://github.com/raghunandhan04/E-commerce-Website-for-Apparel-Store",
+    hasGitHub: true
+  }, {
+    title: "Deep Learning based Smart Battery Thermal Management System (BTMS) for EV Batteries\n(Final Year Project)",
+    description: "Machine learning model for predictive maintenance in industrial equipment",
+    detailedDescription: "Developed a comprehensive machine learning solution for predictive maintenance in industrial settings. The system analyzes sensor data, equipment performance metrics, and historical maintenance records to predict potential failures before they occur. Implemented using advanced algorithms including Random Forest, LSTM neural networks, and ensemble methods to achieve high accuracy in failure prediction.",
+    tech: ["Python", "TensorFlow", "Data Analysis", "Deep Learning", "CNN", "Matlab", "Fluke Thermal Imaging", "Ansys"],
+    tags: ["ML", "Industrial"],
+    organization: "Madras Institute of Technology, Anna University"
+  }, {
+    title: "DNS Server Project",
+    description: "Custom DNS server implementation with advanced routing capabilities",
+    detailedDescription: "Built a high-performance DNS server from scratch with advanced routing and caching mechanisms. Features include custom domain resolution, load balancing, security filters, and real-time monitoring. The server handles thousands of concurrent requests with sub-millisecond response times and includes comprehensive logging and analytics.",
+    tech: ["Python", "Networking"],
+    tags: ["Networking", "Backend"],
+    organization: "HCL Technologies"
+  }, {
+    title: ".NET Code Coverage Tool",
+    description: "Tool for analyzing and improving code coverage in .NET applications",
+    detailedDescription: "Developed a comprehensive code coverage analysis tool for .NET applications that provides detailed insights into test coverage, identifies untested code paths, and generates actionable reports. The tool integrates with popular CI/CD pipelines and provides real-time coverage metrics with customizable thresholds and alerts.",
+    tech: [".NET", "C#", "Testing"],
+    tags: ["Testing", "DevTools"],
+    organization: "HCL Technologies"
+  }, {
+    title: "Cycle Time Reduction Tool",
+    description: "Tool to optimize and reduce development cycle times",
+    detailedDescription: "Created an automated tool that analyzes development workflows, identifies bottlenecks, and suggests optimizations to reduce cycle times. The tool integrates with project management systems, tracks key metrics, and provides data-driven recommendations for process improvements, resulting in 30% faster delivery times.",
+    tech: ["Python", "Data Analysis"],
+    tags: ["Optimization", "DevOps"],
+    organization: "Ashok Leyland"
+  }, {
+    title: "Sentiment Analysis using TensorFlow",
+    description: "NLP model for sentiment analysis using deep learning",
+    detailedDescription: "Implemented a sophisticated sentiment analysis system using TensorFlow and advanced NLP techniques. The model processes text data from multiple sources, performs real-time sentiment classification, and provides detailed emotional insights. Achieved 94% accuracy on benchmark datasets using transformer architectures and custom preprocessing pipelines.",
+    tech: ["Python", "TensorFlow", "NLP"],
+    tags: ["ML", "NLP"]
+  }];
+  const publicationsList = [{
+    title: "Job Scheduling in Big Data Analytics Using Reinforcement Learning",
+    publisher: "IEEE + Index Springer",
+    date: "July 26, 2025",
+    conference: "Artificial Intelligence and Sustainable Computing (AISC 2025, July 24-26, 2025)",
+    description: "Presented at AISC 2025 conference. This paper explores advanced reinforcement learning techniques for optimizing job scheduling in big data analytics environments, improving efficiency and resource utilization.",
+    status: "Publication in Process"
+  }, {
+    title: "Personalised Learning Platform Using AI-Based Adaptive Systems",
+    publisher: "IEEE",
+    date: "June 27, 2025",
+    link: "https://ieeexplore.ieee.org/document/11041038",
+    description: "We created a custom Learning application that adapts content based on a student's mood, survey data, difficulty level, and motivation. Technologies used: Emotion Detection, RL, DL, Sentiment Analysis, Linear Regression, etc."
+  }, {
+    title: "Deep Learning-Based Tyre Wear Detection and Predictive Maintenance Using Wireless Sensor Communication in Automobiles",
+    publisher: "ISBN Conference Proceedings",
+    date: "April 28, 2025",
+    isbn: "978-81-985702-6-0",
+    description: "Presented at AISSEWS 2025, won Best Paper Award. Focused on using Deep Learning and wireless sensor communication for predictive tyre maintenance in vehicles."
+  }, {
+    title: "Effect of CNG Induction on the Performance and Emission Characteristics of a DI Diesel Engine Fuelled with Biodiesel Ethanol Blends",
+    publisher: "Yanthrika",
+    date: "December 26, 2023",
+    link: "https://yanthrika.com/eja/index.php/ijvss/article/view/2755",
+    description: "Presented at National Conference. Explored how CNG induction influences engine performance and emissions, aimed at eco-friendly fuel alternatives."
+  }];
+  const certifications = ["AWS Cloud Practitioner - Amazon Web Services", "Python for Data Science - Coursera", "React Developer Certification - Meta", "Machine Learning Fundamentals - edX"];
   return <div className="min-h-screen bg-gradient-to-br from-background via-muted to-card text-foreground">
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-background/95 backdrop-blur-md border-b border-border z-50">
@@ -181,12 +183,13 @@ const Index = () => {
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-gradient-start via-gradient-mid to-gradient-end pt-20">
         <div className="text-center z-10 px-4 sm:px-6 max-w-4xl mx-auto">
-            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent uppercase tracking-wide leading-tight">
-            {profile?.full_name || "Raghunandhan S"}
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent uppercase tracking-wide leading-tight">
+            Raghunandhan S
           </h1>
-          <h2 className="text-xl sm:text-2xl md:text-3xl mb-4 sm:mb-6 text-foreground/90 leading-relaxed">{profile?.title || "Full Stack Developer & AI/ML Enthusiast"}</h2>
+          <h2 className="text-xl sm:text-2xl md:text-3xl mb-4 sm:mb-6 text-foreground/90 leading-relaxed">Full Stack Developer & AI/ML Enthusiast</h2>
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto text-foreground/80 leading-relaxed">
-            {profile?.bio || "Passionate about creating innovative solutions through technology and artificial intelligence. Specializing in full-stack development with expertise in machine learning and data analysis."}
+            Passionate about creating innovative solutions through technology and artificial intelligence. 
+            Specializing in full-stack development with expertise in machine learning and data analysis.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md mx-auto sm:max-w-none">
             <Button 
@@ -234,7 +237,11 @@ const Index = () => {
           <Card className="bg-card/50 backdrop-blur-sm border-border">
             <CardContent className="p-4 sm:p-6 md:p-8">
               <p className="text-base sm:text-lg leading-relaxed text-foreground/90">
-                {profile?.bio || "I am a dedicated Full Stack Developer with a strong background in Automobile Engineering and a passionate pursuit in Artificial Intelligence and Machine Learning. My journey spans from mechanical engineering to software development, bringing a unique perspective to problem-solving. I specialize in creating efficient, scalable solutions using modern technologies like React, Python, and machine learning frameworks."}
+                I am a dedicated Full Stack Developer with a strong background in Automobile Engineering and a passionate pursuit in Artificial Intelligence and Machine Learning. 
+                My journey spans from mechanical engineering to software development, bringing a unique perspective to problem-solving. 
+                I specialize in creating efficient, scalable solutions using modern technologies like React, Python, and machine learning frameworks.
+                <br /><br />
+                Currently focused on developing impactful applications that bridge the gap between traditional engineering and cutting-edge AI/ML technologies.
               </p>
             </CardContent>
           </Card>
@@ -248,13 +255,13 @@ const Index = () => {
             Skills & Technologies
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {Object.entries(skillsToShow).map(([category, skillList]) => <Card key={category} className="bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1">
+            {Object.entries(skills).map(([category, skillList]) => <Card key={category} className="bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1">
                 <CardHeader className="pb-3 sm:pb-4">
                   <CardTitle className="text-primary text-lg sm:text-xl">{category}</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="flex flex-wrap gap-2">
-                     {(skillList as string[]).map((skill: string) => <Badge key={skill} variant="secondary" className="bg-secondary hover:bg-accent transition-colors text-xs sm:text-sm py-1 px-2 touch-manipulation">
+                    {skillList.map(skill => <Badge key={skill} variant="secondary" className="bg-secondary hover:bg-accent transition-colors text-xs sm:text-sm py-1 px-2 touch-manipulation">
                         {skill}
                       </Badge>)}
                   </div>
@@ -276,11 +283,11 @@ const Index = () => {
                   <CardTitle className="text-foreground flex items-start sm:items-center justify-between gap-2 text-base sm:text-lg">
                     <div className="flex items-start sm:items-center gap-2 flex-1 min-w-0">
                       <span className="break-words">{project.title}</span>
-                      {project.github_url && <Github 
+                      {project.hasGitHub && <Github 
                         className="w-5 h-5 sm:w-6 sm:h-6 text-primary hover:text-primary/80 transition-colors flex-shrink-0 touch-manipulation p-0.5" 
                         onClick={e => {
                           e.stopPropagation();
-                          window.open(project.github_url, '_blank');
+                          window.open(project.link, '_blank');
                         }} 
                       />}
                     </div>
@@ -289,32 +296,34 @@ const Index = () => {
                 </CardHeader>
                 <CardContent className="pt-0">
                   <p className="text-foreground/80 mb-4 text-sm sm:text-base leading-relaxed">
-                    {project.description}
+                    {expandedProject === index ? project.detailedDescription : project.description}
                   </p>
+                  {project.organization && <div className="mb-4">
+                      <p className="text-sm font-semibold text-primary mb-1">Organization:</p>
+                      <p className="text-sm text-foreground/70">{project.organization}</p>
+                    </div>}
+                  {project.link && expandedProject === index && <div className="mb-4">
+                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors touch-manipulation py-1" onClick={e => e.stopPropagation()}>
+                        <ExternalLink className="w-4 h-4" />
+                        View Repository
+                      </a>
+                    </div>}
+                  <div className="mb-4">
+                    <p className="text-sm font-semibold text-primary mb-2">Tech Stack:</p>
+                    <div className="flex flex-wrap gap-1 sm:gap-2">
+                      {project.tech.map(tech => <Badge key={tech} variant="outline" className="text-xs py-1 px-2">
+                          {tech}
+                        </Badge>)}
+                    </div>
+                  </div>
                   <div className="flex flex-wrap gap-1 sm:gap-2 mb-3">
-                    {project.technologies?.map((tech: string, techIndex: number) => <Badge key={techIndex} variant="outline" className="text-xs border-primary/30 text-primary">
-                        {tech}
+                    {project.tags.map(tag => <Badge key={tag} className="bg-primary/20 text-primary text-xs py-1 px-2">
+                        {tag}
                       </Badge>)}
                   </div>
-                  
-                  {expandedProject === index && <div className="mt-4 pt-4 border-t border-border">
-                      <div className="flex gap-4 mb-4">
-                        {project.github_url && <Button variant="outline" size="sm" onClick={(e) => {
-                          e.stopPropagation();
-                          window.open(project.github_url, '_blank');
-                        }}>
-                          <Github className="w-4 h-4 mr-2" />
-                          GitHub
-                        </Button>}
-                        {project.project_url && <Button variant="outline" size="sm" onClick={(e) => {
-                          e.stopPropagation();
-                          window.open(project.project_url, '_blank');
-                        }}>
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          View Project
-                        </Button>}
-                      </div>
-                    </div>}
+                  {expandedProject !== index && <p className="text-xs text-foreground/60">
+                      {project.hasGitHub ? 'Tap to expand details or GitHub icon to view repository' : 'Tap to expand for details'}
+                    </p>}
                 </CardContent>
               </Card>)}
           </div>
@@ -329,7 +338,7 @@ const Index = () => {
           </h2>
           
           <div className="space-y-6 mb-8">
-            {certifications.map((cert, index) => <Card key={index} className="bg-card/50 backdrop-blur-sm border-border">
+            {publicationsList.map((publication, index) => <Card key={index} className="bg-card/50 backdrop-blur-sm border-border">
                 <Collapsible open={expandedPublication === index} onOpenChange={() => setExpandedPublication(expandedPublication === index ? null : index)}>
                   <CollapsibleTrigger asChild>
                     <div className="w-full cursor-pointer">
@@ -337,15 +346,19 @@ const Index = () => {
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <CardTitle className="text-foreground text-left flex items-center gap-2 mb-2">
-                              <Award className="w-5 h-5 text-primary" />
-                              {cert.title}
+                              <BookOpen className="w-5 h-5 text-primary" />
+                              {publication.title}
                             </CardTitle>
                             <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-foreground/70">
-                              <span className="font-medium text-primary">{cert.issuer}</span>
-                              {cert.issue_date && <>
-                                <span className="hidden sm:inline">•</span>
-                                <span>{new Date(cert.issue_date).toLocaleDateString()}</span>
-                              </>}
+                              <span className="font-medium text-primary">{publication.publisher}</span>
+                              <span className="hidden sm:inline">•</span>
+                              <span>{publication.date}</span>
+                              {publication.status && <>
+                                  <span className="hidden sm:inline">•</span>
+                                  <Badge variant="outline" className="w-fit">
+                                    {publication.status}
+                                  </Badge>
+                                </>}
                             </div>
                           </div>
                           <ChevronDown className={`w-5 h-5 transition-transform flex-shrink-0 ml-4 ${expandedPublication === index ? 'rotate-180' : ''}`} />
@@ -357,19 +370,27 @@ const Index = () => {
                   <CollapsibleContent>
                     <CardContent className="pt-0">
                       <div className="space-y-4">
-                        {cert.description && <p className="text-foreground/80 leading-relaxed">
-                          {cert.description}
-                        </p>}
+                        <p className="text-foreground/80 leading-relaxed">
+                          {publication.description}
+                        </p>
                         
                         <div className="flex flex-wrap gap-4 items-center">
-                          {cert.credential_url && <a href={cert.credential_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors" onClick={e => e.stopPropagation()}>
-                              <ExternalLink className="w-4 h-4" />
-                              View Credential
+                          {publication.link && <a href={publication.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors" onClick={e => e.stopPropagation()}>
+                              <Link className="w-4 h-4" />
+                              View Publication
                             </a>}
                           
-                          {cert.credential_id && <div className="text-sm text-foreground/70">
-                              <span className="font-medium">ID:</span> {cert.credential_id}
+                          {publication.isbn && <div className="text-sm text-foreground/70">
+                              <span className="font-medium">ISBN:</span> {publication.isbn}
                             </div>}
+                          
+                          <Button variant="outline" size="sm" className="ml-auto" onClick={e => {
+                        e.stopPropagation();
+                        // Handle file upload functionality
+                      }}>
+                            <FileText className="w-4 h-4 mr-2" />
+                            Upload PDF
+                          </Button>
                         </div>
                       </div>
                     </CardContent>
