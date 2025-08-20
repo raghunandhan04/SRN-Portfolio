@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { ChevronDown, Mail, Github, Linkedin, ExternalLink, Award, Briefcase, GraduationCap, Trophy, Users, Calendar, MapPin, BookOpen, Plus, FileText, Link } from "lucide-react";
+import { ChevronDown, Mail, Github, Linkedin, ExternalLink, Award, Briefcase, GraduationCap, Trophy, Users, Calendar, MapPin, BookOpen, Plus, Link } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -384,13 +384,7 @@ const Index = () => {
                               <span className="font-medium">ISBN:</span> {publication.isbn}
                             </div>}
                           
-                          <Button variant="outline" size="sm" className="ml-auto" onClick={e => {
-                        e.stopPropagation();
-                        // Handle file upload functionality
-                      }}>
-                            <FileText className="w-4 h-4 mr-2" />
-                            Upload PDF
-                          </Button>
+                          {/* Upload PDF button removed as per request */}
                         </div>
                       </div>
                     </CardContent>
