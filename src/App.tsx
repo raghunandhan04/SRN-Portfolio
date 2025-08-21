@@ -3,7 +3,15 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
+import Home from "./pages/Home";
+import Layout from "./components/Layout";
+import AboutPage from "./pages/AboutPage";
+import SkillsPage from "./pages/SkillsPage";
+import ProjectsPage from "./pages/ProjectsPage";
+import PublicationsPage from "./pages/PublicationsPage";
+import EducationPage from "./pages/EducationPage";
+import ExperiencePage from "./pages/ExperiencePage";
+import ContactPage from "./pages/ContactPage";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
@@ -16,9 +24,22 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          {/* Landing page */}
+          <Route path="/" element={<Home />} />
+
+          {/* Section pages with shared layout */}
+          <Route element={<Layout />}>
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/skills" element={<SkillsPage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/publications" element={<PublicationsPage />} />
+            <Route path="/education" element={<EducationPage />} />
+            <Route path="/experience" element={<ExperiencePage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Route>
+
+          {/* Admin and fallback */}
           <Route path="/admin" element={<Admin />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
