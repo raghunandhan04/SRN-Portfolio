@@ -24,11 +24,9 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          {/* Landing page */}
-          <Route path="/" element={<Home />} />
-
-          {/* Section pages with shared layout */}
+          {/* Use shared layout for all pages, including landing */}
           <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/skills" element={<SkillsPage />} />
             <Route path="/projects" element={<ProjectsPage />} />
