@@ -10,6 +10,7 @@ import { ChevronDown, Mail, Github, Linkedin, ExternalLink, Award, Briefcase, Gr
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import CertificationsSection from "@/components/CertificationsSection";
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [expandedProject, setExpandedProject] = useState<number | null>(null);
@@ -28,7 +29,6 @@ const Index = () => {
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!contactForm.name || !contactForm.email || !contactForm.message) {
       toast({
         title: "Error",
@@ -39,7 +39,6 @@ const Index = () => {
     }
 
     setIsSubmitting(true);
-    
     try {
       const { error } = await supabase.functions.invoke('send-contact-email', {
         body: contactForm
@@ -51,7 +50,7 @@ const Index = () => {
         title: "Message sent!",
         description: "Thank you for your message. I'll get back to you soon!",
       });
-      
+
       setContactForm({ name: '', email: '', message: '' });
     } catch (error) {
       console.error('Error sending message:', error);
@@ -150,7 +149,7 @@ const Index = () => {
             
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-4 lg:space-x-6">
-              {['about', 'skills', 'projects', 'publications', 'education', 'experience', 'contact'].map(section => <button key={section} onClick={() => scrollToSection(section)} className="text-foreground hover:text-primary transition-colors capitalize px-2 py-1 rounded-md hover:bg-muted/50">
+              {['about', 'skills', 'projects', 'publications', 'certifications', 'education', 'experience', 'contact'].map(section => <button key={section} onClick={() => scrollToSection(section)} className="text-foreground hover:text-primary transition-colors capitalize px-2 py-1 rounded-md hover:bg-muted/50">
                   {section}
                 </button>)}
             </div>
@@ -172,7 +171,7 @@ const Index = () => {
           {/* Mobile Menu */}
           {isMenuOpen && <div className="md:hidden pb-4 border-t border-border/50 mt-2 pt-4">
               <div className="flex flex-col space-y-2">
-                {['about', 'skills', 'projects', 'publications', 'education', 'experience', 'contact'].map(section => <button key={section} onClick={() => scrollToSection(section)} className="text-left py-3 px-4 text-foreground hover:text-primary hover:bg-muted/50 transition-colors capitalize rounded-md touch-manipulation text-base">
+                {['about', 'skills', 'projects', 'publications', 'certifications', 'education', 'experience', 'contact'].map(section => <button key={section} onClick={() => scrollToSection(section)} className="text-left py-3 px-4 text-foreground hover:text-primary hover:bg-muted/50 transition-colors capitalize rounded-md touch-manipulation text-base">
                     {section}
                   </button>)}
               </div>
@@ -227,6 +226,9 @@ const Index = () => {
           />
         </div>
       </section>
+
+  {/* Certifications Section */}
+  <CertificationsSection />
 
       {/* About Section */}
       <section id="about" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">

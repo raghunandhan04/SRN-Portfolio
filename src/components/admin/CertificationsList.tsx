@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,7 @@ interface Certification {
   credential_id?: string;
   credential_url?: string;
   image_url?: string;
+  file_url?: string; // PDF or image file
   description?: string;
   is_active: boolean;
   display_order: number;
@@ -33,6 +34,8 @@ export const CertificationsList = ({ userId }: CertificationsListProps) => {
   const [editingCert, setEditingCert] = useState<Certification | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -45,16 +48,35 @@ export const CertificationsList = ({ userId }: CertificationsListProps) => {
       .select("*")
       .eq("user_id", userId)
       .order("display_order");
-    
     if (data) setCertifications(data);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingCert) return;
-    
     setLoading(true);
-    const certData = { ...editingCert, user_id: userId };
+    let certData = { ...editingCert, user_id: userId };
+
+    // Handle file upload
+    const file = fileInputRef.current?.files?.[0];
+    if (file) {
+      setUploading(true);
+      const fileExt = file.name.split('.').pop();
+      const filePath = `certifications/${userId}/${Date.now()}_${file.name}`;
+      const { data: uploadData, error: uploadError } = await supabase.storage.from('lovable-uploads').upload(filePath, file);
+      setUploading(false);
+      if (uploadError) {
+        toast({
+          title: "File Upload Error",
+          description: uploadError.message,
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
+      const { publicUrl } = supabase.storage.from('lovable-uploads').getPublicUrl(filePath).data;
+      certData.file_url = publicUrl;
+    }
 
     const { error } = editingCert.id
       ? await supabase.from("certifications").update(certData).eq("id", editingCert.id)
@@ -199,8 +221,17 @@ export const CertificationsList = ({ userId }: CertificationsListProps) => {
                 />
               </div>
 
-              <Button type="submit" disabled={loading}>
-                {loading ? "Saving..." : "Save Certification"}
+              <div>
+                <Label htmlFor="file">Certificate File (PDF/Image)</Label>
+                <Input
+                  id="file"
+                  type="file"
+                  accept=".pdf,image/*"
+                  ref={fileInputRef}
+                />
+              </div>
+              <Button type="submit" disabled={loading || uploading}>
+                {loading || uploading ? "Saving..." : "Save Certification"}
               </Button>
             </form>
           </DialogContent>
@@ -252,4 +283,4 @@ export const CertificationsList = ({ userId }: CertificationsListProps) => {
       </CardContent>
     </Card>
   );
-};
+}
