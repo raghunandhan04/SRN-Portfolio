@@ -1,15 +1,15 @@
-// Portfolio website for Raghunandhan S - Fixed duplicate publications variable
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { ChevronDown, Mail, Github, Linkedin, ExternalLink, Award, Briefcase, GraduationCap, Trophy, Users, Calendar, MapPin, BookOpen, Plus, Link } from "lucide-react";
+import { ChevronDown, Mail, Github, Linkedin, ExternalLink, Award, Briefcase, GraduationCap, BookOpen } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [expandedProject, setExpandedProject] = useState<number | null>(null);
@@ -17,7 +17,59 @@ const Index = () => {
   const [expandedExperience, setExpandedExperience] = useState<string | null>(null);
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [profile, setProfile] = useState<any>(null);
+  const [skills, setSkills] = useState<any[]>([]);
+  const [projects, setProjects] = useState<any[]>([]);
+  const [certifications, setCertifications] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      // Fetch profile data
+      const { data: profileData } = await supabase
+        .from("profiles")
+        .select("*")
+        .limit(1)
+        .single();
+
+      // Fetch skills data
+      const { data: skillsData } = await supabase
+        .from("skills")
+        .select("*")
+        .eq("is_featured", true)
+        .order("display_order");
+
+      // Fetch projects data
+      const { data: projectsData } = await supabase
+        .from("projects")
+        .select("*")
+        .eq("is_active", true)
+        .order("display_order");
+
+      // Fetch certifications data
+      const { data: certificationsData } = await supabase
+        .from("certifications")
+        .select("*")
+        .eq("is_active", true)
+        .order("display_order")
+        .limit(6);
+
+      setProfile(profileData);
+      setSkills(skillsData || []);
+      setProjects(projectsData || []);
+      setCertifications(certificationsData || []);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({
@@ -64,56 +116,8 @@ const Index = () => {
       setIsSubmitting(false);
     }
   };
-  const skills = {
-    Frontend: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React'],
-    Backend: ['Python', 'FastAPI', '.NET'],
-    Database: ['MySQL', 'PostgreSQL'],
-    Tools: ['Git', 'GitHub', 'Power BI', 'VS Code', 'Catia V5'],
-    'AI/ML': ['Machine Learning', 'TensorFlow', 'Artificial Intelligence', 'Data Analysis', 'Deep Learning']
-  };
-  const projects = [{
-    title: "E-commerce Website for Apparel Store",
-    description: "A modern responsive e-commerce web app built using TypeScript and React.",
-    detailedDescription: "Developed a comprehensive e-commerce platform for an apparel store featuring user authentication, product catalog, shopping cart, payment integration, and admin dashboard. Built with modern React patterns, TypeScript for type safety, and responsive design for optimal user experience across all devices.",
-    tech: ["TypeScript", "React", "E-commerce"],
-    tags: ["Frontend", "E-commerce"],
-    link: "https://github.com/raghunandhan04/E-commerce-Website-for-Apparel-Store",
-    hasGitHub: true
-  }, {
-    title: "Deep Learning based Smart Battery Thermal Management System (BTMS) for EV Batteries\n(Final Year Project)",
-    description: "Machine learning model for predictive maintenance in industrial equipment",
-    detailedDescription: "Developed a comprehensive machine learning solution for predictive maintenance in industrial settings. The system analyzes sensor data, equipment performance metrics, and historical maintenance records to predict potential failures before they occur. Implemented using advanced algorithms including Random Forest, LSTM neural networks, and ensemble methods to achieve high accuracy in failure prediction.",
-    tech: ["Python", "TensorFlow", "Data Analysis", "Deep Learning", "CNN", "Matlab", "Fluke Thermal Imaging", "Ansys"],
-    tags: ["ML", "Industrial"],
-    organization: "Madras Institute of Technology, Anna University"
-  }, {
-    title: "DNS Server Project",
-    description: "Custom DNS server implementation with advanced routing capabilities",
-    detailedDescription: "Built a high-performance DNS server from scratch with advanced routing and caching mechanisms. Features include custom domain resolution, load balancing, security filters, and real-time monitoring. The server handles thousands of concurrent requests with sub-millisecond response times and includes comprehensive logging and analytics.",
-    tech: ["Python", "Networking"],
-    tags: ["Networking", "Backend"],
-    organization: "HCL Technologies"
-  }, {
-    title: ".NET Code Coverage Tool",
-    description: "Tool for analyzing and improving code coverage in .NET applications",
-    detailedDescription: "Developed a comprehensive code coverage analysis tool for .NET applications that provides detailed insights into test coverage, identifies untested code paths, and generates actionable reports. The tool integrates with popular CI/CD pipelines and provides real-time coverage metrics with customizable thresholds and alerts.",
-    tech: [".NET", "C#", "Testing"],
-    tags: ["Testing", "DevTools"],
-    organization: "HCL Technologies"
-  }, {
-    title: "Cycle Time Reduction Tool",
-    description: "Tool to optimize and reduce development cycle times",
-    detailedDescription: "Created an automated tool that analyzes development workflows, identifies bottlenecks, and suggests optimizations to reduce cycle times. The tool integrates with project management systems, tracks key metrics, and provides data-driven recommendations for process improvements, resulting in 30% faster delivery times.",
-    tech: ["Python", "Data Analysis"],
-    tags: ["Optimization", "DevOps"],
-    organization: "Ashok Leyland"
-  }, {
-    title: "Sentiment Analysis using TensorFlow",
-    description: "NLP model for sentiment analysis using deep learning",
-    detailedDescription: "Implemented a sophisticated sentiment analysis system using TensorFlow and advanced NLP techniques. The model processes text data from multiple sources, performs real-time sentiment classification, and provides detailed emotional insights. Achieved 94% accuracy on benchmark datasets using transformer architectures and custom preprocessing pipelines.",
-    tech: ["Python", "TensorFlow", "NLP"],
-    tags: ["ML", "NLP"]
-  }];
+
+  // Static publications data (can be moved to database later)
   const publicationsList = [{
     title: "Job Scheduling in Big Data Analytics Using Reinforcement Learning",
     publisher: "IEEE + Index Springer",
@@ -140,19 +144,34 @@ const Index = () => {
     link: "https://yanthrika.com/eja/index.php/ijvss/article/view/2755",
     description: "Presented at National Conference. Explored how CNG induction influences engine performance and emissions, aimed at eco-friendly fuel alternatives."
   }];
-  const certifications = ["AWS Cloud Practitioner - Amazon Web Services", "Python for Data Science - Coursera", "React Developer Certification - Meta", "Machine Learning Fundamentals - edX"];
-  return <div className="min-h-screen bg-gradient-to-br from-background via-muted to-card text-foreground">
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center">Loading...</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted to-card text-foreground">
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-background/95 backdrop-blur-md border-b border-border z-50">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center py-3 sm:py-4">
-            <h1 className="text-lg sm:text-xl font-bold text-primary">Raghunandhan S</h1>
+            <h1 className="text-lg sm:text-xl font-bold text-primary">{profile?.full_name || "Raghunandhan S"}</h1>
             
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-4 lg:space-x-6">
-              {['about', 'skills', 'projects', 'publications', 'education', 'experience', 'contact'].map(section => <button key={section} onClick={() => scrollToSection(section)} className="text-foreground hover:text-primary transition-colors capitalize px-2 py-1 rounded-md hover:bg-muted/50">
+              {['about', 'skills', 'projects', 'certifications', 'publications', 'education', 'experience', 'contact'].map(section => (
+                <button 
+                  key={section} 
+                  onClick={() => scrollToSection(section)} 
+                  className="text-foreground hover:text-primary transition-colors capitalize px-2 py-1 rounded-md hover:bg-muted/50"
+                >
                   {section}
-                </button>)}
+                </button>
+              ))}
             </div>
 
             {/* Mobile Menu Button */}
@@ -170,13 +189,21 @@ const Index = () => {
           </div>
 
           {/* Mobile Menu */}
-          {isMenuOpen && <div className="md:hidden pb-4 border-t border-border/50 mt-2 pt-4">
+          {isMenuOpen && (
+            <div className="md:hidden pb-4 border-t border-border/50 mt-2 pt-4">
               <div className="flex flex-col space-y-2">
-                {['about', 'skills', 'projects', 'publications', 'education', 'experience', 'contact'].map(section => <button key={section} onClick={() => scrollToSection(section)} className="text-left py-3 px-4 text-foreground hover:text-primary hover:bg-muted/50 transition-colors capitalize rounded-md touch-manipulation text-base">
+                {['about', 'skills', 'projects', 'certifications', 'publications', 'education', 'experience', 'contact'].map(section => (
+                  <button 
+                    key={section} 
+                    onClick={() => scrollToSection(section)} 
+                    className="text-left py-3 px-4 text-foreground hover:text-primary hover:bg-muted/50 transition-colors capitalize rounded-md touch-manipulation text-base"
+                  >
                     {section}
-                  </button>)}
+                  </button>
+                ))}
               </div>
-            </div>}
+            </div>
+          )}
         </div>
       </nav>
 
@@ -184,12 +211,13 @@ const Index = () => {
       <section className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-gradient-start via-gradient-mid to-gradient-end pt-20">
         <div className="text-center z-10 px-4 sm:px-6 max-w-4xl mx-auto">
           <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent uppercase tracking-wide leading-tight">
-            Raghunandhan S
+            {profile?.full_name || "Raghunandhan S"}
           </h1>
-          <h2 className="text-xl sm:text-2xl md:text-3xl mb-4 sm:mb-6 text-foreground/90 leading-relaxed">Full Stack Developer & AI/ML Enthusiast</h2>
+          <h2 className="text-xl sm:text-2xl md:text-3xl mb-4 sm:mb-6 text-foreground/90 leading-relaxed">
+            {profile?.title || "Full Stack Developer & AI/ML Enthusiast"}
+          </h2>
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto text-foreground/80 leading-relaxed">
-            Passionate about creating innovative solutions through technology and artificial intelligence. 
-            Specializing in full-stack development with expertise in machine learning and data analysis.
+            {profile?.bio || "Passionate about creating innovative solutions through technology and artificial intelligence. Specializing in full-stack development with expertise in machine learning and data analysis."}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md mx-auto sm:max-w-none">
             <Button 
@@ -209,10 +237,18 @@ const Index = () => {
               </DialogTrigger>
               <DialogContent className="max-w-[95vw] sm:max-w-4xl max-h-[85vh] overflow-y-auto mx-4">
                 <DialogHeader>
-                  <DialogTitle>Resume - Raghunandhan S</DialogTitle>
+                  <DialogTitle>Resume - {profile?.full_name || "Raghunandhan S"}</DialogTitle>
                 </DialogHeader>
                 <div className="p-4 bg-card rounded-lg">
-                  <p className="text-muted-foreground">Resume content will be displayed here...</p>
+                  {profile?.resume_url ? (
+                    <iframe 
+                      src={profile.resume_url} 
+                      className="w-full h-96" 
+                      title="Resume"
+                    />
+                  ) : (
+                    <p className="text-muted-foreground">Resume content will be displayed here...</p>
+                  )}
                 </div>
               </DialogContent>
             </Dialog>
@@ -237,11 +273,10 @@ const Index = () => {
           <Card className="bg-card/50 backdrop-blur-sm border-border">
             <CardContent className="p-4 sm:p-6 md:p-8">
               <p className="text-base sm:text-lg leading-relaxed text-foreground/90">
-                I am a dedicated Full Stack Developer with a strong background in Automobile Engineering and a passionate pursuit in Artificial Intelligence and Machine Learning. 
+                {profile?.bio || `I am a dedicated Full Stack Developer with a strong background in Automobile Engineering and a passionate pursuit in Artificial Intelligence and Machine Learning. 
                 My journey spans from mechanical engineering to software development, bringing a unique perspective to problem-solving. 
                 I specialize in creating efficient, scalable solutions using modern technologies like React, Python, and machine learning frameworks.
-                <br /><br />
-                Currently focused on developing impactful applications that bridge the gap between traditional engineering and cutting-edge AI/ML technologies.
+                Currently focused on developing impactful applications that bridge the gap between traditional engineering and cutting-edge AI/ML technologies.`}
               </p>
             </CardContent>
           </Card>
@@ -255,18 +290,30 @@ const Index = () => {
             Skills & Technologies
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {Object.entries(skills).map(([category, skillList]) => <Card key={category} className="bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1">
+            {skills.reduce((acc: any[], skill: any) => {
+              const existingCategory = acc.find(item => item.category === skill.category);
+              if (existingCategory) {
+                existingCategory.skills.push(skill.name);
+              } else {
+                acc.push({ category: skill.category, skills: [skill.name] });
+              }
+              return acc;
+            }, []).map(({ category, skills: skillList }: any) => (
+              <Card key={category} className="bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1">
                 <CardHeader className="pb-3 sm:pb-4">
                   <CardTitle className="text-primary text-lg sm:text-xl">{category}</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="flex flex-wrap gap-2">
-                    {skillList.map(skill => <Badge key={skill} variant="secondary" className="bg-secondary hover:bg-accent transition-colors text-xs sm:text-sm py-1 px-2 touch-manipulation">
+                    {skillList.map((skill: string) => (
+                      <Badge key={skill} variant="secondary" className="bg-secondary hover:bg-accent transition-colors text-xs sm:text-sm py-1 px-2 touch-manipulation">
                         {skill}
-                      </Badge>)}
+                      </Badge>
+                    ))}
                   </div>
                 </CardContent>
-              </Card>)}
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -278,18 +325,21 @@ const Index = () => {
             Featured Projects
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {projects.map((project, index) => <Card key={index} className={`bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer touch-manipulation ${expandedProject === index ? 'md:col-span-2 lg:col-span-3' : ''}`} onClick={() => setExpandedProject(expandedProject === index ? null : index)}>
+            {projects.map((project, index) => (
+              <Card key={project.id} className={`bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer touch-manipulation ${expandedProject === index ? 'md:col-span-2 lg:col-span-3' : ''}`} onClick={() => setExpandedProject(expandedProject === index ? null : index)}>
                 <CardHeader className="pb-3 sm:pb-4">
                   <CardTitle className="text-foreground flex items-start sm:items-center justify-between gap-2 text-base sm:text-lg">
                     <div className="flex items-start sm:items-center gap-2 flex-1 min-w-0">
                       <span className="break-words">{project.title}</span>
-                      {project.hasGitHub && <Github 
-                        className="w-5 h-5 sm:w-6 sm:h-6 text-primary hover:text-primary/80 transition-colors flex-shrink-0 touch-manipulation p-0.5" 
-                        onClick={e => {
-                          e.stopPropagation();
-                          window.open(project.link, '_blank');
-                        }} 
-                      />}
+                      {project.github_url && (
+                        <Github 
+                          className="w-5 h-5 sm:w-6 sm:h-6 text-primary hover:text-primary/80 transition-colors flex-shrink-0 touch-manipulation p-0.5" 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(project.github_url, '_blank');
+                          }} 
+                        />
+                      )}
                     </div>
                     <ChevronDown className={`w-5 h-5 transition-transform flex-shrink-0 touch-manipulation ${expandedProject === index ? 'rotate-180' : ''}`} />
                   </CardTitle>
@@ -325,74 +375,159 @@ const Index = () => {
                       {project.hasGitHub ? 'Tap to expand details or GitHub icon to view repository' : 'Tap to expand for details'}
                     </p>}
                 </CardContent>
-              </Card>)}
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Publications Section */}
-      <section id="publications" className="py-20 px-4 bg-muted/30">
+      {/* Certifications Section */}
+      <section id="certifications" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Publications
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-12 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            Certifications
           </h2>
-          
-          <div className="space-y-6 mb-8">
-            {publicationsList.map((publication, index) => <Card key={index} className="bg-card/50 backdrop-blur-sm border-border">
-                <Collapsible open={expandedPublication === index} onOpenChange={() => setExpandedPublication(expandedPublication === index ? null : index)}>
-                  <CollapsibleTrigger asChild>
-                    <div className="w-full cursor-pointer">
-                      <CardHeader className="hover:bg-muted/50 transition-colors">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <CardTitle className="text-foreground text-left flex items-center gap-2 mb-2">
-                              <BookOpen className="w-5 h-5 text-primary" />
-                              {publication.title}
-                            </CardTitle>
-                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-foreground/70">
-                              <span className="font-medium text-primary">{publication.publisher}</span>
-                              <span className="hidden sm:inline">•</span>
-                              <span>{publication.date}</span>
-                              {publication.status && <>
-                                  <span className="hidden sm:inline">•</span>
-                                  <Badge variant="outline" className="w-fit">
-                                    {publication.status}
-                                  </Badge>
-                                </>}
-                            </div>
-                          </div>
-                          <ChevronDown className={`w-5 h-5 transition-transform flex-shrink-0 ml-4 ${expandedPublication === index ? 'rotate-180' : ''}`} />
-                        </div>
-                      </CardHeader>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {certifications.map((cert) => (
+              <Card key={cert.id} className="bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1">
+                <CardHeader>
+                  {cert.image_url && (
+                    <div className="w-full h-32 mb-4 rounded-lg overflow-hidden bg-muted flex items-center justify-center">
+                      <img 
+                        src={cert.image_url} 
+                        alt={cert.title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                        }}
+                      />
                     </div>
-                  </CollapsibleTrigger>
+                  )}
+                  <CardTitle className="text-lg leading-tight">{cert.title}</CardTitle>
+                  <p className="text-primary font-medium">{cert.issuer}</p>
+                </CardHeader>
+                <CardContent>
+                  {cert.description && (
+                    <p className="text-muted-foreground mb-4 text-sm">{cert.description}</p>
+                  )}
                   
-                  <CollapsibleContent>
-                    <CardContent className="pt-0">
-                      <div className="space-y-4">
-                        <p className="text-foreground/80 leading-relaxed">
-                          {publication.description}
-                        </p>
-                        
-                        <div className="flex flex-wrap gap-4 items-center">
-                          {publication.link && <a href={publication.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors" onClick={e => e.stopPropagation()}>
-                              <Link className="w-4 h-4" />
-                              View Publication
-                            </a>}
-                          
-                          {publication.isbn && <div className="text-sm text-foreground/70">
-                              <span className="font-medium">ISBN:</span> {publication.isbn}
-                            </div>}
-                          
-                          {/* Upload PDF button removed as per request */}
-                        </div>
+                  <div className="space-y-2 mb-4">
+                    {cert.issue_date && (
+                      <div className="flex items-center text-sm text-muted-foreground">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        Issued: {new Date(cert.issue_date).toLocaleDateString()}
                       </div>
-                    </CardContent>
-                  </CollapsibleContent>
-                </Collapsible>
-              </Card>)}
+                    )}
+                    {cert.expiry_date && (
+                      <div className="flex items-center text-sm text-muted-foreground">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        Expires: {new Date(cert.expiry_date).toLocaleDateString()}
+                      </div>
+                    )}
+                    {cert.credential_id && (
+                      <div className="text-sm text-muted-foreground">
+                        ID: {cert.credential_id}
+                      </div>
+                    )}
+                  </div>
+
+                  {cert.credential_url && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full"
+                      onClick={() => window.open(cert.credential_url, '_blank')}
+                    >
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      View Credential
+                    </Button>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
           </div>
           
+          {certifications.length === 0 && (
+            <div className="text-center py-12">
+              <Award className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
+              <p className="text-muted-foreground">No certifications available at the moment.</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Publications Section */}
+      <section id="publications" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-12 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            Publications & Research
+          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+            {publicationsList.map((publication, index) => (
+              <Card key={index} className={`bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer touch-manipulation ${expandedPublication === index ? 'lg:col-span-2' : ''}`} onClick={() => setExpandedPublication(expandedPublication === index ? null : index)}>
+                <CardHeader className="pb-3 sm:pb-4">
+                  <div className="flex items-start justify-between gap-3 sm:gap-4">
+                    <div className="flex-1 min-w-0">
+                      <CardTitle className="text-foreground text-base sm:text-lg leading-tight mb-1 sm:mb-2 break-words">
+                        {publication.title}
+                      </CardTitle>
+                      <p className="text-primary font-medium text-sm sm:text-base">{publication.publisher}</p>
+                      <p className="text-muted-foreground text-xs sm:text-sm">{publication.date}</p>
+                    </div>
+                    <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                      <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="space-y-2 sm:space-y-3">
+                    <p className="text-muted-foreground text-sm sm:text-base leading-relaxed line-clamp-3">
+                      {publication.description}
+                    </p>
+                    {publication.conference && (
+                      <Badge variant="secondary" className="text-xs">
+                        {publication.conference}
+                      </Badge>
+                    )}
+                    {publication.status && (
+                      <Badge variant="outline" className="text-xs">
+                        {publication.status}
+                      </Badge>
+                    )}
+                    {expandedPublication === index && (
+                      <Collapsible open={true}>
+                        <CollapsibleContent>
+                          <div className="pt-3 sm:pt-4 border-t border-border/50 space-y-3 sm:space-y-4">
+                            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+                              {publication.link && (
+                                <Button 
+                                  size="sm" 
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    window.open(publication.link, '_blank');
+                                  }} 
+                                  className="touch-manipulation"
+                                >
+                                  <ExternalLink className="w-4 h-4 mr-1" />
+                                  View Publication
+                                </Button>
+                              )}
+                              {publication.isbn && (
+                                <Badge variant="secondary" className="w-fit text-xs">
+                                  ISBN: {publication.isbn}
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -603,7 +738,7 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4">
+      <section id="contact" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Get In Touch
@@ -722,6 +857,8 @@ const Index = () => {
           </p>
         </div>
       </footer>
-    </div>;
+    </div>
+  );
 };
+
 export default Index;
