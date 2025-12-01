@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { ChevronDown, Mail, Github, Linkedin, ExternalLink, Award, Briefcase, GraduationCap, BookOpen } from "lucide-react";
+import { ChevronDown, Mail, Github, Linkedin, ExternalLink, Award, Briefcase, GraduationCap, BookOpen, Calendar } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
