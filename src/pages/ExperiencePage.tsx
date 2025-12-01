@@ -22,7 +22,7 @@ export default function ExperiencePage() {
                                         <div>
                                             <h3 className="text-xl font-semibold text-foreground">Systems Analyst/Developer</h3>
                                             <p className="text-primary">Hibiz Solutions</p>
-                                            <p className="text-foreground/70">June 2025 - Present • Perungudi, Chennai</p>
+                                            <p className="text-foreground/70">June 2025 - November 2025 • Perungudi, Chennai</p>
                                         </div>
                                         <ChevronDown className={`w-5 h-5 text-foreground/60 transition-transform ${expandedExperience === 'hibiz' ? 'rotate-180' : ''}`} />
                                     </div>

@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { ChevronDown, Mail, Github, Linkedin, ExternalLink, Award, Briefcase, GraduationCap, BookOpen, Calendar } from "lucide-react";
+import { ChevronDown, Mail, Github, Linkedin, ExternalLink, Award, Briefcase, GraduationCap, BookOpen, Calendar, MessageCircle } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -72,9 +72,17 @@ const Index = () => {
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
-    element?.scrollIntoView({
-      behavior: 'smooth'
-    });
+    if (element) {
+      // Calculate the offset for fixed navigation
+      const navHeight = 80; // Approximate height of fixed navigation
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
     setIsMenuOpen(false);
   };
 
@@ -143,7 +151,37 @@ const Index = () => {
     date: "December 26, 2023",
     link: "https://yanthrika.com/eja/index.php/ijvss/article/view/2755",
     description: "Presented at National Conference. Explored how CNG induction influences engine performance and emissions, aimed at eco-friendly fuel alternatives."
+  }, {
+    title: "Enhancing Learning Through AI-Based Performance Prediction and Emotion Detection",
+    publisher: "Springer",
+    date: "July, 2025",
+    description: "Paper presented in July 2025. Focuses on AI-driven performance prediction combined with emotion detection to personalize and enhance learning outcomes.",
+    status: "Publication in progress"
   }];
+
+  // Sort publications: in-progress first, then by date desc
+  const parseDate = (d?: string) => {
+    if (!d) return 0;
+    try {
+      const normalized = d.replace(/\s+/g, ' ').trim().replace(/,$/, '');
+      const date = new Date(normalized);
+      if (!isNaN(date.getTime())) return date.getTime();
+      const withDay = normalized.match(/^[A-Za-z]+,\s*\d{4}$/) ? normalized.replace(',', ' 1,') : normalized;
+      const fallback = new Date(withDay);
+      return isNaN(fallback.getTime()) ? 0 : fallback.getTime();
+    } catch {
+      return 0;
+    }
+  };
+
+  const sortedPublications = [...publicationsList].sort((a, b) => {
+    const aProgress = (a.status || '').toLowerCase().includes('progress');
+    const bProgress = (b.status || '').toLowerCase().includes('progress');
+    if (aProgress !== bProgress) return aProgress ? -1 : 1;
+    const aDate = parseDate(a.date);
+    const bDate = parseDate(b.date);
+    return bDate - aDate;
+  });
 
   if (loading) {
     return (
@@ -464,7 +502,7 @@ const Index = () => {
             Publications & Research
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-            {publicationsList.map((publication, index) => (
+            {sortedPublications.map((publication, index) => (
               <Card key={index} className={`bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer touch-manipulation ${expandedPublication === index ? 'lg:col-span-2' : ''}`} onClick={() => setExpandedPublication(expandedPublication === index ? null : index)}>
                 <CardHeader className="pb-3 sm:pb-4">
                   <div className="flex items-start justify-between gap-3 sm:gap-4">
@@ -545,7 +583,7 @@ const Index = () => {
                   <div>
                     <h3 className="text-xl font-semibold text-foreground">BE Automobile Engineering</h3>
                     <p className="text-primary">Madras Institute of Technology (MIT), Anna University</p>
-                    <p className="text-foreground/70">2021 - 2025 • CGPA: 8.2</p>
+                    <p className="text-foreground/70">2021 - 2025 • CGPA: 8.06</p>
                   </div>
                 </div>
               </CardContent>
@@ -558,7 +596,7 @@ const Index = () => {
                   <div>
                     <h3 className="text-xl font-semibold text-foreground">Minor Degree in Artificial Intelligence and Machine Learning</h3>
                     <p className="text-primary">Madras Institute of Technology (MIT), Anna University</p>
-                    <p className="text-foreground/70">2023 - 2025 • CGPA: 9.1</p>
+                    <p className="text-foreground/70">2023 - 2025 • CGPA: 9.0</p>
                   </div>
                 </div>
               </CardContent>
@@ -570,8 +608,8 @@ const Index = () => {
                   <GraduationCap className="w-6 h-6 text-primary mt-1" />
                   <div>
                     <h3 className="text-xl font-semibold text-foreground">Higher Secondary Certificate (HSC)</h3>
-                    <p className="text-primary">Chinmaya Vidyalaya</p>
-                    <p className="text-foreground/70">2018 - 2020 • Percentage: 95.4%</p>
+                    <p className="text-primary">Chinmaya Vidyalaya - CBSE</p>
+                    <p className="text-foreground/70">2018 - 2020 • Percentage: 95.2%</p>
                   </div>
                 </div>
               </CardContent>
@@ -583,8 +621,8 @@ const Index = () => {
                   <GraduationCap className="w-6 h-6 text-primary mt-1" />
                   <div>
                     <h3 className="text-xl font-semibold text-foreground">Secondary School Leaving Certificate (SSLC)</h3>
-                    <p className="text-primary">Chinmaya Vidyalaya</p>
-                    <p className="text-foreground/70">2016 - 2018 • Percentage: 94.8%</p>
+                    <p className="text-primary">Chinmaya Vidyalaya - CBSE</p>
+                    <p className="text-foreground/70">2016 - 2018 • Percentage: 94.4%</p>
                   </div>
                 </div>
               </CardContent>
@@ -609,7 +647,7 @@ const Index = () => {
                       <div>
                         <h3 className="text-xl font-semibold text-foreground">Systems Analyst/Developer</h3>
                         <p className="text-primary">Hibiz Solutions</p>
-                        <p className="text-foreground/70">June 2025 - Present • Perungudi, Chennai</p>
+                        <p className="text-foreground/70">June 2025 - November 2025 • Perungudi, Chennai</p>
                       </div>
                       <ChevronDown className={`w-5 h-5 text-foreground/60 transition-transform ${expandedExperience === 'hibiz' ? 'rotate-180' : ''}`} />
                     </div>
@@ -826,22 +864,20 @@ const Index = () => {
 
               <Card className="bg-card/50 backdrop-blur-sm border-border">
                 <CardContent className="p-6">
-                  <h3 className="font-semibold text-foreground mb-2">QR Code Contact</h3>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <div className="w-32 h-32 rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
-                        <img src="/lovable-uploads/24daf3d3-0097-423b-b311-4034fde00723.png" alt="Instagram QR Code" className="w-full h-full object-cover" />
-                      </div>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-md">
-                      <DialogHeader>
-                        <DialogTitle>Instagram QR Code</DialogTitle>
-                      </DialogHeader>
-                      <div className="flex justify-center">
-                        <img src="/lovable-uploads/24daf3d3-0097-423b-b311-4034fde00723.png" alt="Instagram QR Code" className="w-80 h-80 object-cover rounded-lg" />
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+                  <div className="flex items-center space-x-4">
+                    <MessageCircle className="w-6 h-6 text-green-500" />
+                    <div>
+                      <h3 className="font-semibold text-foreground">WhatsApp</h3>
+                      <a 
+                        href="https://wa.me/919962181553" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-foreground/80 hover:text-primary transition-colors"
+                      >
+                        +91 9962181553
+                      </a>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </div>

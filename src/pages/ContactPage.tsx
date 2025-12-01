@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Mail, Github, Linkedin } from "lucide-react";
+import { Mail, Github, Linkedin, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -139,22 +139,20 @@ export default function ContactPage() {
 
                         <Card className="bg-card/50 backdrop-blur-sm border-border">
                             <CardContent className="p-6">
-                                <h3 className="font-semibold text-foreground mb-2">QR Code Contact</h3>
-                                <Dialog>
-                                    <DialogTrigger asChild>
-                                        <div className="w-32 h-32 rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
-                                            <img src="/lovable-uploads/24daf3d3-0097-423b-b311-4034fde00723.png" alt="Instagram QR Code" className="w-full h-full object-cover" />
-                                        </div>
-                                    </DialogTrigger>
-                                    <DialogContent className="max-w-md">
-                                        <DialogHeader>
-                                            <DialogTitle>Instagram QR Code</DialogTitle>
-                                        </DialogHeader>
-                                        <div className="flex justify-center">
-                                            <img src="/lovable-uploads/24daf3d3-0097-423b-b311-4034fde00723.png" alt="Instagram QR Code" className="w-80 h-80 object-cover rounded-lg" />
-                                        </div>
-                                    </DialogContent>
-                                </Dialog>
+                                <div className="flex items-center space-x-4">
+                                    <MessageCircle className="w-6 h-6 text-green-500" />
+                                    <div>
+                                        <h3 className="font-semibold text-foreground">WhatsApp</h3>
+                                        <a 
+                                          href="https://wa.me/919962181553" 
+                                          target="_blank" 
+                                          rel="noopener noreferrer"
+                                          className="text-foreground/80 hover:text-primary transition-colors"
+                                        >
+                                          +91 9962181553
+                                        </a>
+                                    </div>
+                                </div>
                             </CardContent>
                         </Card>
                     </div>

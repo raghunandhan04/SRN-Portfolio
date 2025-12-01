@@ -20,6 +20,7 @@ interface Certification {
   credential_id?: string;
   credential_url?: string;
   image_url?: string;
+  certificate_file_url?: string; // optional PDF URL
   description?: string;
   is_active: boolean;
   display_order: number;
@@ -47,7 +48,15 @@ export const CertificationsList = ({ userId }: CertificationsListProps) => {
       .eq("user_id", userId)
       .order("display_order");
     
-    if (data) setCertifications(data);
+    if (data) {
+      // Sort by date descending for display convenience (issue_date preferred, then expiry_date)
+      const toTime = (c: Certification) => {
+        const d = c.issue_date || c.expiry_date;
+        return d ? new Date(d).getTime() : -Infinity;
+      };
+      const sorted = [...data].sort((a, b) => toTime(b) - toTime(a));
+      setCertifications(sorted);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -182,7 +191,7 @@ export const CertificationsList = ({ userId }: CertificationsListProps) => {
                 </div>
               </div>
 
-              <div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FileUpload
                   bucketName="certificates"
                   accept="image/*"
@@ -190,6 +199,14 @@ export const CertificationsList = ({ userId }: CertificationsListProps) => {
                   label="Certificate Image"
                   existingUrl={editingCert?.image_url || ""}
                   onUploadComplete={(url) => setEditingCert(prev => prev ? {...prev, image_url: url} : null)}
+                />
+                <FileUpload
+                  bucketName="certificates"
+                  accept="application/pdf"
+                  maxSize={20}
+                  label="Certificate PDF"
+                  existingUrl={editingCert?.certificate_file_url || ""}
+                  onUploadComplete={(url) => setEditingCert(prev => prev ? {...prev, certificate_file_url: url} : null)}
                 />
               </div>
 

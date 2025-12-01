@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,6 +28,8 @@ export const FileUpload = ({
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(existingUrl || null);
   const { toast } = useToast();
+  const uid = useId();
+  const inputId = `file-upload-${bucketName}-${uid}`;
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -117,12 +119,12 @@ export const FileUpload = ({
           <div className="text-center">
             <Upload className="mx-auto h-12 w-12 text-muted-foreground/50" />
             <div className="mt-2">
-              <Label htmlFor={`file-upload-${bucketName}`} className="cursor-pointer">
+              <Label htmlFor={inputId} className="cursor-pointer">
                 <span className="text-sm font-medium text-primary hover:text-primary/80">
                   Click to upload
                 </span>
                 <Input
-                  id={`file-upload-${bucketName}`}
+                    id={inputId}
                   type="file"
                   accept={accept}
                   onChange={handleFileUpload}

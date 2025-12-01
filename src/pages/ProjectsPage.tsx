@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChevronDown, Github, ExternalLink } from "lucide-react";
+import { Reveal } from "@/components/motion/Reveal";
 
 const projects = [{
     title: "E-commerce Website for Apparel Store",
@@ -45,10 +46,59 @@ const projects = [{
     detailedDescription: "Implemented a sophisticated sentiment analysis system using TensorFlow and advanced NLP techniques. The model processes text data from multiple sources, performs real-time sentiment classification, and provides detailed emotional insights. Achieved 94% accuracy on benchmark datasets using transformer architectures and custom preprocessing pipelines.",
     tech: ["Python", "TensorFlow", "NLP"],
     tags: ["ML", "NLP"]
-  }];
+    },
+    // Added from resume
+    {
+        title: "Strategic Evaluation of AI-Powered No-Code/Low-Code Platforms",
+        description: "Exploration of modern AI-assisted no/low-code platforms and developer tools",
+        detailedDescription: "Evaluated AI-powered no/low-code platforms (Lovable, Rocket, Bolt, Windsurf, Cursor) for rapid prototyping and enterprise feasibility. Assessed developer experience, extensibility, CI/CD integration, and security considerations, delivering recommendations tailored to project constraints and team skill sets.",
+        tech: ["Lovable", "Rocket", "Bolt", "Windsurf", "Cursor"],
+        tags: ["Evaluation", "AI Tools"],
+        organization: "Hibiz Solutions"
+    },
+    {
+        title: "Multilingual Website Development with Custom CMS for Product/Solution Hosting",
+        description: "Full-stack multilingual CMS platform with real-time content updates",
+        detailedDescription: "Built a multilingual CMS platform to host and manage product/solution content for an AI application portfolio. Developed custom user-friendly admin dashboards enabling non-technical staff to perform real-time content updates across supported languages. Implemented role-based access control and content moderation workflows.",
+        tech: ["TypeScript", "React", "HTML", "CSS"],
+        tags: ["Full-Stack", "CMS"],
+        organization: "Hibiz Solutions"
+    },
+    {
+        title: "Development of an AI Tool for Comparing and Validating Engineering CAD Drawings",
+        description: "AI-enabled tool for CAD compliance checking",
+        detailedDescription: "Created an AI-enabled tool that compares and validates compliance of engineering CAD drawings using OCR and computer vision. Automated extraction and matching of drawing annotations to specifications, reducing manual validation time and errors.",
+        tech: ["Python", "OCR", "Computer Vision", "Tesseract"],
+        tags: ["AI", "CAD"],
+        organization: "ZF Global Engineering Centre — COE Team"
+    },
+    {
+        title: "Cycle Time Calculation and Reduction Tool",
+        description: "Manufacturing process optimization toolkit",
+        detailedDescription: "Developed a comprehensive tool for calculating and reducing cycle times in automotive manufacturing processes. Combined RFID-based tracking with data analysis to identify bottlenecks and quantify improvements.",
+        tech: ["RFID", "Excel", "Data Analysis"],
+        tags: ["Manufacturing", "Optimization"],
+        organization: "Ashok Leyland, Ennore"
+    }
+];
 
 export default function ProjectsPage() {
     const [expandedProject, setExpandedProject] = useState<number | null>(null);
+    const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
+
+    const handleExpandToggle = (index: number) => {
+        const willExpand = expandedProject !== index;
+        setExpandedProject(willExpand ? index : null);
+        // After state updates, scroll the card into view with offset for fixed nav
+        setTimeout(() => {
+            const el = cardRefs.current[index];
+            if (!el) return;
+            const navHeight = 80; // adjust if your header height differs
+            const rect = el.getBoundingClientRect();
+            const offsetTop = rect.top + window.pageYOffset - navHeight - 12; // small padding
+            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }, 0);
+    };
 
     return (
         <section id="projects" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
@@ -58,7 +108,13 @@ export default function ProjectsPage() {
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     {projects.map((project, index) => (
-                        <Card key={index} className={`bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer touch-manipulation ${expandedProject === index ? 'md:col-span-2 lg:col-span-3' : ''}`} onClick={() => setExpandedProject(expandedProject === index ? null : index)}>
+                        <Reveal key={index} delay={index * 0.05}>
+                            <Card
+                                                    key={index}
+                                                    ref={(el) => { cardRefs.current[index] = el; }}
+                                                    className={`bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer touch-manipulation ${expandedProject === index ? 'md:col-span-2 lg:col-span-3' : ''}`}
+                                                    onClick={() => handleExpandToggle(index)}
+                                                >
                             <CardHeader className="pb-3 sm:pb-4">
                                 <CardTitle className="text-foreground flex items-start sm:items-center justify-between gap-2 text-base sm:text-lg">
                                     <div className="flex items-start sm:items-center gap-2 flex-1 min-w-0">
@@ -105,7 +161,8 @@ export default function ProjectsPage() {
                                     {project.hasGitHub ? 'Tap to expand details or GitHub icon to view repository' : 'Tap to expand for details'}
                                 </p>}
                             </CardContent>
-                        </Card>
+                            </Card>
+                        </Reveal>
                     ))}
                 </div>
             </div>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChevronDown, BookOpen, Link } from "lucide-react";
+import { Reveal } from "@/components/motion/Reveal";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 const publicationsList = [{
@@ -29,10 +30,42 @@ const publicationsList = [{
     date: "December 26, 2023",
     link: "https://yanthrika.com/eja/index.php/ijvss/article/view/2755",
     description: "Presented at National Conference. Explored how CNG induction influences engine performance and emissions, aimed at eco-friendly fuel alternatives."
-  }];
+    }, {
+        title: "Enhancing Learning Through AI-Based Performance Prediction and Emotion Detection",
+        publisher: "Springer",
+        date: "July, 2025",
+        description: "Paper presented in July 2025. Focuses on AI-driven performance prediction combined with emotion detection to personalize and enhance learning outcomes.",
+        status: "Publication in progress"
+    }];
 
 export default function PublicationsPage() {
     const [expandedPublication, setExpandedPublication] = useState<number | null>(null);
+
+    // Sort: in-progress first, then by date desc
+    const parseDate = (d?: string) => {
+        if (!d) return 0;
+        try {
+            // Handle formats like "July 26, 2025" and "July, 2025"
+            const normalized = d.replace(/\s+/g, ' ').trim().replace(/,$/, '');
+            const date = new Date(normalized);
+            if (!isNaN(date.getTime())) return date.getTime();
+            // Fallback: try appending day if missing
+            const withDay = normalized.match(/^[A-Za-z]+,\s*\d{4}$/) ? normalized.replace(',', ' 1,') : normalized;
+            const fallback = new Date(withDay);
+            return isNaN(fallback.getTime()) ? 0 : fallback.getTime();
+        } catch {
+            return 0;
+        }
+    };
+
+    const sortedPublications = [...publicationsList].sort((a, b) => {
+        const aProgress = (a.status || '').toLowerCase().includes('progress');
+        const bProgress = (b.status || '').toLowerCase().includes('progress');
+        if (aProgress !== bProgress) return aProgress ? -1 : 1;
+        const aDate = parseDate(a.date);
+        const bDate = parseDate(b.date);
+        return bDate - aDate;
+    });
 
     return (
         <section id="publications" className="py-20 px-4">
@@ -41,8 +74,9 @@ export default function PublicationsPage() {
                     Publications
                 </h2>
                 <div className="space-y-6 mb-8">
-                    {publicationsList.map((publication, index) => (
-                        <Card key={index} className="bg-card/50 backdrop-blur-sm border-border">
+                    {sortedPublications.map((publication, index) => (
+                        <Reveal key={index} delay={index * 0.05}>
+                        <Card className="bg-card/50 backdrop-blur-sm border-border">
                             <Collapsible open={expandedPublication === index} onOpenChange={() => setExpandedPublication(expandedPublication === index ? null : index)}>
                                 <CollapsibleTrigger asChild>
                                     <div className="w-full cursor-pointer">
@@ -96,6 +130,7 @@ export default function PublicationsPage() {
                                 </CollapsibleContent>
                             </Collapsible>
                         </Card>
+                        </Reveal>
                     ))}
                 </div>
             </div>

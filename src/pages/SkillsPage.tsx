@@ -4,9 +4,9 @@ import { Badge } from "@/components/ui/badge";
 const skills = {
   Frontend: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React'],
   Backend: ['Python', 'FastAPI', '.NET'],
-  Database: ['MySQL', 'PostgreSQL'],
+  Database: ['MySQL', 'PostgreSQL', 'MongoDB'],
   Tools: ['Git', 'GitHub', 'Power BI', 'VS Code', 'Catia V5'],
-  'AI/ML': ['Machine Learning', 'TensorFlow', 'Artificial Intelligence', 'Data Analysis', 'Deep Learning']
+  'AI/ML': ['Machine Learning', 'TensorFlow', 'Artificial Intelligence', 'Data Analysis', 'Deep Learning', 'Reinforcement Learning']
 };
 
 export default function SkillsPage() {

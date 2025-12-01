@@ -3,7 +3,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, ExternalLink, Award } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Calendar, ExternalLink, Award, FileText } from "lucide-react";
+import { Reveal } from "@/components/motion/Reveal";
 
 interface Certification {
   id: string;
@@ -15,6 +17,9 @@ interface Certification {
   credential_url?: string;
   image_url?: string;
   description?: string;
+  // Optional PDF fields (support either name)
+  pdf_url?: string;
+  certificate_file_url?: string;
   is_active: boolean;
   display_order: number;
 }
@@ -63,33 +68,52 @@ export default function CertificationsPage() {
         </p>
       </div>
 
-      {certifications.length === 0 ? (
-        <div className="text-center py-12">
-          <Award className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
-          <p className="text-muted-foreground">No certifications available at the moment.</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {certifications.map((cert) => (
-            <Card key={cert.id} className="bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1">
-              <CardHeader>
-                {cert.image_url && (
-                  <div className="w-full h-32 mb-4 rounded-lg overflow-hidden bg-muted flex items-center justify-center">
-                    <img 
-                      src={cert.image_url} 
-                      alt={cert.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                      }}
-                    />
-                  </div>
-                )}
-                <CardTitle className="text-lg leading-tight">{cert.title}</CardTitle>
-                <p className="text-primary font-medium">{cert.issuer}</p>
-              </CardHeader>
-              <CardContent>
+      {(() => {
+        // Fallback entries (static) shown when DB is empty
+        const fallback: Certification[] = [
+          {
+            id: 'fallback-ml-python-foundations',
+            title: 'Machine Learning with Python: Foundations',
+            issuer: 'LinkedIn Learning',
+            issue_date: '2024-08-11',
+            credential_url: '', // add LinkedIn credential URL if available
+            image_url: '', // add public image path if available (e.g., /lovable-uploads/ml-python-foundations.png)
+            description: 'Top skills covered: Machine Learning, Python (Programming Language).',
+            is_active: true,
+            display_order: 100
+          },
+          {
+            id: 'fallback-python-non-programmers',
+            title: 'Python for Non-Programmers',
+            issuer: 'LinkedIn Learning',
+            issue_date: '2024-07-31',
+            credential_url: '',
+            image_url: '', // add public image path if available
+            description: 'Top skills covered: Python (Programming Language).',
+            is_active: true,
+            display_order: 101
+          }
+        ];
+
+        const effective = certifications.length > 0 ? certifications : fallback;
+
+        // Sort by date descending: prefer issue_date, fallback to expiry_date; unknown dates last
+        const toTime = (c: Certification) => {
+          const d = c.issue_date || c.expiry_date;
+          return d ? new Date(d).getTime() : -Infinity;
+        };
+        const sorted = [...effective].sort((a, b) => toTime(b) - toTime(a));
+
+        return (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sorted.map((cert, idx) => (
+            <Reveal key={cert.id} delay={idx * 0.04}>
+              <Card className="bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1">
+                <CardHeader>
+                  <CardTitle className="text-lg leading-tight">{cert.title}</CardTitle>
+                  <p className="text-primary font-medium">{cert.issuer}</p>
+                </CardHeader>
+                <CardContent>
                 {cert.description && (
                   <p className="text-muted-foreground mb-4 text-sm">{cert.description}</p>
                 )}
@@ -114,22 +138,80 @@ export default function CertificationsPage() {
                   )}
                 </div>
 
-                {cert.credential_url && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full"
-                    onClick={() => window.open(cert.credential_url, '_blank')}
-                  >
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    View Credential
-                  </Button>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+                  <div className="flex flex-col sm:flex-row gap-2">
+                  {cert.credential_url && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full sm:w-auto"
+                      onClick={() => window.open(cert.credential_url!, '_blank')}
+                    >
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      View Credential
+                    </Button>
+                  )}
+
+                  {cert.image_url && (
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full sm:w-auto"
+                        >
+                          <Award className="w-4 h-4 mr-2" />
+                          View Certificate
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-[95vw] sm:max-w-3xl max-h-[90vh]">
+                        <DialogHeader>
+                          <DialogTitle>{cert.title}</DialogTitle>
+                        </DialogHeader>
+                        <div className="w-full h-auto">
+                          <img 
+                            src={cert.image_url}
+                            alt={`${cert.title} Certificate`}
+                            className="w-full h-auto object-contain"
+                          />
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  )}
+
+                  {(cert.pdf_url || cert.certificate_file_url) && (
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full sm:w-auto"
+                        >
+                          <FileText className="w-4 h-4 mr-2" />
+                          View PDF
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-[95vw] sm:max-w-4xl max-h-[90vh]">
+                        <DialogHeader>
+                          <DialogTitle>{cert.title}</DialogTitle>
+                        </DialogHeader>
+                        <div className="w-full h-[75vh]">
+                          <iframe
+                            src={(cert.pdf_url || cert.certificate_file_url) as string}
+                            className="w-full h-full border-0"
+                            title={`${cert.title} PDF`}
+                          />
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  )}
+                  </div>
+                </CardContent>
+              </Card>
+            </Reveal>
+            ))}
+          </div>
+        );
+      })()}
     </div>
   );
 }
