@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, Download, Sparkles, Code2, BookOpen, Briefcase } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/motion/Reveal";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const [profile, setProfile] = useState<any>(null);
@@ -24,83 +25,165 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-8 md:pt-12">
-        <div className="max-w-5xl mx-auto text-center">
-          <Reveal>
-            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 tracking-tight">
-              {profile?.full_name || 'Raghunandhan S'}
+    <div className="min-h-screen overflow-hidden">
+      {/* Hero Section with ambient background */}
+      <section className="relative min-h-[95vh] flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        {/* Ambient gradient background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] animate-float" />
+          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/15 rounded-full blur-[100px] animate-float" style={{ animationDelay: '-3s' }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-primary/10 via-transparent to-transparent" />
+        </div>
+        
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(hsl(var(--border)/0.05)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--border)/0.05)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
+
+        <div className="relative max-w-5xl mx-auto text-center z-10">
+          <Reveal delay={0}>
+            <motion.div 
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm text-primary mb-8"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Open to MS opportunities in AI/ML</span>
+            </motion.div>
+          </Reveal>
+          
+          <Reveal delay={0.1}>
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
+              <span className="text-foreground">Hi, I'm </span>
+              <span className="text-gradient glow-text">{profile?.full_name || 'Raghunandhan'}</span>
             </h1>
           </Reveal>
-          <Reveal delay={0.05}>
-            <p className="text-xl sm:text-2xl md:text-3xl text-muted-foreground mb-8 font-light leading-snug max-w-3xl mx-auto">
-              { 'Aspiring MS Candidate in AI/ML & Data Science' }
+          
+          <Reveal delay={0.2}>
+            <p className="text-xl sm:text-2xl md:text-3xl text-muted-foreground mb-4 font-light leading-relaxed max-w-3xl mx-auto">
+              Aspiring <span className="text-foreground font-medium">MS Candidate</span> in 
+              <span className="text-gradient font-medium"> AI/ML & Data Science</span>
             </p>
           </Reveal>
-          <Reveal delay={0.1}>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed">
-              {profile?.location || 'Chennai, India'} • {profile?.email || ''}
+          
+          <Reveal delay={0.3}>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+              Currently working as <span className="text-foreground">Systems Analyst/Developer</span> at Hibiz Solutions
+              <span className="text-muted-foreground/60"> • </span>
+              {profile?.location || 'Chennai, India'}
             </p>
           </Reveal>
-          <Reveal delay={0.15}>
+          
+          <Reveal delay={0.4}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" asChild className="text-base px-8">
+              <Button 
+                size="lg" 
+                asChild 
+                className="text-base px-8 py-6 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 group"
+              >
                 <Link to="/contact">
-                  Get in Touch <ArrowRight className="ml-2 h-5 w-5" />
+                  Get in Touch 
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
               {profile?.resume_url && (
-                <Button size="lg" variant="outline" asChild className="text-base px-8">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  asChild 
+                  className="text-base px-8 py-6 border-border/50 hover:bg-muted/50 hover:border-primary/50 transition-all duration-300 group"
+                >
                   <a href={profile.resume_url} target="_blank" rel="noopener noreferrer">
-                    <Download className="mr-2 h-5 w-5" /> Download Resume
+                    <Download className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" /> 
+                    Download Resume
                   </a>
                 </Button>
               )}
             </div>
           </Reveal>
         </div>
+        
+        {/* Scroll indicator */}
+        <motion.div 
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.5 }}
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-1"
+          >
+            <motion.div className="w-1.5 h-3 rounded-full bg-muted-foreground/50" />
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* About Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
-        <div className="max-w-4xl mx-auto">
+      <section className="py-24 px-4 sm:px-6 lg:px-8 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/30 to-transparent" />
+        
+        <div className="max-w-5xl mx-auto relative">
           <Reveal>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-12 text-center">
-              About Me
-            </h2>
+            <div className="text-center mb-16">
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+                <span className="text-gradient">About Me</span>
+              </h2>
+              <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
+            </div>
           </Reveal>
-          <div className="prose prose-lg max-w-none">
-            <Reveal>
-              <p className="text-lg text-foreground/80 leading-relaxed mb-6">
-              {profile?.bio || `I'm a recent graduate from Madras Institute of Technology (MIT), Anna University, 
-              with a BE in Automobile Engineering and a Minor in Artificial Intelligence and Machine Learning. 
-              My current focus is research and graduate studies in AI/ML and Data Science — with projects spanning 
-              computer vision, NLP, reinforcement learning, and predictive modeling, and publications in IEEE/Springer venues.`}
-              </p>
+          
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <Reveal delay={0.1}>
+              <div className="space-y-6">
+                <p className="text-lg text-foreground/80 leading-relaxed">
+                  {profile?.bio || `I'm a recent graduate from Madras Institute of Technology (MIT), Anna University, 
+                  with a BE in Automobile Engineering and a Minor in Artificial Intelligence and Machine Learning.`}
+                </p>
+                <p className="text-lg text-foreground/80 leading-relaxed">
+                  My current focus is research and graduate studies in AI/ML and Data Science — with projects spanning 
+                  computer vision, NLP, reinforcement learning, and predictive modeling, and publications in IEEE/Springer venues.
+                </p>
+              </div>
             </Reveal>
-            <div className="grid md:grid-cols-2 gap-8 mt-12">
-              <Reveal>
-                <div>
-                  <h3 className="font-display text-xl font-semibold mb-4">Education</h3>
-                  <p className="text-foreground/80">
-                    <strong>BE Automobile Engineering</strong><br />
-                    Madras Institute of Technology, Anna University
-                  </p>
-                  <p className="text-foreground/80 mt-3">
-                    <strong>Minor Degree in AI & Machine Learning</strong><br />
-                    Madras Institute of Technology, Anna University
-                  </p>
+            
+            <div className="space-y-6">
+              <Reveal delay={0.2}>
+                <div className="glass rounded-2xl p-6 hover-lift">
+                  <h3 className="font-display text-xl font-semibold mb-4 text-gradient">Education</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <p className="font-medium text-foreground">BE Automobile Engineering</p>
+                      <p className="text-sm text-muted-foreground">MIT, Anna University</p>
+                    </div>
+                    <div>
+                      <p className="font-medium text-foreground">Minor in AI & Machine Learning</p>
+                      <p className="text-sm text-muted-foreground">MIT, Anna University</p>
+                    </div>
+                  </div>
                 </div>
               </Reveal>
-              <Reveal delay={0.05}>
-                <div>
-                  <h3 className="font-display text-xl font-semibold mb-4">Research Interests</h3>
-                  <ul className="list-disc list-inside text-foreground/80 space-y-2">
-                    <li>Applied Machine Learning (NLP, CV, Time Series)</li>
-                    <li>Reinforcement Learning for optimization</li>
-                    <li>Human-centered AI: emotion and engagement modeling</li>
-                    <li>Scalable data systems and MLOps</li>
+              
+              <Reveal delay={0.3}>
+                <div className="glass rounded-2xl p-6 hover-lift">
+                  <h3 className="font-display text-xl font-semibold mb-4 text-gradient">Research Interests</h3>
+                  <ul className="space-y-2 text-foreground/80">
+                    <li className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      Applied ML (NLP, CV, Time Series)
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                      Reinforcement Learning
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      Human-centered AI
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                      Scalable ML systems
+                    </li>
                   </ul>
                 </div>
               </Reveal>
@@ -109,46 +192,74 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quick Links */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* Quick Links Section */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <Reveal>
-              <div className="group relative p-6 rounded-lg bg-card border border-border shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
-                <Link to="/projects" className="block h-full">
-                  <h3 className="font-display text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
-                    Projects
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Explore my latest work and technical projects
-                  </p>
+          <Reveal>
+            <div className="text-center mb-16">
+              <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
+                <span className="text-gradient">Explore My Work</span>
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Discover my projects, skills, and professional journey
+              </p>
+            </div>
+          </Reveal>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Projects",
+                description: "Technical projects spanning AI/ML, web development, and more",
+                icon: Code2,
+                path: "/projects",
+                color: "from-primary to-primary/50"
+              },
+              {
+                title: "Publications",
+                description: "Research papers in IEEE, Springer, and conference proceedings",
+                icon: BookOpen,
+                path: "/publications",
+                color: "from-accent to-accent/50"
+              },
+              {
+                title: "Experience",
+                description: "Professional background and industry achievements",
+                icon: Briefcase,
+                path: "/experience",
+                color: "from-primary to-accent"
+              }
+            ].map((item, index) => (
+              <Reveal key={item.title} delay={index * 0.1}>
+                <Link to={item.path} className="group block">
+                  <motion.div 
+                    className="relative h-full p-8 rounded-2xl glass border-border/50 overflow-hidden"
+                    whileHover={{ y: -8 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {/* Gradient glow on hover */}
+                    <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${item.color} blur-3xl -z-10`} />
+                    
+                    <div className="relative z-10">
+                      <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${item.color} p-3 mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                        <item.icon className="w-full h-full text-white" />
+                      </div>
+                      
+                      <h3 className="font-display text-xl font-semibold mb-3 group-hover:text-gradient transition-all duration-300">
+                        {item.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        {item.description}
+                      </p>
+                      
+                      <div className="mt-6 flex items-center text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-0 group-hover:translate-x-2">
+                        Explore <ArrowRight className="ml-2 w-4 h-4" />
+                      </div>
+                    </div>
+                  </motion.div>
                 </Link>
-              </div>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <div className="group relative p-6 rounded-lg bg-card border border-border shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
-                <Link to="/skills" className="block h-full">
-                  <h3 className="font-display text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
-                    Skills
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Technical expertise and competencies
-                  </p>
-                </Link>
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <div className="group relative p-6 rounded-lg bg-card border border-border shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
-                <Link to="/experience" className="block h-full">
-                  <h3 className="font-display text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
-                    Experience
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Professional background and achievements
-                  </p>
-                </Link>
-              </div>
-            </Reveal>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>

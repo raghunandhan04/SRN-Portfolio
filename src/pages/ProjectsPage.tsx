@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ChevronDown, Github, ExternalLink } from "lucide-react";
+import { ChevronDown, Github, ExternalLink, Folder } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
+import { motion, AnimatePresence } from "framer-motion";
 
-const projects = [{
+const projects = [
+  {
     title: "E-commerce Website for Apparel Store",
     description: "A modern responsive e-commerce web app built using TypeScript and React.",
     detailedDescription: "Developed a comprehensive e-commerce platform for an apparel store featuring user authentication, product catalog, shopping cart, payment integration, and admin dashboard. Built with modern React patterns, TypeScript for type safety, and responsive design for optimal user experience across all devices.",
@@ -12,160 +13,232 @@ const projects = [{
     tags: ["Frontend", "E-commerce"],
     link: "https://github.com/raghunandhan04/E-commerce-Website-for-Apparel-Store",
     hasGitHub: true
-  }, {
-    title: "Deep Learning based Smart Battery Thermal Management System (BTMS) for EV Batteries\n(Final Year Project)",
+  },
+  {
+    title: "Deep Learning based Smart BTMS for EV Batteries",
+    subtitle: "Final Year Project",
     description: "Machine learning model for predictive maintenance in industrial equipment",
     detailedDescription: "Developed a comprehensive machine learning solution for predictive maintenance in industrial settings. The system analyzes sensor data, equipment performance metrics, and historical maintenance records to predict potential failures before they occur. Implemented using advanced algorithms including Random Forest, LSTM neural networks, and ensemble methods to achieve high accuracy in failure prediction.",
-    tech: ["Python", "TensorFlow", "Data Analysis", "Deep Learning", "CNN", "Matlab", "Fluke Thermal Imaging", "Ansys"],
+    tech: ["Python", "TensorFlow", "Deep Learning", "CNN", "Matlab", "Ansys"],
     tags: ["ML", "Industrial"],
     organization: "Madras Institute of Technology, Anna University"
-  }, {
+  },
+  {
     title: "DNS Server Project",
     description: "Custom DNS server implementation with advanced routing capabilities",
-    detailedDescription: "Built a high-performance DNS server from scratch with advanced routing and caching mechanisms. Features include custom domain resolution, load balancing, security filters, and real-time monitoring. The server handles thousands of concurrent requests with sub-millisecond response times and includes comprehensive logging and analytics.",
+    detailedDescription: "Built a high-performance DNS server from scratch with advanced routing and caching mechanisms. Features include custom domain resolution, load balancing, security filters, and real-time monitoring.",
     tech: ["Python", "Networking"],
     tags: ["Networking", "Backend"],
     organization: "HCL Technologies"
-  }, {
+  },
+  {
     title: ".NET Code Coverage Tool",
     description: "Tool for analyzing and improving code coverage in .NET applications",
-    detailedDescription: "Developed a comprehensive code coverage analysis tool for .NET applications that provides detailed insights into test coverage, identifies untested code paths, and generates actionable reports. The tool integrates with popular CI/CD pipelines and provides real-time coverage metrics with customizable thresholds and alerts.",
+    detailedDescription: "Developed a comprehensive code coverage analysis tool for .NET applications that provides detailed insights into test coverage, identifies untested code paths, and generates actionable reports.",
     tech: [".NET", "C#", "Testing"],
     tags: ["Testing", "DevTools"],
     organization: "HCL Technologies"
-  }, {
+  },
+  {
     title: "Cycle Time Reduction Tool",
     description: "Tool to optimize and reduce development cycle times",
-    detailedDescription: "Created an automated tool that analyzes development workflows, identifies bottlenecks, and suggests optimizations to reduce cycle times. The tool integrates with project management systems, tracks key metrics, and provides data-driven recommendations for process improvements, resulting in 30% faster delivery times.",
-    tech: ["Python", "Data Analysis"],
+    detailedDescription: "Created an automated tool that analyzes development workflows, identifies bottlenecks, and suggests optimizations to reduce cycle times. Combined RFID-based tracking with data analysis.",
+    tech: ["Python", "Data Analysis", "RFID"],
     tags: ["Optimization", "DevOps"],
     organization: "Ashok Leyland"
-  }, {
+  },
+  {
     title: "Sentiment Analysis using TensorFlow",
     description: "NLP model for sentiment analysis using deep learning",
-    detailedDescription: "Implemented a sophisticated sentiment analysis system using TensorFlow and advanced NLP techniques. The model processes text data from multiple sources, performs real-time sentiment classification, and provides detailed emotional insights. Achieved 94% accuracy on benchmark datasets using transformer architectures and custom preprocessing pipelines.",
+    detailedDescription: "Implemented a sophisticated sentiment analysis system using TensorFlow and advanced NLP techniques. Achieved 94% accuracy on benchmark datasets using transformer architectures.",
     tech: ["Python", "TensorFlow", "NLP"],
     tags: ["ML", "NLP"]
-    },
-    // Added from resume
-    {
-        title: "Strategic Evaluation of AI-Powered No-Code/Low-Code Platforms",
-        description: "Exploration of modern AI-assisted no/low-code platforms and developer tools",
-        detailedDescription: "Evaluated AI-powered no/low-code platforms (Lovable, Rocket, Bolt, Windsurf, Cursor) for rapid prototyping and enterprise feasibility. Assessed developer experience, extensibility, CI/CD integration, and security considerations, delivering recommendations tailored to project constraints and team skill sets.",
-        tech: ["Lovable", "Rocket", "Bolt", "Windsurf", "Cursor"],
-        tags: ["Evaluation", "AI Tools"],
-        organization: "Hibiz Solutions"
-    },
-    {
-        title: "Multilingual Website Development with Custom CMS for Product/Solution Hosting",
-        description: "Full-stack multilingual CMS platform with real-time content updates",
-        detailedDescription: "Built a multilingual CMS platform to host and manage product/solution content for an AI application portfolio. Developed custom user-friendly admin dashboards enabling non-technical staff to perform real-time content updates across supported languages. Implemented role-based access control and content moderation workflows.",
-        tech: ["TypeScript", "React", "HTML", "CSS"],
-        tags: ["Full-Stack", "CMS"],
-        organization: "Hibiz Solutions"
-    },
-    {
-        title: "Development of an AI Tool for Comparing and Validating Engineering CAD Drawings",
-        description: "AI-enabled tool for CAD compliance checking",
-        detailedDescription: "Created an AI-enabled tool that compares and validates compliance of engineering CAD drawings using OCR and computer vision. Automated extraction and matching of drawing annotations to specifications, reducing manual validation time and errors.",
-        tech: ["Python", "OCR", "Computer Vision", "Tesseract"],
-        tags: ["AI", "CAD"],
-        organization: "ZF Global Engineering Centre — COE Team"
-    },
-    {
-        title: "Cycle Time Calculation and Reduction Tool",
-        description: "Manufacturing process optimization toolkit",
-        detailedDescription: "Developed a comprehensive tool for calculating and reducing cycle times in automotive manufacturing processes. Combined RFID-based tracking with data analysis to identify bottlenecks and quantify improvements.",
-        tech: ["RFID", "Excel", "Data Analysis"],
-        tags: ["Manufacturing", "Optimization"],
-        organization: "Ashok Leyland, Ennore"
-    }
+  },
+  {
+    title: "AI-Powered No-Code/Low-Code Platform Evaluation",
+    description: "Exploration of modern AI-assisted no/low-code platforms",
+    detailedDescription: "Evaluated AI-powered no/low-code platforms (Lovable, Rocket, Bolt, Windsurf, Cursor) for rapid prototyping and enterprise feasibility. Assessed developer experience, extensibility, and security considerations.",
+    tech: ["Lovable", "Rocket", "Bolt", "Windsurf", "Cursor"],
+    tags: ["Evaluation", "AI Tools"],
+    organization: "Hibiz Solutions"
+  },
+  {
+    title: "Multilingual CMS Platform",
+    description: "Full-stack multilingual CMS with real-time content updates",
+    detailedDescription: "Built a multilingual CMS platform to host and manage product/solution content. Developed custom admin dashboards enabling non-technical staff to perform real-time content updates.",
+    tech: ["TypeScript", "React", "HTML", "CSS"],
+    tags: ["Full-Stack", "CMS"],
+    organization: "Hibiz Solutions"
+  },
+  {
+    title: "AI Tool for CAD Drawing Validation",
+    description: "AI-enabled tool for CAD compliance checking",
+    detailedDescription: "Created an AI-enabled tool that compares and validates compliance of engineering CAD drawings using OCR and computer vision. Automated extraction and matching of drawing annotations.",
+    tech: ["Python", "OCR", "Computer Vision", "Tesseract"],
+    tags: ["AI", "CAD"],
+    organization: "ZF Global Engineering Centre"
+  }
 ];
 
 export default function ProjectsPage() {
-    const [expandedProject, setExpandedProject] = useState<number | null>(null);
-    const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const [expandedProject, setExpandedProject] = useState<number | null>(null);
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-    const handleExpandToggle = (index: number) => {
-        const willExpand = expandedProject !== index;
-        setExpandedProject(willExpand ? index : null);
-        // After state updates, scroll the card into view with offset for fixed nav
-        setTimeout(() => {
-            const el = cardRefs.current[index];
-            if (!el) return;
-            const navHeight = 80; // adjust if your header height differs
-            const rect = el.getBoundingClientRect();
-            const offsetTop = rect.top + window.pageYOffset - navHeight - 12; // small padding
-            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-        }, 0);
-    };
+  const handleExpandToggle = (index: number) => {
+    const willExpand = expandedProject !== index;
+    setExpandedProject(willExpand ? index : null);
+    setTimeout(() => {
+      const el = cardRefs.current[index];
+      if (!el) return;
+      const navHeight = 80;
+      const rect = el.getBoundingClientRect();
+      const offsetTop = rect.top + window.pageYOffset - navHeight - 12;
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+    }, 0);
+  };
 
-    return (
-        <section id="projects" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
-            <div className="container mx-auto max-w-6xl">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 md:mb-12 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                    Featured Projects
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                    {projects.map((project, index) => (
-                        <Reveal key={index} delay={index * 0.05}>
-                            <Card
-                                                    key={index}
-                                                    ref={(el) => { cardRefs.current[index] = el; }}
-                                                    className={`bg-card/50 backdrop-blur-sm border-border hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer touch-manipulation ${expandedProject === index ? 'md:col-span-2 lg:col-span-3' : ''}`}
-                                                    onClick={() => handleExpandToggle(index)}
-                                                >
-                            <CardHeader className="pb-3 sm:pb-4">
-                                <CardTitle className="text-foreground flex items-start sm:items-center justify-between gap-2 text-base sm:text-lg">
-                                    <div className="flex items-start sm:items-center gap-2 flex-1 min-w-0">
-                                        <span className="break-words">{project.title}</span>
-                                        {project.hasGitHub && <Github
-                                            className="w-5 h-5 sm:w-6 sm:h-6 text-primary hover:text-primary/80 transition-colors flex-shrink-0 touch-manipulation p-0.5"
-                                            onClick={e => {
-                                                e.stopPropagation();
-                                                window.open(project.link, '_blank');
-                                            }}
-                                        />}
-                                    </div>
-                                    <ChevronDown className={`w-5 h-5 transition-transform flex-shrink-0 touch-manipulation ${expandedProject === index ? 'rotate-180' : ''}`} />
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent className="pt-0">
-                                <p className="text-foreground/80 mb-4 text-sm sm:text-base leading-relaxed">
-                                    {expandedProject === index ? project.detailedDescription : project.description}
-                                </p>
-                                {project.organization && <div className="mb-4">
-                                    <p className="text-sm font-semibold text-primary mb-1">Organization:</p>
-                                    <p className="text-sm text-foreground/70">{project.organization}</p>
-                                </div>}
-                                {project.link && expandedProject === index && <div className="mb-4">
-                                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors touch-manipulation py-1" onClick={e => e.stopPropagation()}>
-                                        <ExternalLink className="w-4 h-4" />
-                                        View Repository
-                                    </a>
-                                </div>}
-                                <div className="mb-4">
-                                    <p className="text-sm font-semibold text-primary mb-2">Tech Stack:</p>
-                                    <div className="flex flex-wrap gap-1 sm:gap-2">
-                                        {project.tech.map(tech => <Badge key={tech} variant="outline" className="text-xs py-1 px-2">
-                                            {tech}
-                                        </Badge>)}
-                                    </div>
-                                </div>
-                                <div className="flex flex-wrap gap-1 sm:gap-2 mb-3">
-                                    {project.tags.map(tag => <Badge key={tag} className="bg-primary/20 text-primary text-xs py-1 px-2">
-                                        {tag}
-                                    </Badge>)}
-                                </div>
-                                {expandedProject !== index && <p className="text-xs text-foreground/60">
-                                    {project.hasGitHub ? 'Tap to expand details or GitHub icon to view repository' : 'Tap to expand for details'}
-                                </p>}
-                            </CardContent>
-                            </Card>
-                        </Reveal>
-                    ))}
+  return (
+    <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6">
+      <div className="container mx-auto max-w-6xl">
+        <Reveal>
+          <div className="text-center mb-16">
+            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4">
+              <span className="text-gradient">Featured Projects</span>
+            </h1>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              A collection of my work spanning AI/ML, web development, and industrial applications
+            </p>
+            <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mt-6" />
+          </div>
+        </Reveal>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project, index) => (
+            <Reveal key={index} delay={index * 0.05}>
+              <motion.div
+                ref={(el) => { cardRefs.current[index] = el; }}
+                layout
+                className={`group relative glass rounded-2xl border border-border/50 overflow-hidden cursor-pointer transition-all duration-300 ${
+                  expandedProject === index ? 'md:col-span-2 lg:col-span-3' : ''
+                }`}
+                onClick={() => handleExpandToggle(index)}
+                whileHover={{ y: expandedProject === index ? 0 : -4 }}
+              >
+                {/* Gradient accent line */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <div className="p-6">
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <div className="flex items-start gap-3 flex-1 min-w-0">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Folder className="w-5 h-5 text-primary" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-gradient transition-all duration-300 line-clamp-2">
+                          {project.title}
+                        </h3>
+                        {project.subtitle && (
+                          <p className="text-sm text-primary mt-1">{project.subtitle}</p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      {project.hasGitHub && (
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="p-2 rounded-lg bg-muted/50 hover:bg-primary/20 transition-colors"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(project.link, '_blank');
+                          }}
+                        >
+                          <Github className="w-4 h-4" />
+                        </motion.button>
+                      )}
+                      <motion.div
+                        animate={{ rotate: expandedProject === index ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <ChevronDown className="w-5 h-5 text-muted-foreground" />
+                      </motion.div>
+                    </div>
+                  </div>
+
+                  <p className="text-foreground/70 text-sm leading-relaxed mb-4">
+                    {expandedProject === index ? project.detailedDescription : project.description}
+                  </p>
+
+                  <AnimatePresence>
+                    {expandedProject === index && project.organization && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="mb-4"
+                      >
+                        <p className="text-sm text-muted-foreground">
+                          <span className="text-primary font-medium">Organization:</span> {project.organization}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {project.link && expandedProject === index && (
+                    <motion.a
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors mb-4"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      View Repository
+                    </motion.a>
+                  )}
+
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap gap-2">
+                      {project.tech.slice(0, expandedProject === index ? undefined : 4).map((tech) => (
+                        <Badge 
+                          key={tech} 
+                          variant="outline" 
+                          className="text-xs bg-muted/50 border-border/50 hover:border-primary/50 transition-colors"
+                        >
+                          {tech}
+                        </Badge>
+                      ))}
+                      {expandedProject !== index && project.tech.length > 4 && (
+                        <Badge variant="outline" className="text-xs bg-muted/50 border-border/50">
+                          +{project.tech.length - 4}
+                        </Badge>
+                      )}
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {project.tags.map((tag) => (
+                        <Badge 
+                          key={tag} 
+                          className="text-xs bg-primary/10 text-primary border-0"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  {expandedProject !== index && (
+                    <p className="text-xs text-muted-foreground mt-4">
+                      Click to expand
+                    </p>
+                  )}
                 </div>
-            </div>
-        </section>
-    );
+              </motion.div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
