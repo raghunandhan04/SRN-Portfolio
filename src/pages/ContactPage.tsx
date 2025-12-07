@@ -28,11 +28,21 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.functions.invoke('send-contact-email', {
+      // Save to database
+      const { error: dbError } = await supabase
+        .from('contact_submissions')
+        .insert({
+          name: contactForm.name,
+          email: contactForm.email,
+          message: contactForm.message
+        });
+
+      if (dbError) throw dbError;
+
+      // Also send email notification
+      await supabase.functions.invoke('send-contact-email', {
         body: contactForm
       });
-
-      if (error) throw error;
 
       toast({
         title: "Message sent!",
