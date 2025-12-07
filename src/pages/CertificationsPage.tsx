@@ -202,30 +202,15 @@ export default function CertificationsPage() {
                     )}
 
                     {(cert.pdf_url || cert.certificate_file_url) && (
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="border-border/50 hover:bg-primary/10 hover:border-primary/50 transition-colors"
-                          >
-                            <FileText className="w-4 h-4 mr-2" />
-                            View PDF
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-[95vw] sm:max-w-4xl max-h-[90vh] glass">
-                          <DialogHeader>
-                            <DialogTitle>{cert.title}</DialogTitle>
-                          </DialogHeader>
-                          <div className="w-full h-[75vh]">
-                            <iframe
-                              src={(cert.pdf_url || cert.certificate_file_url) as string}
-                              className="w-full h-full border-0 rounded-lg"
-                              title={`${cert.title} PDF`}
-                            />
-                          </div>
-                        </DialogContent>
-                      </Dialog>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="border-border/50 hover:bg-primary/10 hover:border-primary/50 transition-colors"
+                        onClick={() => window.open((cert.pdf_url || cert.certificate_file_url) as string, '_blank')}
+                      >
+                        <FileText className="w-4 h-4 mr-2" />
+                        View PDF
+                      </Button>
                     )}
                   </div>
                 </div>
