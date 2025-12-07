@@ -88,10 +88,10 @@ export default function ContactPage() {
           </div>
         </Reveal>
 
-        <div className="grid lg:grid-cols-5 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {/* Contact Form */}
           <Reveal delay={0.1}>
-            <div className="glass rounded-2xl border border-border/50 p-8 lg:col-span-3">
+            <div className="glass rounded-2xl border border-border/50 p-8 h-full">
               <h2 className="font-display text-2xl font-semibold mb-6 text-foreground">
                 Send a Message
               </h2>
@@ -155,7 +155,7 @@ export default function ContactPage() {
           </Reveal>
 
           {/* Contact Info */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="space-y-6">
             <Reveal delay={0.2}>
               <div className="glass rounded-2xl border border-border/50 p-6">
                 <div className="flex items-center gap-4 mb-4">
