@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Calendar, ExternalLink, Award, FileText } from "lucide-react";
+import { Calendar, ExternalLink, Award, FileText, Download } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
 import { motion } from "framer-motion";
 
@@ -206,10 +206,17 @@ export default function CertificationsPage() {
                         variant="outline"
                         size="sm"
                         className="border-border/50 hover:bg-primary/10 hover:border-primary/50 transition-colors"
-                        onClick={() => window.open((cert.pdf_url || cert.certificate_file_url) as string, '_blank')}
+                        asChild
                       >
-                        <FileText className="w-4 h-4 mr-2" />
-                        View PDF
+                        <a 
+                          href={(cert.pdf_url || cert.certificate_file_url) as string} 
+                          download={`${cert.title}.pdf`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Download className="w-4 h-4 mr-2" />
+                          Download PDF
+                        </a>
                       </Button>
                     )}
                   </div>
