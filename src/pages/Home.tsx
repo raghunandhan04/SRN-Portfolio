@@ -52,9 +52,9 @@ export default function Home() {
           </Reveal>
           
           <Reveal delay={0.1}>
-            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight whitespace-nowrap">
               <span className="text-foreground">Hi, I'm </span>
-              <span className="text-gradient glow-text">{profile?.full_name || 'Raghunandhan'}</span>
+              <span className="text-gradient glow-text">{profile?.full_name || 'Raghunandhan S'}</span>
             </h1>
           </Reveal>
           
