@@ -67,8 +67,6 @@ export default function Home() {
           
           <Reveal delay={0.3}>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-              Currently working as <span className="text-foreground">Systems Analyst/Developer</span> at Hibiz Solutions
-              <span className="text-muted-foreground/60"> • </span>
               {profile?.location || 'Chennai, India'}
             </p>
           </Reveal>
