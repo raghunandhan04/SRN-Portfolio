@@ -1,13 +1,17 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, memo } from "react";
 
 interface PageTransitionProps extends PropsWithChildren {
   routeKey: string;
 }
 
-export function PageTransition({ routeKey, children }: PageTransitionProps) {
+export const PageTransition = memo(function PageTransition({ routeKey, children }: PageTransitionProps) {
   const prefersReduced = useReducedMotion();
-  const duration = prefersReduced ? 0 : 0.2;
+  
+  // Skip animations for reduced motion preference
+  if (prefersReduced) {
+    return <>{children}</>;
+  }
 
   return (
     <AnimatePresence mode="popLayout" initial={false}>
@@ -16,10 +20,10 @@ export function PageTransition({ routeKey, children }: PageTransitionProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration, ease: "easeOut" }}
+        transition={{ duration: 0.15, ease: "easeOut" }}
       >
         {children}
       </motion.div>
     </AnimatePresence>
   );
-}
+});

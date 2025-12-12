@@ -48,51 +48,54 @@ export default function CertificationsPage() {
     }
   };
 
-  // Fallback entries
-  const fallback: Certification[] = [
-    {
-      id: 'fallback-ml-python-foundations',
-      title: 'Machine Learning with Python: Foundations',
-      issuer: 'LinkedIn Learning',
-      issue_date: '2024-08-11',
-      credential_url: '',
-      image_url: '',
-      description: 'Top skills covered: Machine Learning, Python (Programming Language).',
-      is_active: true,
-      display_order: 100
-    },
-    {
-      id: 'fallback-python-non-programmers',
-      title: 'Python for Non-Programmers',
-      issuer: 'LinkedIn Learning',
-      issue_date: '2024-07-31',
-      credential_url: '',
-      image_url: '',
-      description: 'Top skills covered: Python (Programming Language).',
-      is_active: true,
-      display_order: 101
+  // Sort by display_order first, then by issue_date
+  const sorted = [...certifications].sort((a, b) => {
+    if (a.display_order !== b.display_order) {
+      return (a.display_order || 999) - (b.display_order || 999);
     }
-  ];
-
-  const effective = certifications.length > 0 ? certifications : fallback;
-
-  const toTime = (c: Certification) => {
-    const d = c.issue_date || c.expiry_date;
-    return d ? new Date(d).getTime() : -Infinity;
-  };
-  const sorted = [...effective].sort((a, b) => toTime(b) - toTime(a));
+    const aTime = a.issue_date ? new Date(a.issue_date).getTime() : 0;
+    const bTime = b.issue_date ? new Date(b.issue_date).getTime() : 0;
+    return bTime - aTime;
+  });
 
   if (loading) {
     return (
-      <div className="container mx-auto py-24 px-4">
-        <div className="flex items-center justify-center">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full"
-          />
+      <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <div className="h-12 w-64 mx-auto bg-muted/50 rounded-lg animate-pulse mb-4" />
+            <div className="h-6 w-96 mx-auto bg-muted/30 rounded animate-pulse" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="glass rounded-2xl border border-border/50 p-6 h-48 animate-pulse">
+                <div className="flex gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-muted/50" />
+                  <div className="flex-1">
+                    <div className="h-5 bg-muted/50 rounded mb-2" />
+                    <div className="h-4 w-24 bg-muted/30 rounded" />
+                  </div>
+                </div>
+                <div className="h-4 bg-muted/30 rounded mb-2" />
+                <div className="h-4 w-3/4 bg-muted/30 rounded" />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
+    );
+  }
+
+  // Empty state
+  if (sorted.length === 0) {
+    return (
+      <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6">
+        <div className="container mx-auto max-w-6xl text-center">
+          <Award className="w-16 h-16 mx-auto text-muted-foreground/50 mb-4" />
+          <h1 className="font-display text-2xl font-bold text-foreground mb-2">No Certifications Yet</h1>
+          <p className="text-muted-foreground">Certifications will appear here once added.</p>
+        </div>
+      </section>
     );
   }
 
@@ -113,7 +116,7 @@ export default function CertificationsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sorted.map((cert, idx) => (
-            <Reveal key={cert.id} delay={idx * 0.08}>
+            <Reveal key={cert.id} delay={Math.min(idx * 0.05, 0.25)}>
               <motion.div 
                 className="group glass rounded-2xl border border-border/50 overflow-hidden h-full"
                 whileHover={{ y: -8 }}
