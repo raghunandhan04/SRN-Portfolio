@@ -7,15 +7,15 @@ interface PageTransitionProps extends PropsWithChildren {
 
 export function PageTransition({ routeKey, children }: PageTransitionProps) {
   const prefersReduced = useReducedMotion();
-  const duration = prefersReduced ? 0 : 0.35;
+  const duration = prefersReduced ? 0 : 0.2;
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="popLayout" initial={false}>
       <motion.div
         key={routeKey}
-        initial={{ opacity: 0, y: 12, filter: "blur(2px)" }}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        exit={{ opacity: 0, y: -8, filter: "blur(2px)" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         transition={{ duration, ease: "easeOut" }}
       >
         {children}
