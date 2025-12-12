@@ -114,7 +114,7 @@ export default function ProjectsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <Reveal key={index} delay={index * 0.05}>
+            <Reveal key={index} delay={Math.min(index * 0.03, 0.2)}>
               <motion.div
                 ref={(el) => { cardRefs.current[index] = el; }}
                 layout

@@ -17,7 +17,8 @@ export default function Home() {
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
-      .single();
+      .limit(1)
+      .maybeSingle();
     
     if (!error && data) {
       setProfile(data);
@@ -228,7 +229,7 @@ export default function Home() {
                 color: "from-primary to-accent"
               }
             ].map((item, index) => (
-              <Reveal key={item.title} delay={index * 0.1}>
+              <Reveal key={item.title} delay={Math.min(index * 0.08, 0.2)}>
                 <Link to={item.path} className="group block">
                   <motion.div 
                     className="relative h-full p-8 rounded-2xl glass border-border/50 overflow-hidden"

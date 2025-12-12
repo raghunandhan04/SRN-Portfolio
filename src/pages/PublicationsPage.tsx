@@ -86,7 +86,7 @@ export default function PublicationsPage() {
 
         <div className="space-y-4">
           {sortedPublications.map((publication, index) => (
-            <Reveal key={index} delay={index * 0.08}>
+            <Reveal key={index} delay={Math.min(index * 0.05, 0.25)}>
               <motion.div
                 layout
                 className="glass rounded-2xl border border-border/50 overflow-hidden cursor-pointer"
