@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowRight, Download, Sparkles, Code2, BookOpen, Briefcase } from "lucide-react";
+import { ArrowRight, Download, Sparkles, Code2, BookOpen, Briefcase, Award, Users, Heart, Gamepad2, Book, Dumbbell, Camera, Plane, Trophy, Target } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/motion/Reveal";
 import { motion } from "framer-motion";
@@ -187,6 +187,175 @@ export default function Home() {
                 </div>
               </Reveal>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Extracurricular Activities Section */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[80px]" />
+        </div>
+
+        <div className="max-w-5xl mx-auto relative">
+          <Reveal>
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-sm text-accent mb-6">
+                <Award className="w-4 h-4" />
+                <span>Leadership & Community</span>
+              </div>
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+                <span className="text-gradient">Extracurricular Activities</span>
+              </h2>
+              <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
+            </div>
+          </Reveal>
+
+          <div className="space-y-6">
+            {[
+              {
+                role: "General Secretary",
+                organization: "The Personality Development Association",
+                institution: "MIT, Anna University",
+                period: "2023 – 2025",
+                location: "Chennai, India",
+                icon: Users,
+                color: "from-primary to-primary/70"
+              },
+              {
+                role: "Volunteer",
+                organization: "The Youth Red Cross",
+                institution: "MIT, Anna University",
+                period: "2023 – 2025",
+                location: "Chennai, India",
+                icon: Heart,
+                color: "from-red-500 to-red-400"
+              },
+              {
+                role: "Member",
+                organization: "The Box Office Club & The Photosociety",
+                institution: "MIT, Anna University",
+                period: "2022 – 2025",
+                location: "Chennai, India",
+                icon: Camera,
+                color: "from-accent to-accent/70"
+              },
+              {
+                role: "Active Participant",
+                organization: "Model United Nations (MUN) Conferences",
+                institution: "",
+                period: "",
+                location: "",
+                icon: Trophy,
+                color: "from-yellow-500 to-amber-400"
+              }
+            ].map((activity, index) => (
+              <Reveal key={activity.organization} delay={Math.min(index * 0.1, 0.3)}>
+                <motion.div
+                  className="group relative glass rounded-2xl p-6 sm:p-8 border border-border/50 overflow-hidden"
+                  whileHover={{ x: 10, scale: 1.01 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Gradient accent line */}
+                  <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${activity.color} opacity-50 group-hover:opacity-100 transition-opacity`} />
+                  
+                  {/* Hover glow */}
+                  <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r ${activity.color} blur-3xl -z-10`} style={{ opacity: 0.05 }} />
+
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div className="flex items-start gap-4">
+                      <motion.div 
+                        className={`w-12 h-12 rounded-xl bg-gradient-to-br ${activity.color} p-3 flex-shrink-0`}
+                        whileHover={{ rotate: 5, scale: 1.1 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <activity.icon className="w-full h-full text-white" />
+                      </motion.div>
+                      <div>
+                        <h3 className="font-display text-lg sm:text-xl font-semibold text-foreground group-hover:text-gradient transition-all duration-300">
+                          {activity.role}
+                        </h3>
+                        <p className="text-muted-foreground text-sm sm:text-base">
+                          {activity.organization}
+                          {activity.institution && ` - ${activity.institution}`}
+                        </p>
+                      </div>
+                    </div>
+                    
+                    {(activity.period || activity.location) && (
+                      <div className="text-right text-sm text-muted-foreground ml-16 sm:ml-0">
+                        {activity.period && <p className="font-medium text-foreground/80">{activity.period}</p>}
+                        {activity.location && <p>{activity.location}</p>}
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Hobbies Section */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/20 to-transparent" />
+        
+        <div className="max-w-5xl mx-auto relative">
+          <Reveal>
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm text-primary mb-6">
+                <Target className="w-4 h-4" />
+                <span>Beyond Work</span>
+              </div>
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+                <span className="text-gradient">Hobbies & Interests</span>
+              </h2>
+              <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            {[
+              { name: "Badminton", icon: Target, color: "from-green-500 to-emerald-400" },
+              { name: "Reading", icon: Book, color: "from-blue-500 to-cyan-400" },
+              { name: "Chess", icon: Gamepad2, color: "from-purple-500 to-violet-400" },
+              { name: "Fitness", icon: Dumbbell, color: "from-red-500 to-orange-400" },
+              { name: "Editing", icon: Camera, color: "from-pink-500 to-rose-400" },
+              { name: "Travelling", icon: Plane, color: "from-accent to-teal-400" }
+            ].map((hobby, index) => (
+              <Reveal key={hobby.name} delay={Math.min(index * 0.08, 0.4)}>
+                <motion.div
+                  className="group relative"
+                  whileHover={{ y: -8, scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="relative glass rounded-2xl p-6 text-center border border-border/50 overflow-hidden h-full">
+                    {/* Animated gradient background on hover */}
+                    <motion.div 
+                      className={`absolute inset-0 bg-gradient-to-br ${hobby.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+                    />
+                    
+                    {/* Icon container with floating animation */}
+                    <motion.div 
+                      className={`w-14 h-14 mx-auto rounded-xl bg-gradient-to-br ${hobby.color} p-3 mb-4 shadow-lg`}
+                      whileHover={{ rotate: [0, -10, 10, 0] }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <hobby.icon className="w-full h-full text-white" />
+                    </motion.div>
+                    
+                    <h3 className="font-medium text-foreground group-hover:text-gradient transition-all duration-300">
+                      {hobby.name}
+                    </h3>
+                    
+                    {/* Decorative ring on hover */}
+                    <div className={`absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-primary/20 transition-colors duration-300`} />
+                  </div>
+                </motion.div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
