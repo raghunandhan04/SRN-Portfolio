@@ -1,19 +1,74 @@
-import { useState } from 'react';
+import { useState, useCallback, memo } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Github, Linkedin, MessageCircle, Send, MapPin, ArrowUpRight } from "lucide-react";
+import { Mail, Github, Linkedin, MessageCircle, Send, MapPin, ArrowUpRight, LucideIcon } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Reveal } from "@/components/motion/Reveal";
 import { motion } from "framer-motion";
 
-export default function ContactPage() {
+interface SocialLink {
+  name: string;
+  icon: LucideIcon;
+  url: string;
+  color: string;
+}
+
+const socialLinks: SocialLink[] = [
+  {
+    name: "LinkedIn",
+    icon: Linkedin,
+    url: "https://www.linkedin.com/in/raghunandhan04/",
+    color: "from-blue-600 to-blue-500"
+  },
+  {
+    name: "GitHub",
+    icon: Github,
+    url: "https://github.com/raghunandhan04",
+    color: "from-gray-700 to-gray-600"
+  },
+  {
+    name: "WhatsApp",
+    icon: MessageCircle,
+    url: "https://wa.me/919962181553",
+    color: "from-green-600 to-green-500"
+  }
+];
+
+const SocialLinkCard = memo(function SocialLinkCard({ link }: { link: SocialLink }) {
+  const Icon = link.icon;
+  
+  return (
+    <motion.a
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-all duration-300 group"
+      whileHover={{ x: 4 }}
+      aria-label={`Connect on ${link.name}`}
+    >
+      <div className="flex items-center gap-3">
+        <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${link.color} flex items-center justify-center`}>
+          <Icon className="w-5 h-5 text-white" aria-hidden="true" />
+        </div>
+        <span className="font-medium text-foreground">{link.name}</span>
+      </div>
+      <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" aria-hidden="true" />
+    </motion.a>
+  );
+});
+
+function ContactPage() {
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const handleContactSubmit = async (e: React.FormEvent) => {
+  const handleInputChange = useCallback((field: 'name' | 'email' | 'message', value: string) => {
+    setContactForm(prev => ({ ...prev, [field]: value }));
+  }, []);
+
+  const handleContactSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!contactForm.name || !contactForm.email || !contactForm.message) {
@@ -60,41 +115,20 @@ export default function ContactPage() {
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const socialLinks = [
-    {
-      name: "LinkedIn",
-      icon: Linkedin,
-      url: "https://www.linkedin.com/in/raghunandhan04/",
-      color: "from-blue-600 to-blue-500"
-    },
-    {
-      name: "GitHub",
-      icon: Github,
-      url: "https://github.com/raghunandhan04",
-      color: "from-gray-700 to-gray-600"
-    },
-    {
-      name: "WhatsApp",
-      icon: MessageCircle,
-      url: "https://wa.me/919962181553",
-      color: "from-green-600 to-green-500"
-    }
-  ];
+  }, [contactForm, toast]);
 
   return (
-    <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6">
+    <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6" aria-labelledby="contact-heading">
       <div className="container mx-auto max-w-5xl">
         <Reveal>
           <div className="text-center mb-16">
-            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4">
+            <h1 id="contact-heading" className="font-display text-4xl sm:text-5xl font-bold mb-4">
               <span className="text-gradient">Get In Touch</span>
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               I'm always open to discussing research opportunities, collaborations, or just having a chat
             </p>
-            <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mt-6" />
+            <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mt-6" aria-hidden="true" />
           </div>
         </Reveal>
 
@@ -108,34 +142,39 @@ export default function ContactPage() {
               <form onSubmit={handleContactSubmit} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-sm font-medium text-foreground/80 mb-2">Name</label>
+                    <label htmlFor="contact-name" className="block text-sm font-medium text-foreground/80 mb-2">Name</label>
                     <Input
+                      id="contact-name"
                       placeholder="Your Name"
                       className="bg-muted/50 border-border/50 focus:border-primary/50 transition-colors"
                       value={contactForm.name}
-                      onChange={(e) => setContactForm(prev => ({ ...prev, name: e.target.value }))}
+                      onChange={(e) => handleInputChange('name', e.target.value)}
                       required
+                      autoComplete="name"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-foreground/80 mb-2">Email</label>
+                    <label htmlFor="contact-email" className="block text-sm font-medium text-foreground/80 mb-2">Email</label>
                     <Input
+                      id="contact-email"
                       type="email"
                       placeholder="your.email@example.com"
                       className="bg-muted/50 border-border/50 focus:border-primary/50 transition-colors"
                       value={contactForm.email}
-                      onChange={(e) => setContactForm(prev => ({ ...prev, email: e.target.value }))}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
                       required
+                      autoComplete="email"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-foreground/80 mb-2">Message</label>
+                  <label htmlFor="contact-message" className="block text-sm font-medium text-foreground/80 mb-2">Message</label>
                   <Textarea
+                    id="contact-message"
                     placeholder="Your message..."
                     className="bg-muted/50 border-border/50 focus:border-primary/50 transition-colors min-h-[150px] resize-none"
                     value={contactForm.message}
-                    onChange={(e) => setContactForm(prev => ({ ...prev, message: e.target.value }))}
+                    onChange={(e) => handleInputChange('message', e.target.value)}
                     required
                   />
                 </div>
@@ -150,13 +189,14 @@ export default function ContactPage() {
                         animate={{ rotate: 360 }}
                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                         className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                        aria-hidden="true"
                       />
                       Sending...
                     </span>
                   ) : (
                     <span className="flex items-center gap-2">
                       Send Message
-                      <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                     </span>
                   )}
                 </Button>
@@ -166,11 +206,11 @@ export default function ContactPage() {
 
           {/* Contact Info */}
           <div className="space-y-6">
-            <Reveal delay={0.2}>
+            <Reveal delay={0.15}>
               <div className="glass rounded-2xl border border-border/50 p-6">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                    <Mail className="w-6 h-6 text-primary" />
+                    <Mail className="w-6 h-6 text-primary" aria-hidden="true" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground">Email</h3>
@@ -184,7 +224,7 @@ export default function ContactPage() {
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-muted/50 flex items-center justify-center">
-                    <MapPin className="w-6 h-6 text-muted-foreground" />
+                    <MapPin className="w-6 h-6 text-muted-foreground" aria-hidden="true" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground">Location</h3>
@@ -194,29 +234,14 @@ export default function ContactPage() {
               </div>
             </Reveal>
 
-            <Reveal delay={0.3}>
+            <Reveal delay={0.2}>
               <div className="glass rounded-2xl border border-border/50 p-6">
                 <h3 className="font-display text-lg font-semibold text-foreground mb-4">
                   Connect With Me
                 </h3>
-                <div className="space-y-3">
+                <div className="space-y-3" role="list" aria-label="Social links">
                   {socialLinks.map((link) => (
-                    <motion.a
-                      key={link.name}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-all duration-300 group"
-                      whileHover={{ x: 4 }}
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${link.color} flex items-center justify-center`}>
-                          <link.icon className="w-5 h-5 text-white" />
-                        </div>
-                        <span className="font-medium text-foreground">{link.name}</span>
-                      </div>
-                      <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                    </motion.a>
+                    <SocialLinkCard key={link.name} link={link} />
                   ))}
                 </div>
               </div>
@@ -227,3 +252,5 @@ export default function ContactPage() {
     </section>
   );
 }
+
+export default memo(ContactPage);
