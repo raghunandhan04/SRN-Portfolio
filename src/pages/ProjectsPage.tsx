@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 import { Badge } from "@/components/ui/badge";
 import { ChevronDown, Github, ExternalLink, Folder } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
-import { motion, AnimatePresence } from "framer-motion";
 
 const projects = [
   {
@@ -115,14 +114,10 @@ export default function ProjectsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
             <Reveal key={index} delay={Math.min(index * 0.03, 0.2)}>
-              <motion.div
+              <div
                 ref={(el) => { cardRefs.current[index] = el; }}
-                layout
-                className={`group relative glass rounded-2xl border border-border/50 overflow-hidden cursor-pointer transition-all duration-300 ${
-                  expandedProject === index ? 'md:col-span-2 lg:col-span-3' : ''
-                }`}
+                className="group relative glass rounded-2xl border border-border/50 overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1"
                 onClick={() => handleExpandToggle(index)}
-                whileHover={{ y: expandedProject === index ? 0 : -4 }}
               >
                 {/* Gradient accent line */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -144,60 +139,53 @@ export default function ProjectsPage() {
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
                       {project.hasGitHub && (
-                        <motion.button
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.95 }}
-                          className="p-2 rounded-lg bg-muted/50 hover:bg-primary/20 transition-colors"
+                        <button
+                          className="p-2 rounded-lg bg-muted/50 hover:bg-primary/20 transition-colors hover:scale-110 active:scale-95"
                           onClick={(e) => {
                             e.stopPropagation();
                             window.open(project.link, '_blank');
                           }}
                         >
                           <Github className="w-4 h-4" />
-                        </motion.button>
+                        </button>
                       )}
-                      <motion.div
-                        animate={{ rotate: expandedProject === index ? 180 : 0 }}
-                        transition={{ duration: 0.3 }}
+                      <div
+                        className={`transition-transform duration-300 ${expandedProject === index ? 'rotate-180' : ''}`}
                       >
                         <ChevronDown className="w-5 h-5 text-muted-foreground" />
-                      </motion.div>
+                      </div>
                     </div>
                   </div>
 
                   <p className="text-foreground/70 text-sm leading-relaxed mb-4">
-                    {expandedProject === index ? project.detailedDescription : project.description}
+                    {project.description}
                   </p>
 
-                  <AnimatePresence>
-                    {expandedProject === index && project.organization && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="mb-4"
-                      >
-                        <p className="text-sm text-muted-foreground">
-                          <span className="text-primary font-medium">Organization:</span> {project.organization}
-                        </p>
-                      </motion.div>
+                  {/* Expanded content */}
+                  <div className={`overflow-hidden transition-all duration-300 ${expandedProject === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                    <p className="text-foreground/70 text-sm leading-relaxed mb-4">
+                      {project.detailedDescription}
+                    </p>
+                    
+                    {project.organization && (
+                      <p className="text-sm text-muted-foreground mb-4">
+                        <span className="text-primary font-medium">Organization:</span> {project.organization}
+                      </p>
                     )}
-                  </AnimatePresence>
 
-                  {project.link && expandedProject === index && (
-                    <motion.a
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors mb-4"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      View Repository
-                    </motion.a>
-                  )}
+                    {project.link && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors mb-4"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        View Repository
+                      </a>
+                    )}
+                  </div>
 
                   <div className="space-y-3">
                     <div className="flex flex-wrap gap-2">
@@ -234,7 +222,7 @@ export default function ProjectsPage() {
                     </p>
                   )}
                 </div>
-              </motion.div>
+              </div>
             </Reveal>
           ))}
         </div>
