@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { FileUpload } from "@/components/admin/FileUpload";
 
 interface Profile {
   id?: string;
@@ -114,11 +115,14 @@ export const ProfileForm = ({ userId }: ProfileFormProps) => {
               />
             </div>
             <div>
-              <Label htmlFor="resume_url">Resume URL</Label>
-              <Input
-                id="resume_url"
-                value={profile.resume_url || ""}
-                onChange={(e) => setProfile({ ...profile, resume_url: e.target.value })}
+              <FileUpload
+                bucketName="resumes"
+                folder="uploads"
+                accept="application/pdf"
+                maxSize={10}
+                label="Resume (PDF)"
+                existingUrl={profile.resume_url || undefined}
+                onUploadComplete={(url) => setProfile({ ...profile, resume_url: url })}
               />
             </div>
           </div>
