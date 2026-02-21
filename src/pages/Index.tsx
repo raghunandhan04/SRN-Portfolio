@@ -264,32 +264,43 @@ const Index = () => {
             >
               Contact Me
             </Button>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button 
-                  variant="outline" 
-                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground min-h-[48px] px-6 py-3 text-base touch-manipulation"
-                >
-                  View Resume
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-[95vw] sm:max-w-4xl max-h-[85vh] overflow-y-auto mx-4">
-                <DialogHeader>
-                  <DialogTitle>Resume - {profile?.full_name || "Raghunandhan S"}</DialogTitle>
-                </DialogHeader>
-                <div className="p-4 bg-card rounded-lg">
-                  {profile?.resume_url ? (
+            {profile?.resume_url ? (
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button 
+                    variant="outline" 
+                    className="border-primary text-primary hover:bg-primary hover:text-primary-foreground min-h-[48px] px-6 py-3 text-base touch-manipulation"
+                  >
+                    View Resume
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-[95vw] sm:max-w-4xl h-[90vh] flex flex-col mx-4">
+                  <DialogHeader className="flex-shrink-0">
+                    <DialogTitle className="flex items-center justify-between gap-4">
+                      <span>Resume - {profile?.full_name || "Raghunandhan S"}</span>
+                      <a
+                        href={profile.resume_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Open in new tab
+                      </a>
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="flex-1 min-h-0 rounded-lg overflow-hidden border border-border">
                     <iframe 
-                      src={profile.resume_url} 
-                      className="w-full h-96" 
-                      title="Resume"
+                      src={`${profile.resume_url}#toolbar=1&navpanes=0`}
+                      className="w-full h-full"
+                      title="Resume PDF"
+                      style={{ minHeight: '100%' }}
                     />
-                  ) : (
-                    <p className="text-muted-foreground">Resume content will be displayed here...</p>
-                  )}
-                </div>
-              </DialogContent>
-            </Dialog>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            ) : null}
           </div>
         </div>
         
