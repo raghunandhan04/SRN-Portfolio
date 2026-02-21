@@ -4,10 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ChevronDown, Mail, Github, Linkedin, ExternalLink, Award, Briefcase, GraduationCap, BookOpen, Calendar, MessageCircle } from "lucide-react";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { supabase } from "@/integrations/supabase/client";
+import { ResumeViewer } from "@/components/ResumeViewer";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
@@ -265,41 +265,7 @@ const Index = () => {
               Contact Me
             </Button>
             {profile?.resume_url ? (
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button 
-                    variant="outline" 
-                    className="border-primary text-primary hover:bg-primary hover:text-primary-foreground min-h-[48px] px-6 py-3 text-base touch-manipulation"
-                  >
-                    View Resume
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-[95vw] sm:max-w-4xl h-[90vh] flex flex-col mx-4">
-                  <DialogHeader className="flex-shrink-0">
-                    <DialogTitle className="flex items-center justify-between gap-4">
-                      <span>Resume - {profile?.full_name || "Raghunandhan S"}</span>
-                      <a
-                        href={profile.resume_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        Open in new tab
-                      </a>
-                    </DialogTitle>
-                  </DialogHeader>
-                  <div className="flex-1 min-h-0 rounded-lg overflow-hidden border border-border">
-                    <iframe 
-                      src={`${profile.resume_url}#toolbar=1&navpanes=0`}
-                      className="w-full h-full"
-                      title="Resume PDF"
-                      style={{ minHeight: '100%' }}
-                    />
-                  </div>
-                </DialogContent>
-              </Dialog>
+              <ResumeViewer resumeUrl={profile.resume_url} fullName={profile?.full_name || "Raghunandhan S"} />
             ) : null}
           </div>
         </div>
