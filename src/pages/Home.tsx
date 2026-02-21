@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowRight, Download, Sparkles, Code2, BookOpen, Briefcase, Award, Users, Heart, Gamepad2, Book, Dumbbell, Camera, Plane, Trophy, Target } from "lucide-react";
+import { ArrowRight, Sparkles, Code2, BookOpen, Briefcase, Award, Users, Heart, Gamepad2, Book, Dumbbell, Camera, Plane, Trophy, Target } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/motion/Reveal";
 import { motion } from "framer-motion";
+import { ResumeViewer } from "@/components/ResumeViewer";
 
 export default function Home() {
   const [profile, setProfile] = useState<any>(null);
@@ -85,17 +86,7 @@ export default function Home() {
                 </Link>
               </Button>
               {profile?.resume_url && (
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  asChild 
-                  className="text-base px-8 py-6 border-border/50 hover:bg-muted/50 hover:border-primary/50 transition-all duration-300 group"
-                >
-                  <a href={profile.resume_url} target="_blank" rel="noopener noreferrer">
-                    <Download className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" /> 
-                    Download Resume
-                  </a>
-                </Button>
+                <ResumeViewer resumeUrl={profile.resume_url} fullName={profile?.full_name || "Raghunandhan S"} />
               )}
             </div>
           </Reveal>
