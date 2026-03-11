@@ -62,7 +62,7 @@ export default function Home() {
           </Reveal>
           
           <Reveal delay={0.2}>
-            <p className="text-xl sm:text-2xl md:text-3xl text-muted-foreground mb-4 font-light leading-relaxed max-w-3xl mx-auto">
+            <p className="text-lg sm:text-2xl md:text-3xl text-muted-foreground mb-3 sm:mb-4 font-light leading-relaxed max-w-3xl mx-auto px-2">
               Aspiring <span className="text-foreground font-medium">MS Candidate</span> in 
               <span className="text-gradient font-medium"> AI/ML & Data Science</span>
             </p>
