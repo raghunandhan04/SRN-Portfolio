@@ -102,13 +102,13 @@ const ExperienceCard = memo(function ExperienceCard({
                     {exp.title}
                   </h3>
                   <p className="text-primary font-medium mb-2">{exp.company}</p>
-                  <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                  <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-1.5 sm:gap-3 text-xs sm:text-sm text-muted-foreground">
                     <span className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" aria-hidden="true" />
+                      <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" aria-hidden="true" />
                       <time>{exp.period}</time>
                     </span>
                     <span className="flex items-center gap-1">
-                      <MapPin className="w-4 h-4" aria-hidden="true" />
+                      <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" aria-hidden="true" />
                       {exp.location}
                     </span>
                   </div>

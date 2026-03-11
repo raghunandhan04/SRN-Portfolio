@@ -266,10 +266,10 @@ export default function Home() {
                         <activity.icon className="w-full h-full text-white" />
                       </motion.div>
                       <div>
-                        <h3 className="font-display text-lg sm:text-xl font-semibold text-foreground group-hover:text-gradient transition-all duration-300">
+                        <h3 className="font-display text-base sm:text-xl font-semibold text-foreground group-hover:text-gradient transition-all duration-300">
                           {activity.role}
                         </h3>
-                        <p className="text-muted-foreground text-sm sm:text-base">
+                        <p className="text-muted-foreground text-xs sm:text-base">
                           {activity.organization}
                           {activity.institution && ` - ${activity.institution}`}
                         </p>
