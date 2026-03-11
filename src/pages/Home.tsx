@@ -308,7 +308,7 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
             {[
               { name: "Badminton", icon: Target, color: "from-green-500 to-emerald-400" },
               { name: "Reading", icon: Book, color: "from-blue-500 to-cyan-400" },
