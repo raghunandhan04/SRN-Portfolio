@@ -111,13 +111,13 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 relative">
+      <section className="py-12 sm:py-24 px-4 sm:px-6 lg:px-8 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/30 to-transparent" />
         
         <div className="max-w-5xl mx-auto relative">
           <Reveal>
-            <div className="text-center mb-16">
-              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+            <div className="text-center mb-10 sm:mb-16">
+              <h2 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold mb-4">
                 <span className="text-gradient">About Me</span>
               </h2>
               <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
