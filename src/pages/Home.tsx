@@ -291,12 +291,12 @@ export default function Home() {
       </section>
 
       {/* Hobbies Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 relative">
+      <section className="py-12 sm:py-24 px-4 sm:px-6 lg:px-8 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/20 to-transparent" />
         
         <div className="max-w-5xl mx-auto relative">
           <Reveal>
-            <div className="text-center mb-16">
+            <div className="text-center mb-10 sm:mb-16">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm text-primary mb-6">
                 <Target className="w-4 h-4" />
                 <span>Beyond Work</span>
