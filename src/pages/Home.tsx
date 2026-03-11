@@ -301,7 +301,7 @@ export default function Home() {
                 <Target className="w-4 h-4" />
                 <span>Beyond Work</span>
               </div>
-              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+              <h2 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold mb-4">
                 <span className="text-gradient">Hobbies & Interests</span>
               </h2>
               <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
