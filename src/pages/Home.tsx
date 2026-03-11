@@ -29,12 +29,12 @@ export default function Home() {
   return (
     <div className="min-h-screen overflow-hidden">
       {/* Hero Section with ambient background */}
-      <section className="relative min-h-[95vh] flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <section className="relative min-h-[85vh] sm:min-h-[95vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-8 sm:pt-0">
         {/* Ambient gradient background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] animate-float" />
-          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/15 rounded-full blur-[100px] animate-float" style={{ animationDelay: '-3s' }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-primary/10 via-transparent to-transparent" />
+          <div className="absolute top-1/4 left-1/4 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-primary/20 rounded-full blur-[80px] sm:blur-[120px] animate-float" />
+          <div className="absolute bottom-1/4 right-1/4 w-[250px] sm:w-[400px] h-[250px] sm:h-[400px] bg-accent/15 rounded-full blur-[60px] sm:blur-[100px] animate-float" style={{ animationDelay: '-3s' }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-gradient-radial from-primary/10 via-transparent to-transparent" />
         </div>
         
         {/* Grid pattern overlay */}
