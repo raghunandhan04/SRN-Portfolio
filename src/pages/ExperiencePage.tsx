@@ -71,16 +71,16 @@ const ExperienceCard = memo(function ExperienceCard({
 }) {
   return (
     <Reveal delay={Math.min(index * 0.08, 0.25)}>
-      <motion.article
-        className="relative md:ml-16"
-        whileHover={{ x: 4 }}
-        transition={{ duration: 0.2 }}
-      >
-        {/* Timeline dot */}
-        <div 
-          className="absolute -left-[52px] top-6 w-4 h-4 rounded-full bg-gradient-to-r from-primary to-accent hidden md:block ring-4 ring-background" 
-          aria-hidden="true"
-        />
+        <motion.article
+          className="relative md:ml-16"
+          whileHover={{ x: 4 }}
+          transition={{ duration: 0.2 }}
+        >
+          {/* Timeline dot */}
+          <div 
+            className="absolute -left-[52px] top-6 w-4 h-4 rounded-full bg-gradient-to-r from-primary to-accent hidden md:block ring-4 ring-background z-10" 
+            aria-hidden="true"
+          />
 
         <div 
           className="glass rounded-2xl border border-border/50 overflow-hidden cursor-pointer focus-within:ring-2 focus-within:ring-primary/50"
