@@ -184,16 +184,16 @@ export default function Home() {
       </section>
 
       {/* Extracurricular Activities Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <section className="py-12 sm:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         {/* Background decoration */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px]" />
-          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[80px]" />
+          <div className="absolute top-0 right-0 w-[250px] sm:w-[400px] h-[250px] sm:h-[400px] bg-accent/10 rounded-full blur-[60px] sm:blur-[100px]" />
+          <div className="absolute bottom-0 left-0 w-[200px] sm:w-[300px] h-[200px] sm:h-[300px] bg-primary/10 rounded-full blur-[50px] sm:blur-[80px]" />
         </div>
 
         <div className="max-w-5xl mx-auto relative">
           <Reveal>
-            <div className="text-center mb-16">
+            <div className="text-center mb-10 sm:mb-16">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-sm text-accent mb-6">
                 <Award className="w-4 h-4" />
                 <span>Leadership & Community</span>
