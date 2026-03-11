@@ -69,7 +69,7 @@ export default function Home() {
           </Reveal>
           
           <Reveal delay={0.3}>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-10 leading-relaxed">
               {profile?.location || 'Chennai, India'}
             </p>
           </Reveal>
