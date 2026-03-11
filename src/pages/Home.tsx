@@ -259,7 +259,7 @@ export default function Home() {
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
                     <div className="flex items-start gap-3 sm:gap-4">
                       <motion.div 
-                        className={`w-12 h-12 rounded-xl bg-gradient-to-br ${activity.color} p-3 flex-shrink-0`}
+                        className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br ${activity.color} p-2.5 sm:p-3 flex-shrink-0`}
                         whileHover={{ rotate: 5, scale: 1.1 }}
                         transition={{ duration: 0.2 }}
                       >
