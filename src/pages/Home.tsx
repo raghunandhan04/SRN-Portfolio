@@ -353,11 +353,11 @@ export default function Home() {
       </section>
 
       {/* Quick Links Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            <div className="text-center mb-16">
-              <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
+            <div className="text-center mb-10 sm:mb-16">
+              <h2 className="font-display text-2xl sm:text-4xl font-bold mb-4">
                 <span className="text-gradient">Explore My Work</span>
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
