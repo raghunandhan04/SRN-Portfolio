@@ -256,8 +256,8 @@ export default function Home() {
                   {/* Hover glow */}
                   <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r ${activity.color} blur-3xl -z-10`} style={{ opacity: 0.05 }} />
 
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div className="flex items-start gap-4">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <div className="flex items-start gap-3 sm:gap-4">
                       <motion.div 
                         className={`w-12 h-12 rounded-xl bg-gradient-to-br ${activity.color} p-3 flex-shrink-0`}
                         whileHover={{ rotate: 5, scale: 1.1 }}
