@@ -38,45 +38,45 @@ export const ResumeViewer = ({ resumeUrl, fullName }: ResumeViewerProps) => {
   return (
     <Dialog onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.2 }}>
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.2 }} className="w-full sm:w-auto">
           <Button
             size="lg"
             variant="outline"
-            className="text-base px-8 py-6 border-border/50 hover:bg-muted/50 hover:border-primary/50 transition-all duration-300 group"
+            className="text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto border-border/50 hover:bg-muted/50 hover:border-primary/50 transition-all duration-300 group"
           >
-            <FileText className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+            <FileText className="mr-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:scale-110 transition-transform" />
             View My Resume
           </Button>
         </motion.div>
       </DialogTrigger>
-      <DialogContent className="max-w-[95vw] sm:max-w-4xl h-[90vh] flex flex-col">
+      <DialogContent className="max-w-[95vw] sm:max-w-4xl h-[85vh] sm:h-[90vh] flex flex-col p-4 sm:p-6">
         <DialogHeader className="flex-shrink-0">
-          <DialogTitle className="flex items-center justify-between gap-4">
-            <span>Resume — {fullName}</span>
-            <div className="flex items-center gap-3">
-              {blobUrl && (
-                <a
-                  href={blobUrl}
-                  download={`${fullName.replace(/\s+/g, '_')}_Resume.pdf`}
-                  className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <Download className="w-4 h-4" />
-                  Download
-                </a>
-              )}
+          <DialogTitle className="text-base sm:text-lg">
+            Resume — {fullName}
+          </DialogTitle>
+          <div className="flex items-center gap-3 pt-2">
+            {blobUrl && (
               <a
-                href={blobUrl || resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                href={blobUrl}
+                download={`${fullName.replace(/\s+/g, '_')}_Resume.pdf`}
+                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                 onClick={(e) => e.stopPropagation()}
               >
-                <ExternalLink className="w-4 h-4" />
-                Open in new tab
+                <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                Download
               </a>
-            </div>
-          </DialogTitle>
+            )}
+            <a
+              href={blobUrl || resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              Open in new tab
+            </a>
+          </div>
         </DialogHeader>
         <div className="flex-1 min-h-0 rounded-lg overflow-hidden border border-border">
           {loading && (

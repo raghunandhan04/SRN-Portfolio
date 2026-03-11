@@ -29,12 +29,12 @@ export default function Home() {
   return (
     <div className="min-h-screen overflow-hidden">
       {/* Hero Section with ambient background */}
-      <section className="relative min-h-[95vh] flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <section className="relative min-h-[85vh] sm:min-h-[95vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-8 sm:pt-0">
         {/* Ambient gradient background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] animate-float" />
-          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/15 rounded-full blur-[100px] animate-float" style={{ animationDelay: '-3s' }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-primary/10 via-transparent to-transparent" />
+          <div className="absolute top-1/4 left-1/4 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-primary/20 rounded-full blur-[80px] sm:blur-[120px] animate-float" />
+          <div className="absolute bottom-1/4 right-1/4 w-[250px] sm:w-[400px] h-[250px] sm:h-[400px] bg-accent/15 rounded-full blur-[60px] sm:blur-[100px] animate-float" style={{ animationDelay: '-3s' }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-gradient-radial from-primary/10 via-transparent to-transparent" />
         </div>
         
         {/* Grid pattern overlay */}
@@ -54,35 +54,36 @@ export default function Home() {
           </Reveal>
           
           <Reveal delay={0.1}>
-            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight whitespace-nowrap">
+            <h1 className="font-display text-3xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4 sm:mb-6 tracking-tight">
               <span className="text-foreground">Hi, I'm </span>
+              <br className="sm:hidden" />
               <span className="text-gradient glow-text">{profile?.full_name || 'Raghunandhan S'}</span>
             </h1>
           </Reveal>
           
           <Reveal delay={0.2}>
-            <p className="text-xl sm:text-2xl md:text-3xl text-muted-foreground mb-4 font-light leading-relaxed max-w-3xl mx-auto">
+            <p className="text-lg sm:text-2xl md:text-3xl text-muted-foreground mb-3 sm:mb-4 font-light leading-relaxed max-w-3xl mx-auto px-2">
               Aspiring <span className="text-foreground font-medium">MS Candidate</span> in 
               <span className="text-gradient font-medium"> AI/ML & Data Science</span>
             </p>
           </Reveal>
           
           <Reveal delay={0.3}>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-10 leading-relaxed">
               {profile?.location || 'Chennai, India'}
             </p>
           </Reveal>
           
           <Reveal delay={0.4}>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full px-4 sm:px-0">
               <Button 
                 size="lg" 
                 asChild 
-                className="text-base px-8 py-6 bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 group"
+                className="text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 group"
               >
                 <Link to="/contact">
                   Get in Touch 
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
               {profile?.resume_url && (
@@ -110,13 +111,13 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 relative">
+      <section className="py-12 sm:py-24 px-4 sm:px-6 lg:px-8 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/30 to-transparent" />
         
         <div className="max-w-5xl mx-auto relative">
           <Reveal>
-            <div className="text-center mb-16">
-              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+            <div className="text-center mb-10 sm:mb-16">
+              <h2 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold mb-4">
                 <span className="text-gradient">About Me</span>
               </h2>
               <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
@@ -183,21 +184,21 @@ export default function Home() {
       </section>
 
       {/* Extracurricular Activities Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <section className="py-12 sm:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         {/* Background decoration */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px]" />
-          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[80px]" />
+          <div className="absolute top-0 right-0 w-[250px] sm:w-[400px] h-[250px] sm:h-[400px] bg-accent/10 rounded-full blur-[60px] sm:blur-[100px]" />
+          <div className="absolute bottom-0 left-0 w-[200px] sm:w-[300px] h-[200px] sm:h-[300px] bg-primary/10 rounded-full blur-[50px] sm:blur-[80px]" />
         </div>
 
         <div className="max-w-5xl mx-auto relative">
           <Reveal>
-            <div className="text-center mb-16">
+            <div className="text-center mb-10 sm:mb-16">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-sm text-accent mb-6">
                 <Award className="w-4 h-4" />
                 <span>Leadership & Community</span>
               </div>
-              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+              <h2 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold mb-4">
                 <span className="text-gradient">Extracurricular Activities</span>
               </h2>
               <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
@@ -255,20 +256,20 @@ export default function Home() {
                   {/* Hover glow */}
                   <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r ${activity.color} blur-3xl -z-10`} style={{ opacity: 0.05 }} />
 
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div className="flex items-start gap-4">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <div className="flex items-start gap-3 sm:gap-4">
                       <motion.div 
-                        className={`w-12 h-12 rounded-xl bg-gradient-to-br ${activity.color} p-3 flex-shrink-0`}
+                        className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br ${activity.color} p-2.5 sm:p-3 flex-shrink-0`}
                         whileHover={{ rotate: 5, scale: 1.1 }}
                         transition={{ duration: 0.2 }}
                       >
                         <activity.icon className="w-full h-full text-white" />
                       </motion.div>
                       <div>
-                        <h3 className="font-display text-lg sm:text-xl font-semibold text-foreground group-hover:text-gradient transition-all duration-300">
+                        <h3 className="font-display text-base sm:text-xl font-semibold text-foreground group-hover:text-gradient transition-all duration-300">
                           {activity.role}
                         </h3>
-                        <p className="text-muted-foreground text-sm sm:text-base">
+                        <p className="text-muted-foreground text-xs sm:text-base">
                           {activity.organization}
                           {activity.institution && ` - ${activity.institution}`}
                         </p>
@@ -290,24 +291,24 @@ export default function Home() {
       </section>
 
       {/* Hobbies Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 relative">
+      <section className="py-12 sm:py-24 px-4 sm:px-6 lg:px-8 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/20 to-transparent" />
         
         <div className="max-w-5xl mx-auto relative">
           <Reveal>
-            <div className="text-center mb-16">
+            <div className="text-center mb-10 sm:mb-16">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm text-primary mb-6">
                 <Target className="w-4 h-4" />
                 <span>Beyond Work</span>
               </div>
-              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+              <h2 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold mb-4">
                 <span className="text-gradient">Hobbies & Interests</span>
               </h2>
               <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
             {[
               { name: "Badminton", icon: Target, color: "from-green-500 to-emerald-400" },
               { name: "Reading", icon: Book, color: "from-blue-500 to-cyan-400" },
@@ -322,7 +323,7 @@ export default function Home() {
                   whileHover={{ y: -8, scale: 1.05 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="relative glass rounded-2xl p-6 text-center border border-border/50 overflow-hidden h-full">
+                  <div className="relative glass rounded-2xl p-3 sm:p-6 text-center border border-border/50 overflow-hidden h-full">
                     {/* Animated gradient background on hover */}
                     <motion.div 
                       className={`absolute inset-0 bg-gradient-to-br ${hobby.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
@@ -330,14 +331,14 @@ export default function Home() {
                     
                     {/* Icon container with floating animation */}
                     <motion.div 
-                      className={`w-14 h-14 mx-auto rounded-xl bg-gradient-to-br ${hobby.color} p-3 mb-4 shadow-lg`}
+                      className={`w-10 h-10 sm:w-14 sm:h-14 mx-auto rounded-lg sm:rounded-xl bg-gradient-to-br ${hobby.color} p-2 sm:p-3 mb-2 sm:mb-4 shadow-lg`}
                       whileHover={{ rotate: [0, -10, 10, 0] }}
                       transition={{ duration: 0.5 }}
                     >
                       <hobby.icon className="w-full h-full text-white" />
                     </motion.div>
                     
-                    <h3 className="font-medium text-foreground group-hover:text-gradient transition-all duration-300">
+                    <h3 className="font-medium text-xs sm:text-base text-foreground group-hover:text-gradient transition-all duration-300">
                       {hobby.name}
                     </h3>
                     
@@ -352,11 +353,11 @@ export default function Home() {
       </section>
 
       {/* Quick Links Section */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <Reveal>
-            <div className="text-center mb-16">
-              <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
+            <div className="text-center mb-10 sm:mb-16">
+              <h2 className="font-display text-2xl sm:text-4xl font-bold mb-4">
                 <span className="text-gradient">Explore My Work</span>
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -365,7 +366,7 @@ export default function Home() {
             </div>
           </Reveal>
           
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             {[
               {
                 title: "Projects",
