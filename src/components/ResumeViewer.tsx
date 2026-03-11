@@ -38,13 +38,13 @@ export const ResumeViewer = ({ resumeUrl, fullName }: ResumeViewerProps) => {
   return (
     <Dialog onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.2 }}>
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.2 }} className="w-full sm:w-auto">
           <Button
             size="lg"
             variant="outline"
-            className="text-base px-8 py-6 border-border/50 hover:bg-muted/50 hover:border-primary/50 transition-all duration-300 group"
+            className="text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto border-border/50 hover:bg-muted/50 hover:border-primary/50 transition-all duration-300 group"
           >
-            <FileText className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+            <FileText className="mr-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:scale-110 transition-transform" />
             View My Resume
           </Button>
         </motion.div>
