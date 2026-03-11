@@ -323,7 +323,7 @@ export default function Home() {
                   whileHover={{ y: -8, scale: 1.05 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="relative glass rounded-2xl p-6 text-center border border-border/50 overflow-hidden h-full">
+                  <div className="relative glass rounded-2xl p-3 sm:p-6 text-center border border-border/50 overflow-hidden h-full">
                     {/* Animated gradient background on hover */}
                     <motion.div 
                       className={`absolute inset-0 bg-gradient-to-br ${hobby.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
@@ -331,14 +331,14 @@ export default function Home() {
                     
                     {/* Icon container with floating animation */}
                     <motion.div 
-                      className={`w-14 h-14 mx-auto rounded-xl bg-gradient-to-br ${hobby.color} p-3 mb-4 shadow-lg`}
+                      className={`w-10 h-10 sm:w-14 sm:h-14 mx-auto rounded-lg sm:rounded-xl bg-gradient-to-br ${hobby.color} p-2 sm:p-3 mb-2 sm:mb-4 shadow-lg`}
                       whileHover={{ rotate: [0, -10, 10, 0] }}
                       transition={{ duration: 0.5 }}
                     >
                       <hobby.icon className="w-full h-full text-white" />
                     </motion.div>
                     
-                    <h3 className="font-medium text-foreground group-hover:text-gradient transition-all duration-300">
+                    <h3 className="font-medium text-xs sm:text-base text-foreground group-hover:text-gradient transition-all duration-300">
                       {hobby.name}
                     </h3>
                     
